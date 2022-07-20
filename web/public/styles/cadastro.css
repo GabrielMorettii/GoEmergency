@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  color: #173552;
+}
+
+#content{
+  height: 100vh;
+  width: 100vw;
+
+  display: grid;
+  grid-template-columns: 35% 1fr;
+}
+
+#background{
+  padding: 5%;
+  background: #2B60C5;
+  display: flex;
+  align-items: center;
+}
+
+#imagebackground{
+  height: 60%;
+  width: 100%;
+}
+
+#signup{
+  padding: 10%;
+  background-color: #fff;
+}
+
+#signup h2{
+  margin-bottom: 5%;
+  font-size: 30px;
+}
+
+#signup h6{
+  margin-bottom: 2%;
+  font-size: 13px;
+}
+
+#description{
+   color: rgb(150, 148, 148);
+}
+
+#formsignup{
+  margin-top: 2vh;
+  display: grid;
+  
+  gap: 30px;
+}
+
+#formsignup input, #UFCRM{
+  width: 300px;
+  padding: 10px;
+  margin-top: 5px;
+  border: 0;
+  box-shadow: 0px 0px 5px #2B60C5;
+
+  border-radius: 5px;
+}
+
+input[type="date"]{
+  color: gray;
+}
+
+
+label + input{
+  background-color: #eaedee;
+  box-shadow: 0px 0px 2px #2B60C5
+}
+
+#personalinformation, #address{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+#submitbuttonform{
+  background: #2B60C5;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  border: 0;
+
+  color: white;
+  font-weight: bold;
+}
+
+#submitbuttonform:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#logarconta{
+  color: blue;
+  text-decoration: none;
+}
+
+#logarconta:hover{
+  opacity: 0.7;
+}
+

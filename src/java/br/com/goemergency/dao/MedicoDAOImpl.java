@@ -1,0 +1,237 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.goemergency.dao;
+
+import br.com.goemergency.model.Endereco;
+import br.com.goemergency.model.Medico;
+import br.com.goemergency.util.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Aluno
+ */
+public class MedicoDAOImpl implements GenericDAO {
+    Connection conn;
+    public MedicoDAOImpl() throws Exception {
+        try{
+            conn= ConnectionFactory.conectar();
+            System.out.println("Conectado com sucesso");
+        }catch(Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
+    
+    public Integer cadastrar(Object object) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Integer idMedico = null;
+        Medico oMedico = (Medico) object;
+
+
+        String sql = "INSERT INTO Medico"
+                + "(crm, ufcrm, idpessoa)"
+                + "VALUES (?, ?, ?) RETURNING (idmedico)";
+        
+        try{
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, oMedico.getCrm());
+            stmt.setString(2, oMedico.getUfcrm());
+            try{
+                stmt.setInt(3, new PessoaDAOImpl().cadastrar(oMedico));
+            }catch(Exception ex){
+                System.out.println("Erro ao cadastrar pessoa (Medico)");
+            }
+            
+             rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                idMedico = rs.getInt("idMedico");
+            }
+        }catch(Exception ex){
+            System.out.println("Erro ai salvar Medico(Pessoa) Erro:" + ex.getMessage());
+            ex.printStackTrace();
+        }finally{
+            try{
+                ConnectionFactory.fechar(conn, stmt, null);
+            }catch(Exception ex) {
+                System.out.println("Erro ao rechar conexao Erro:" + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        
+        return idMedico;
+    }
+
+    @Override
+    public List<Object> listar() {
+        List<Object> resultado = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT p.*, m.*, e.*"
+                + " from pessoa p, Medico m, Endereco e"
+                + " where p.idpessoa = m.idpessoa and p.idEndereco = e.idEndereco"
+                + " order by p.nome;";
+        try {
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Medico oMedico = new Medico();
+                oMedico.setIdPessoa(rs.getInt("idpessoa"));
+                oMedico.setNome(rs.getString("nome"));
+                oMedico.setCpf(rs.getString("cpf"));
+                oMedico.setDatanascimento(rs.getDate("datanascimento"));
+                oMedico.setEmail(rs.getString("Email"));
+                oMedico.setSenha(rs.getString("senha"));
+//                oMedico.setEndereco(new Endereco(rs.getString("rua")));
+                
+                oMedico.setCrm(rs.getString("crm"));
+                oMedico.setUfcrm(rs.getString("ufcrm"));
+                oMedico.setIdMedico(rs.getInt("idMedico"));
+                
+
+                resultado.add(oMedico);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao Listar Medico \n Erro: " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            //Fecha a conexão
+            try {
+                ConnectionFactory.fechar(conn, stmt, rs);
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar parametros de conexao \n Erro: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        return resultado;
+    }
+
+    @Override
+    public void excluir(int idObject) {
+        PreparedStatement stmt = null;
+        Medico oMedico = new Medico();
+        
+        String sql="Update pessoa set inactvatedat = current_timestamp where idpessoa=?;"
+                + "UPDATE m SET m.inactivatedAt = p.inactivatedAt " +
+                    "FROM medico m INNER JOIN pessoa p ON p.idpessoa = m.idpessoa where idpessoa = ?;";
+        try{
+            stmt = conn.prepareStatement(sql);
+            stmt.setDate(1,  new java.sql.Date (oMedico.getInactivatedAt().getTime()));
+            stmt.setInt(2, oMedico.getIdPessoa());
+            stmt.setDate(3,  new java.sql.Date (oMedico.getUpdatedat().getTime()));
+            stmt.setInt(4, oMedico.getIdPessoa());
+            stmt.executeUpdate();
+        }catch (Exception ex){
+            System.out.println("Erro ao Exluir Medico \n Erro: "+ ex.getMessage());
+            ex.printStackTrace();
+        }finally {
+            try{
+                ConnectionFactory.fechar(conn, stmt, null);
+            }catch(Exception ex){
+                System.out.println("Erro ao fechar conexao \n Eroo: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public Object carregar(int idObject) {
+        Medico oMedico = new Medico();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT p.*, m.*, e.*"
+                + " from pessoa p, Medico m, Endereco e"
+                + " where p.idpessoa = m.idpessoa and p.idEndereco = e.idEndereco"
+                + " and m.idpessoa = ? ORDER BY p.nome";
+
+        try{
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idObject);
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                oMedico.setIdPessoa(rs.getInt("idpessoa"));
+                oMedico.setNome(rs.getString("nome"));
+                oMedico.setCpf(rs.getString("cpf"));
+                oMedico.setDatanascimento(rs.getDate("datanascimento"));
+                oMedico.setEmail(rs.getString("Email"));
+                oMedico.setSenha(rs.getString("senha"));
+//                oMedico.setEndereco(new Endereco(rs.getInt("idEndereco"), rs.getString("nomeEndereco")));
+                
+                oMedico.setCrm(rs.getString("crm"));
+                oMedico.setUfcrm(rs.getString("ufcrm"));
+                oMedico.setIdMedico(rs.getInt("idMedico"));
+
+                }
+            } catch (SQLException ex) {
+                System.out.println("Erro ao Carregar Medico \n Erro: " + ex.getMessage());
+                ex.printStackTrace();
+            }finally{
+                try{
+                    ConnectionFactory.fechar(conn, stmt, null);
+                }catch(Exception ex) {
+                    System.out.println("Erro ao Fechar Conexão Erro:" + ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+        
+            return oMedico;
+    }
+
+    @Override
+    public Boolean alterar(Object object) {
+        PreparedStatement stmt = null;
+        Medico oMedico = (Medico) object;
+        
+        String sql = "UPDATE Medico SET "
+                + "crm = ?, ufcrm = ?, updatedAt = current_timestamp "
+                + "WHERE idpessoa = ?;";
+                
+        try{
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setString(1, oMedico.getCrm());
+            stmt.setString(2, oMedico.getUfcrm());
+            stmt.setDate(7,  new java.sql.Date (oMedico.getUpdatedat().getTime()));
+            stmt.setInt(3, oMedico.getIdPessoa());
+            
+            try{
+               if(new PessoaDAOImpl().alterar(oMedico)){
+                   stmt.executeUpdate();
+                   return true;
+               }else{
+                   return false;
+               }
+            } catch(Exception ex){
+                System.out.println("Erro ao alterar MedicoDAOImpl. Erro:"
+                    + ex.getMessage());
+                ex.printStackTrace();
+                
+                return false;
+            }
+        }catch(Exception ex){
+            System.out.println("Erro ao salvar Pessoa(Medico). Erro:"
+                    + ex.getMessage());
+            ex.printStackTrace();
+            return false;
+        }finally{
+            try{
+                ConnectionFactory.fechar(conn, stmt, null);
+            }catch(Exception ex){
+                System.out.println("Erro ao Fechar Conexão. Erro:"
+                + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }      
+    }
+}
