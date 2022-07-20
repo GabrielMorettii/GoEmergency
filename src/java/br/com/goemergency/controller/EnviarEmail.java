@@ -44,7 +44,8 @@ public class EnviarEmail extends HttpServlet {
                     request.setAttribute("mensagem", "Email invalido");
                     request.getRequestDispatcher("public/views/esqueceusenha.jsp").forward(request, response);
                 }
-
+                System.out.println("teste");
+                
                 Pessoa oPessoa = pessoaDAO.enviarEmail(email);
 
                 if (oPessoa != null) {
