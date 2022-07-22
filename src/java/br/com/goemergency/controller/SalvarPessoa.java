@@ -57,11 +57,19 @@ public class SalvarPessoa extends HttpServlet {
     
         String mensagem = "";
         try{
-            GenericDAO pessoaDAO = new PessoaDAOImpl();
+            PessoaDAOImpl pessoaDAO = new PessoaDAOImpl();
             GenericDAO endererecoDAO = new EnderecoDAOImpl();
             
             Integer idEndereco = endererecoDAO.cadastrar(oEndereco);
 
+            if (pessoaDAO.isValidEmailAddress(oPessoa.getEmail())){
+                   request.setAttribute("tipomensagem", "Erro");
+                    request.setAttribute("mensagem", "Email invalido ou já existe");
+                    request.getRequestDispatcher("public/views/paciente;cadastropaciente.jsp").forward(request, response);
+                } else {
+                    mensagem = "Email Valido";
+                }
+            
             if(idEndereco != null){
                oPessoa.setIdEndereco(idEndereco);
             }else{

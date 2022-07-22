@@ -24,9 +24,9 @@
                 <img id="cadeado" src="${pageContext.request.contextPath}/public/assets/cadeado.png" alt="Cadeado">
             </div>
             <p>Digite o email associado com sua a conta e nós enviaremos um e-mail com as instruções para resetar sua senha.</p>
-            <form action="#">
+            <form action="${pageContext.request.contextPath}/EnviarEmail" method="POST">
                 <label for="">Email</label>
-                <input type="email" placeholder="joaodasilva@gmail.com" id="recoverinput" required>
+                <input type="email" placeholder="joaodasilva@gmail.com" name="email" id="recoverinput" required>
                 <button type="submit">Enviar</button>
             </form>
             <p>Já lembrou ? <a id="voltarlogin" href="${pageContext.request.contextPath}/public/views/login.jsp">Volte para logar</a></p>

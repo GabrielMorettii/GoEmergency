@@ -31,26 +31,21 @@ public class EnviarEmail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = "viniciuspantolin4@gmail.com";
+        String email = request.getParameter("email");
         String mensagem = "";
         if (!email.equals("") && !email.equals(null)) {
             try {
                 PessoaDAOImpl pessoaDAO = new PessoaDAOImpl();
 
-                if (pessoaDAO.isValidEmailAddress(email)) {
-                    mensagem = "Email Valido";
-                } else {
+                if (!pessoaDAO.isValidEmailAddress(email)) {
                     request.setAttribute("tipomensagem", "Erro");
                     request.setAttribute("mensagem", "Email invalido");
                     request.getRequestDispatcher("public/views/esqueceusenha.jsp").forward(request, response);
                 }
-                System.out.println("teste");
                 
                 Pessoa oPessoa = pessoaDAO.enviarEmail(email);
 
-                if (oPessoa != null) {
-                    oPessoa.setEmail(email);
-                } else {
+                if (oPessoa == null) {
                     request.setAttribute("tipomensagem", "Erro");
                     request.setAttribute("mensagem", "Falha ao enviar email, tente novamente!");
                     request.getRequestDispatcher("public/views/esqueceusenha.jsp").forward(request, response);

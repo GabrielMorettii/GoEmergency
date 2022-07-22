@@ -291,20 +291,20 @@ public class PessoaDAOImpl implements GenericDAO {
     public Pessoa enviarEmail(String Email) throws SQLException, MessagingException {
         // Recipient's email ID needs to be mentioned.
         PreparedStatement stmt = null;
-        Pessoa oPessoa = null;
+        Pessoa oPessoa = new Pessoa();
         ResultSet rs = null;
         Email oEmail = new Email();
         oEmail.setEmailDestinatario(Email);//change accordingly
-        String sql = "SELECT email from pessoa"
-                + " WHERE email = ? "
-                + " AND inactivatedat IS NULL ";
-
+        
+        String sql = "SELECT * from pessoa"
+                + " WHERE email = ?"
+                + " AND inactivatedat IS NULL";
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, oEmail.getEmailDestinatario());
+            stmt.setString(1, Email);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                oPessoa.setEmail(rs.getString("Email"));
+                oPessoa.setEmail(Email);
             }
 
             String to = oEmail.getEmailDestinatario();
@@ -384,21 +384,9 @@ public class PessoaDAOImpl implements GenericDAO {
     public boolean isValidEmailAddress(String Email) throws SQLException {
         boolean result = true;
         PreparedStatement stmt = null;
-        Pessoa oPessoa = null;
+        Pessoa oPessoa = new Pessoa();
         ResultSet rs = null;
-        Email oEmail = new Email();
-        oEmail.setEmailDestinatario(Email);//change accordingly
-        String sql = "SELECT email from pessoa"
-                + " WHERE email = ? "
-                + " AND inactivatedat IS NULL ";
 
-        try {
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, oEmail.getEmailDestinatario());
-            rs = stmt.executeQuery();
-            if (rs.equals(oEmail.getEmailDestinatario())) {
-                oPessoa.setEmail(rs.getString("Email"));
-            }
         try {
             InternetAddress emailAddr = new InternetAddress(Email);
             emailAddr.validate();
@@ -407,17 +395,21 @@ public class PessoaDAOImpl implements GenericDAO {
             System.out.println("Erro ao Validar email:" + ex.getMessage());
             ex.printStackTrace();
         }
+        String sql = "SELECT * from pessoa"
+                + " WHERE email = ?"
+                + " AND inactivatedat IS NULL";
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, Email);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                oPessoa.setEmail(Email);
+            }
         
-        }catch(Exception ex){
+        }catch(SQLException ex){
+            result = false;
             System.out.println("Erro ao verificar email no banco (PESSOA):" + ex.getMessage());
             ex.printStackTrace();
-        } finally {
-            try {
-                ConnectionFactory.fechar(conn, stmt, null);
-            } catch (Exception ex) {
-                System.out.println("Erro ao Fechar Conexão Erro:" + ex.getMessage());
-                ex.printStackTrace();
-            }
         }
         return result;
     }
