@@ -6,10 +6,8 @@
             <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/controller/SalvarPessoa.java</file>
             <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/controller/EnviarEmail.java</file>
             <file>file:/C:/Meu/GoEmergency/web/public/views/paciente/cadastropaciente.jsp</file>
-            <file>file:/C:/Meu/GoEmergency/web/public/views/esqueceusenha.jsp</file>
+            <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/controller/LogarPessoa.java</file>
             <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/dao/PessoaDAOImpl.java</file>
-            <file>file:/C:/Meu/GoEmergency/web/src/apicep.js</file>
-            <file>file:/C:/Meu/GoEmergency/web/public/views/login.jsp</file>
         </group>
     </open-files>
 </project-private>
