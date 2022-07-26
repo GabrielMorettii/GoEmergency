@@ -66,24 +66,30 @@ public class SalvarPessoa extends HttpServlet {
                 request.setAttribute("tipomensagem", "Erro");
                 request.setAttribute("mensagem", "CPF Invalido");
                 request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                return;
             }
             
             if (pessoaDAO.isValidEmailAddress(oPessoa.getEmail())) {
                 request.setAttribute("tipomensagem", "Erro");
                 request.setAttribute("mensagem", "Email já existente na base de dados");
                 request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                return;
             }
 
             if (idEndereco != null) {
                 oPessoa.setIdEndereco(idEndereco);
             } else {
-                mensagem = "Falha ao cadastrar endereco da Pessoa!";
+                request.setAttribute("tipomensagem", "Erro");
+                request.setAttribute("mensagem", "Falha ao cadastrar endereco da Pessoa!");
+                request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                return;
             }
 
             if (pessoaDAO.cadastrar(oPessoa) != null) {
                 request.setAttribute("tipomensagem", "Sucesso");
                 request.setAttribute("mensagem", "Pessoa cadastrada com Sucesso!");
                 request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+                return;
             } else {
                 mensagem = "Falha ao Cadastrar Pessoa!";
             }
@@ -92,10 +98,10 @@ public class SalvarPessoa extends HttpServlet {
             System.out.println("Erro no Servlet SalvarPaciente Erro:" + ex.getMessage());
             mensagem = "Erro Interno, entre em contato com o Suporte!";
         }
-
+        
         request.setAttribute("tipomensagem", "Erro");
         request.setAttribute("mensagem", mensagem);
-        request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+        request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
