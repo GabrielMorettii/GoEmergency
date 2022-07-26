@@ -1,0 +1,62 @@
+.inactive{
+  visibility: hidden;
+}
+
+.erro{
+  background-color: #C84244; 
+}
+
+.sucesso{
+  background-color: #4AA157;
+}
+
+#modalbox{
+  width: 25vw;
+  height: 100px;
+  border-radius: 5px;
+
+  position: fixed;
+  right: 1vw;
+  top: 1vw;
+}
+
+#contentmodal{
+  position: relative;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 15% 1fr 5%;
+}
+
+#iconmodal{
+  position: relative;
+  left: 8px;
+
+  align-self: center;
+  width: 50px;
+}
+
+#closebutton{
+  position: relative;
+  top: 10px;
+  right: 0.2vw;
+}
+
+#closebutton:hover{
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+#textmodal{
+  display: grid;
+  align-self: center;
+  margin-left: 0.5vw;
+}
+
+#textmodal strong{
+  font-size: 20px;
+}
+
+#textmodal p, #textmodal strong{
+  color: #fff;
+}
