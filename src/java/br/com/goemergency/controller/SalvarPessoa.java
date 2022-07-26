@@ -47,52 +47,61 @@ public class SalvarPessoa extends HttpServlet {
         oPessoa.setDatanascimento(Conversoes.ConverterData(request.getParameter("nascimento")));
         oPessoa.setTelefone(request.getParameter("telefone"));
         oPessoa.setSenha(Criptografar.encriptografar(request.getParameter("senha")));
-        
+
         oEndereco.setBairro(request.getParameter("bairro"));
         oEndereco.setCep(request.getParameter("cep"));
         oEndereco.setEstado(request.getParameter("estado"));
         oEndereco.setCidade(request.getParameter("cidade"));
         oEndereco.setNumero(Integer.parseInt(request.getParameter("numero")));
         oEndereco.setRua(request.getParameter("rua"));
-    
+
         String mensagem = "";
-        try{
+        try {
             PessoaDAOImpl pessoaDAO = new PessoaDAOImpl();
             GenericDAO endererecoDAO = new EnderecoDAOImpl();
-            
+
             Integer idEndereco = endererecoDAO.cadastrar(oEndereco);
 
-            if (pessoaDAO.isValidEmailAddress(oPessoa.getEmail())){
-                   request.setAttribute("tipomensagem", "Erro");
-                    request.setAttribute("mensagem", "Email invalido ou já existe");
-                    request.getRequestDispatcher("public/views/paciente;cadastropaciente.jsp").forward(request, response);
-                } else {
-                    mensagem = "Email Valido";
-                }
+            if (!pessoaDAO.isValidCPF(oPessoa.getCpf())) {
+                request.setAttribute("tipomensagem", "Erro");
+                request.setAttribute("mensagem", "CPF Invalido");
+                request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                return;
+            }
             
-            if(idEndereco != null){
-               oPessoa.setIdEndereco(idEndereco);
-            }else{
-                mensagem="Falha ao cadastrar endereco da Pessoa!";
+            if (pessoaDAO.isValidEmailAddress(oPessoa.getEmail())) {
+                request.setAttribute("tipomensagem", "Erro");
+                request.setAttribute("mensagem", "Email já existente na base de dados");
+                request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                return;
             }
 
+            if (idEndereco != null) {
+                oPessoa.setIdEndereco(idEndereco);
+            } else {
+                request.setAttribute("tipomensagem", "Erro");
+                request.setAttribute("mensagem", "Falha ao cadastrar endereco da Pessoa!");
+                request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                return;
+            }
 
-           if(pessoaDAO.cadastrar(oPessoa) != null){
-               request.setAttribute("tipomensagem", "Sucesso");
-               request.setAttribute("mensagem", "Pessoa cadastrada com Sucesso!");
-               request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
-            }else{
+            if (pessoaDAO.cadastrar(oPessoa) != null) {
+                request.setAttribute("tipomensagem", "Sucesso");
+                request.setAttribute("mensagem", "Pessoa cadastrada com Sucesso!");
+                request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+                return;
+            } else {
                 mensagem = "Falha ao Cadastrar Pessoa!";
             }
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println("Erro no Servlet SalvarPaciente Erro:" + ex.getMessage());
             mensagem = "Erro Interno, entre em contato com o Suporte!";
         }
-         
+        
         request.setAttribute("tipomensagem", "Erro");
         request.setAttribute("mensagem", mensagem);
-        request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+        request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
