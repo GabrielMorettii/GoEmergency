@@ -55,7 +55,6 @@ public class ValidarCode extends HttpServlet {
             ex.printStackTrace();
         }
 
-        request.setAttribute("email", email);
         request.setAttribute("tipomensagem", "Sucesso");
         request.setAttribute("mensagem", "Código correto, estamos redirecionando para trocar sua senha");
         request.getRequestDispatcher("public/views/resetarsenha.jsp").forward(request, response);
