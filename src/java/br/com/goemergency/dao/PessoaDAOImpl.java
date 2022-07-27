@@ -5,8 +5,6 @@
  */
 package br.com.goemergency.dao;
 
-import br.com.goemergency.model.Email;
-import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.ConnectionFactory;
 import jakarta.mail.Message;
@@ -155,21 +153,17 @@ public class PessoaDAOImpl implements GenericDAO {
             }
         }
     }
-
-    @Override
-    public Object carregar(int idObject) {
+    
+    public Pessoa carregar(String email){
         PreparedStatement stmt = null;
         Pessoa oPessoa = new Pessoa();
         ResultSet rs = null;
 
-        String sql = "SELECT p.*, e.*"
-                + " from pessoa p, Endereco e"
-                + " where p.idEndereco = cd.idEndereco"
-                + " and c.idpessoa = ? ORDER BY p.nome";
+        String sql = "SELECT * from pessoa WHERE email = ?";
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idObject);
+            stmt.setString(1, email);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -178,8 +172,8 @@ public class PessoaDAOImpl implements GenericDAO {
                 oPessoa.setCpf(rs.getString("cpf"));
                 oPessoa.setDatanascimento(rs.getDate("datanascimento"));
                 oPessoa.setEmail(rs.getString("Email"));
-                oPessoa.setSenha(rs.getString("senha"));
-//                oPessoa.setEndereco(new Endereco(rs.getInt("idEndereco"), rs.getString("rua")));
+                oPessoa.setSenha(rs.getString("senha"));      
+                oPessoa.setCode(rs.getString("code"));
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao Carregar PessoaDAOImpl \n Erro: " + ex.getMessage());
@@ -195,6 +189,7 @@ public class PessoaDAOImpl implements GenericDAO {
 
         return oPessoa;
     }
+
 
     @Override
     public Boolean alterar(Object object) {
@@ -285,27 +280,16 @@ public class PessoaDAOImpl implements GenericDAO {
         return oPessoa;
     }
 
-    public Pessoa enviarEmail(String Email) throws SQLException, MessagingException {
-        // Recipient's email ID needs to be mentioned.
-        PreparedStatement stmt = null;
-        Pessoa oPessoa = new Pessoa();
-        ResultSet rs = null;
-        Email oEmail = new Email();
-        oEmail.setEmailDestinatario(Email);//change accordingly
-
+    public boolean enviarEmail(Pessoa pessoa) throws SQLException, MessagingException {
         try {
-            String to = oEmail.getEmailDestinatario();
-
-            //provide sender's email ID
             String from = "vp259407@gmail.com";
-            //provide Mailtrap's username
+            
             final String username = "e6b7667169ed6d";
-            //provide Mailtrap's password
+            
             final String password = "72127b0658ffe0";
 
-            //provide Mailtrap's host address
             String host = "smtp.mailtrap.io";
-            //configure Mailtrap's SMTP server details
+            
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
@@ -316,7 +300,7 @@ public class PessoaDAOImpl implements GenericDAO {
             props.setProperty("mail.smtp.port", "587");
             props.setProperty("mail.smtp.ssl.trust", "*");
             Object requireTls = null;
-            props.setProperty("mail.smtp.starttls.enable", String.valueOf(requireTls));//True or False
+            props.setProperty("mail.smtp.starttls.enable", String.valueOf(requireTls));
             props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
             props.setProperty("mail.smtp.timeout", "300000");
             props.setProperty("mail.smtp.connectiontimeout", "300000");
@@ -331,23 +315,147 @@ public class PessoaDAOImpl implements GenericDAO {
             });
 
             try {
-                //create a MimeMessage object
                 Message message = new MimeMessage(session);
 
-                //set From email field
                 message.setFrom(new InternetAddress(from));
 
-                //set To email field
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(to));
+                        InternetAddress.parse(pessoa.getEmail()));
 
-                //set email subject field
-                message.setSubject("Here comes Jakarta Mail!");
+                message.setSubject("Recuperação de senha");
 
-                //set the content of the email message
-                message.setText("Just discovered that Jakarta Mail is fun and easy to use");
+                String mensagem = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
+                        + "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                        + "  <body style=\"margin: 0; background-color: #cccccc\">\n"
+                        + "    <center\n"
+                        + "      class=\"wrapper\"\n"
+                        + "      style=\"\n"
+                        + "        width: 100%;\n"
+                        + "        table-layout: fixed;\n"
+                        + "        background-image: url(../assets/Background-waves.png);\n"
+                        + "        background-size: 100% 100%;\n"
+                        + "        background-repeat: no-repeat;\n"
+                        + "        padding-bottom: 60px;\n"
+                        + "      \"\n"
+                        + "    >\n"
+                        + "      <table\n"
+                        + "        class=\"main\"\n"
+                        + "        width=\"100%\"\n"
+                        + "        style=\"\n"
+                        + "          margin: 0 auto;\n"
+                        + "          width: 100%;\n"
+                        + "          max-width: 600px;\n"
+                        + "          border-spacing: 0;\n"
+                        + "          font-family: sans-serif;\n"
+                        + "          color: #4a4a4a;\n"
+                        + "        \"\n"
+                        + "      >\n"
+                        + "        <tr>\n"
+                        + "          <td height=\"8px\" style=\"padding: 0; background-color: #00aeef\"></td>\n"
+                        + "        </tr>\n"
+                        + "        <tr>\n"
+                        + "          <td style=\"padding: 0\">\n"
+                        + "            <table\n"
+                        + "              width=\"100%\"\n"
+                        + "              style=\"border-spacing: 0; background-color: #ffffff\"\n"
+                        + "            >\n"
+                        + "              <tr>\n"
+                        + "                <td\n"
+                        + "                  class=\"one-column\"\n"
+                        + "                  style=\"\n"
+                        + "                    padding: 0;\n"
+                        + "                    padding: 30px 25px 0;\n"
+                        + "                    text-align: center;\n"
+                        + "                    font-size: 0;\n"
+                        + "                  \"\n"
+                        + "                >\n"
+                        + "                  <table class=\"column\" style=\"border-spacing: 0; width: 100%\">\n"
+                        + "                    <tr>\n"
+                        + "                      <td style=\"padding: 0; text-align: center\">\n"
+                        + "                        <a href=\"http://localhost:8080/GoEmergency/public/views/home.jsp\" target=\"_blank\">\n"
+                        + "                          <img\n"
+                        + "                            src=\"https://templates.hibotheme.com/teli/default/assets/img/logo.png\"\n"
+                        + "                            alt=\"Logo\"\n"
+                        + "                            width=\"180\"\n"
+                        + "                            title=\"Logo\"\n"
+                        + "                            style=\"border: 0\"\n"
+                        + "                          />\n"
+                        + "                        </a>\n"
+                        + "                      </td>\n"
+                        + "                    </tr>\n"
+                        + "                  </table>\n"
+                        + "                </td>\n"
+                        + "              </tr>\n"
+                        + "            </table>\n"
+                        + "          </td>\n"
+                        + "        </tr>\n"
+                        + "        <!-- TITLE, TEXT & BUTTON -->\n"
+                        + "        <tr>\n"
+                        + "          <td style=\"padding: 0\">\n"
+                        + "            <table\n"
+                        + "              width=\"100%\"\n"
+                        + "              style=\"border-spacing: 0; background-color: #ffffff\"\n"
+                        + "            >\n"
+                        + "              <tr>\n"
+                        + "                <td style=\"padding: 0; padding: 15px 25px 40px\">\n"
+                        + "                  <section>\n"
+                        + "                    <h1 style=\"font-size: 32px; font-weight: 300\">Recupere sua conta</h1>\n"
+                        + "                    <p style=\"padding-bottom: 20px; margin: 0; font-size: 14px\">\n"
+                        + "                      Olá, ${mailBody.toName}!\n"
+                        + "                    </p>\n"
+                        + "                    <br /><br />\n"
+                        + "                    <p style=\"padding-bottom: 20px; margin: 0; font-size: 14px\">\n"
+                        + "                      Seja bem-vindo ao GoEmergency!\n"
+                        + "                    </p>\n"
+                        + "                    <p style=\"padding-bottom: 20px; margin: 0; font-size: 14px\">\n"
+                        + "                     Por favor, copie o código a seguir para prosseguir com a recuperação de senha: ${mailBody.toName}\n"
+                        + "                    </p>\n"
+                        + "                  </section>\n"
+                        + "                </td>\n"
+                        + "              </tr>\n"
+                        + "            </table>\n"
+                        + "          </td>\n"
+                        + "        </tr>\n"
+                        + "        <tr>\n"
+                        + "          <td style=\"padding: 0\">\n"
+                        + "            <table width=\"100%\" style=\"border-spacing: 0; padding-top: 150px\">\n"
+                        + "              <tr>\n"
+                        + "                <td\n"
+                        + "                  style=\"padding: 0; text-align: center; padding: 0 25px 20px\"\n"
+                        + "                >\n"
+                        + "                  <p\n"
+                        + "                    style=\"\n"
+                        + "                      padding-bottom: 20px;\n"
+                        + "                      margin: 0;\n"
+                        + "                      padding-bottom: 10px;\n"
+                        + "                      font-size: 14px;\n"
+                        + "                    \"\n"
+                        + "                  >\n"
+                        + "                    Este é um e-mail gerado automaticamente. Por favor, não o\n"
+                        + "                    responda.\n"
+                        + "                  </p>\n"
+                        + "                  <p\n"
+                        + "                    style=\"\n"
+                        + "                      padding-bottom: 20px;\n"
+                        + "                      margin: 0;\n"
+                        + "                      font-size: 12px;\n"
+                        + "                      padding-bottom: 10px;\n"
+                        + "                    \"\n"
+                        + "                  >\n"
+                        + "                    © 2022 Gabriel e Vínicius. Todos os direitos reservados\n"
+                        + "                  </p>\n"
+                        + "                </td>\n"
+                        + "              </tr>\n"
+                        + "            </table>\n"
+                        + "          </td>\n"
+                        + "        </tr>\n"
+                        + "      </table>\n"
+                        + "    </center>\n"
+                        + "  </body>\n"
+                        + "</html>";
 
-                //send the email message
+                message.setContent(mensagem, "text/html");
+
                 Transport.send(message);
 
             } catch (MessagingException ex) {
@@ -358,8 +466,8 @@ public class PessoaDAOImpl implements GenericDAO {
             System.out.println("Erro ao Encontrar Email \n Erro: " + ex.getMessage());
             ex.printStackTrace();
         }
-
-        return oPessoa;
+        
+        return true;
     }
 
     public boolean isValidEmailAddress(String Email) throws SQLException {
@@ -454,7 +562,7 @@ public class PessoaDAOImpl implements GenericDAO {
             // Verifica se os digitos calculados conferem com os digitos informados.
             if (!((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))) {
                 return false;
-            } 
+            }
         } catch (Exception ex) {
             System.out.println("Erro ao validar CPF está incorreto (PESSOA):" + ex.getMessage());
             ex.printStackTrace();
@@ -470,8 +578,8 @@ public class PessoaDAOImpl implements GenericDAO {
             stmt.setString(1, CPF);
             rs = stmt.executeQuery();
             if (rs.next()) {
-               return false;
-            }else{
+                return false;
+            } else {
                 oPessoa.setCpf(CPF);
             }
 
@@ -486,5 +594,10 @@ public class PessoaDAOImpl implements GenericDAO {
     public static String imprimeCPF(String CPF) {
         return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
+    }
+
+    @Override
+    public Object carregar(int idObject) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

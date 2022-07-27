@@ -24,13 +24,13 @@
                 <img id="emailicon" src="${pageContext.request.contextPath}/public/assets/email.png" alt="Email">
             </div>
             <p>Por favor digite o código de 5 dígitos que foi enviado para o seu email</p>
-            <form id="formcode" action="#">
+            <form id="formcode" action="${pageContext.request.contextPath}/ValidarCode" method="POST">
                 <div id="codeinputdiv">
-                    <input type="text" class="codeinput" maxlength="1">
-                    <input type="text" class="codeinput" maxlength="1">
-                    <input type="text" class="codeinput" maxlength="1">
-                    <input type="text" class="codeinput" maxlength="1">
-                    <input type="text" class="codeinput" maxlength="1">
+                    <input type="text" name="digito1" class="codeinput" maxlength="1">
+                    <input type="text" name="digito2" class="codeinput" maxlength="1">
+                    <input type="text" name="digito3" class="codeinput" maxlength="1">
+                    <input type="text" name="digito4" class="codeinput" maxlength="1">
+                    <input type="text" name="digito5" class="codeinput" maxlength="1">
                 </div>
                 <button type="submit">Verificar</button>
             </form>

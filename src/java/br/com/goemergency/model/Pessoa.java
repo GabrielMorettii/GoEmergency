@@ -15,6 +15,7 @@ public class Pessoa {
     private Date datanascimento;
     private String email;
     private String senha;
+    private String code;
     private Integer idEndereco;
     private String Telefone;
     protected Boolean isPaciente = true;
@@ -41,6 +42,14 @@ public class Pessoa {
         this.inactivatedAt = inactivatedAt;
         this.createdAt = createdAt;
         this.updatedat = updatedat;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
     
     public Integer getIdPessoa() {

@@ -32,7 +32,7 @@ public class EnviarEmail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
-        String mensagem = "";
+        
         if (!email.equals("") && !email.equals(null)) {
             try {
                 PessoaDAOImpl pessoaDAO = new PessoaDAOImpl();
@@ -41,20 +41,21 @@ public class EnviarEmail extends HttpServlet {
                     request.setAttribute("tipomensagem", "Erro");
                     request.setAttribute("mensagem", "Email invalido");
                     request.getRequestDispatcher("public/views/esqueceusenha.jsp").forward(request, response);
+                    return;
                 }
                 
-                Pessoa oPessoa = pessoaDAO.enviarEmail(email);
+                Boolean result = pessoaDAO.enviarEmail(email);
 
-                if (oPessoa == null) {
+                if (!result) {
                     request.setAttribute("tipomensagem", "Erro");
                     request.setAttribute("mensagem", "Falha ao enviar email, tente novamente!");
                     request.getRequestDispatcher("public/views/esqueceusenha.jsp").forward(request, response);
+                    return;
                 }
                 
                 request.setAttribute("tipomensagem", "Sucesso");
-                    request.setAttribute("mensagem", "Email Enviado com sucesso!");
-                    request.getRequestDispatcher("public/views/validarcode.jsp").forward(request, response);
-
+                request.setAttribute("mensagem", "Email Enviado com sucesso!");
+                request.getRequestDispatcher("public/views/validarcode.jsp").forward(request, response);
             } catch (Exception ex) {
                 System.out.println("Erro no Servlet EnviarEmail Erro:" + ex.getMessage());
                 ex.printStackTrace();
