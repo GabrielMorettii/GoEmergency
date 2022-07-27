@@ -35,7 +35,7 @@ public class EnviarEmail extends HttpServlet {
         
         if (!email.equals("") && !email.equals(null)) {
             try {
-                PessoaDAOImpl pessoaDAO = new PessoaDAOImpl();
+                PessoaDAOImpl pessoaDAO = new PessoaDAOImpl();                
 
                 if (!pessoaDAO.isValidEmailAddress(email)) {
                     request.setAttribute("tipomensagem", "Erro");
@@ -44,14 +44,18 @@ public class EnviarEmail extends HttpServlet {
                     return;
                 }
                 
-                Boolean result = pessoaDAO.enviarEmail(email);
+                Pessoa oPessoa = pessoaDAO.carregar(email);
+                
+                oPessoa.setCode(Double.toString(Math.floor(Math.random() * 90000) + 10000).replace(".0", ""));
 
-                if (!result) {
+                if (!pessoaDAO.enviarEmail(oPessoa)) {
                     request.setAttribute("tipomensagem", "Erro");
                     request.setAttribute("mensagem", "Falha ao enviar email, tente novamente!");
                     request.getRequestDispatcher("public/views/esqueceusenha.jsp").forward(request, response);
                     return;
                 }
+                
+                pessoaDAO.alterar(oPessoa);
                 
                 request.setAttribute("tipomensagem", "Sucesso");
                 request.setAttribute("mensagem", "Email Enviado com sucesso!");

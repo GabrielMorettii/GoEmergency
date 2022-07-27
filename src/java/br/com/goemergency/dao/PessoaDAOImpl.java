@@ -167,24 +167,19 @@ public class PessoaDAOImpl implements GenericDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                oPessoa.setIdPessoa(rs.getInt("idPessoa"));
+                oPessoa.setIdPessoa(rs.getInt("idpessoa"));
                 oPessoa.setNome(rs.getString("nome"));
                 oPessoa.setCpf(rs.getString("cpf"));
                 oPessoa.setDatanascimento(rs.getDate("datanascimento"));
-                oPessoa.setEmail(rs.getString("Email"));
+                oPessoa.setEmail(rs.getString("email"));
                 oPessoa.setSenha(rs.getString("senha"));      
+                oPessoa.setTelefone(rs.getString("telefone")); 
+                oPessoa.setIdEndereco(rs.getInt("idendereco"));
                 oPessoa.setCode(rs.getString("code"));
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao Carregar PessoaDAOImpl \n Erro: " + ex.getMessage());
             ex.printStackTrace();
-        } finally {
-            try {
-                ConnectionFactory.fechar(conn, stmt, null);
-            } catch (Exception ex) {
-                System.out.println("Erro ao Fechar Conexão Erro:" + ex.getMessage());
-                ex.printStackTrace();
-            }
         }
 
         return oPessoa;
@@ -197,15 +192,16 @@ public class PessoaDAOImpl implements GenericDAO {
         Pessoa oPessoa = (Pessoa) object;
 
         String sql = "UPDATE pessoa SET "
-                + "nome = ?,"
-                + "cpf = ?,"
-                + "datanascimento = ?,"
+                + "nome = ?, "
+                + "cpf = ?, "
+                + "datanascimento = ?, "
                 + "email = ?, "
                 + "senha = ?, "
-                + "telefone = ?"
-                + "idEndereco = ?, "
-                + "updatedat = current_timestamp"
-                + "WHERE idpessoa = ?";
+                + "telefone = ?, "
+                + "idendereco = ?, "
+                + "code = ?, "
+                + "updatedAt = current_timestamp "
+                + " WHERE idpessoa = ?";
 
         try {
             stmt = conn.prepareStatement(sql);
@@ -215,9 +211,9 @@ public class PessoaDAOImpl implements GenericDAO {
             stmt.setDate(3, new java.sql.Date(oPessoa.getDatanascimento().getTime()));
             stmt.setString(4, oPessoa.getEmail());
             stmt.setString(5, oPessoa.getSenha());
-//            stmt.setInt(6, oPessoa.getEndereco().getIdEndereco());
-            stmt.setString(7, oPessoa.getTelefone());
-            stmt.setDate(8, new java.sql.Date(oPessoa.getUpdatedat().getTime()));
+            stmt.setString(6, oPessoa.getTelefone());
+            stmt.setInt(7, oPessoa.getIdEndereco());
+            stmt.setString(8, oPessoa.getCode());
             stmt.setInt(9, oPessoa.getIdPessoa());
 
             stmt.executeUpdate();
@@ -226,8 +222,6 @@ public class PessoaDAOImpl implements GenericDAO {
         } catch (Exception ex) {
             System.out.println("Erro ao alterar PessoaDAOImpl. Erro:"
                     + ex.getMessage());
-            ex.printStackTrace();
-
             return false;
         } finally {
             try {
@@ -401,14 +395,14 @@ public class PessoaDAOImpl implements GenericDAO {
                         + "                  <section>\n"
                         + "                    <h1 style=\"font-size: 32px; font-weight: 300\">Recupere sua conta</h1>\n"
                         + "                    <p style=\"padding-bottom: 20px; margin: 0; font-size: 14px\">\n"
-                        + "                      Olá, ${mailBody.toName}!\n"
+                        + "                     Olá, " + pessoa.getNome()
                         + "                    </p>\n"
                         + "                    <br /><br />\n"
                         + "                    <p style=\"padding-bottom: 20px; margin: 0; font-size: 14px\">\n"
                         + "                      Seja bem-vindo ao GoEmergency!\n"
                         + "                    </p>\n"
                         + "                    <p style=\"padding-bottom: 20px; margin: 0; font-size: 14px\">\n"
-                        + "                     Por favor, copie o código a seguir para prosseguir com a recuperação de senha: ${mailBody.toName}\n"
+                        + "                     Por favor, copie o código a seguir para prosseguir com a recuperação de senha: " + pessoa.getCode()
                         + "                    </p>\n"
                         + "                  </section>\n"
                         + "                </td>\n"
@@ -460,11 +454,11 @@ public class PessoaDAOImpl implements GenericDAO {
 
             } catch (MessagingException ex) {
                 System.out.println("Erro ao Enviar Email(PessoaDAOImpl): Erro:" + ex.getMessage());
-                throw new RuntimeException(ex);
+                return false;
             }
         } catch (Exception ex) {
             System.out.println("Erro ao Encontrar Email \n Erro: " + ex.getMessage());
-            ex.printStackTrace();
+            return false;
         }
         
         return true;
