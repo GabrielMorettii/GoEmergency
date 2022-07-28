@@ -24,12 +24,14 @@
                 <img id="escudo" src="${pageContext.request.contextPath}/public/assets/encrypted(1).png" alt="Escudo">
             </div>
             <p>Sua nova senha tem que ser diferente da anterior</p>
-            <form action="#">
+            <form action="${pageContext.request.contextPath}/ResetarSenha" method="POST">
+                <input type="hidden" name="email" value="${email}">
+                
                 <label for="">Nova senha</label>
-                <input type="password" placeholder="**********" id="passwordinput" required>
+                <input type="password" name="novasenha" placeholder="**********" id="passwordinput" required>
 
                 <label for="">Confirmar senha</label>
-                <input type="password" placeholder="**********" id="passwordinput" required>
+                <input type="password" name="confirmacao" placeholder="**********" id="passwordinput" required>
 
                 <button type="submit">Salvar</button>
             </form>

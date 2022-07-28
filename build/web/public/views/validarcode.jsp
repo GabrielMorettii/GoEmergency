@@ -25,6 +25,7 @@
             </div>
             <p>Por favor digite o código de 5 dígitos que foi enviado para o seu email</p>
             <form id="formcode" action="${pageContext.request.contextPath}/ValidarCode" method="POST">
+                <input type="hidden" name="email" value="${email}">
                 <div id="codeinputdiv">
                     <input type="text" name="digito1" class="codeinput" maxlength="1">
                     <input type="text" name="digito2" class="codeinput" maxlength="1">

@@ -6,21 +6,21 @@ package br.com.goemergency.controller;
 
 import br.com.goemergency.dao.PessoaDAOImpl;
 import br.com.goemergency.model.Pessoa;
+import br.com.goemergency.util.Criptografar;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author VINICIUSP-PC
+ * @author moretti
  */
-@WebServlet(name = "ValidarCode", urlPatterns = {"/ValidarCode"})
-public class ValidarCode extends HttpServlet {
+@WebServlet(name = "ResetarSenha", urlPatterns = {"/ResetarSenha"})
+public class ResetarSenha extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,34 +32,35 @@ public class ValidarCode extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception {
-        String digito1 = request.getParameter("digito1");
-        String digito2 = request.getParameter("digito2");
-        String digito3 = request.getParameter("digito3");
-        String digito4 = request.getParameter("digito4");
-        String digito5 = request.getParameter("digito5");
-        String digitos = digito1 + digito2 + digito3 + digito4 + digito5;
+            throws ServletException, IOException {
+        String novasenha = request.getParameter("novasenha");
+        String confirmacao = request.getParameter("confirmacao");
+
         String email = request.getParameter("email");
 
         try {
             PessoaDAOImpl pessoaDAO = new PessoaDAOImpl();
             Pessoa oPessoa = pessoaDAO.carregar(email);
             
-            if (!digitos.equals(oPessoa.getCode())) {
+            if (!novasenha.equals(confirmacao)) {
                 request.setAttribute("tipomensagem", "Erro");
-                request.setAttribute("mensagem", "Digitos invalido, por favor, digite o certo.");
-                request.getRequestDispatcher("public/views/validarcode.jsp").forward(request, response);
+                request.setAttribute("mensagem", "Senhas não coincidem!");
+                request.getRequestDispatcher("public/views/resetarsenha.jsp").forward(request, response);
                 return;
             }
+            
+            
+            oPessoa.setSenha(Criptografar.encriptografar(novasenha));
+            
+            pessoaDAO.alterar(oPessoa);
         } catch (Exception ex) {
-            System.out.println("Erro no Servlet ValidarCode\n Erro:" + ex.getMessage());
+            System.out.println("Erro no Servlet ResetarSenha\n Erro:" + ex.getMessage());
             ex.printStackTrace();
         }
 
-        request.setAttribute("email", email);
         request.setAttribute("tipomensagem", "Sucesso");
-        request.setAttribute("mensagem", "Código correto, estamos redirecionando para trocar sua senha");
-        request.getRequestDispatcher("public/views/resetarsenha.jsp").forward(request, response);
+        request.setAttribute("mensagem", "Senha alterada com sucesso!");
+        request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,11 +75,7 @@ public class ValidarCode extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(ValidarCode.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -92,11 +89,7 @@ public class ValidarCode extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(ValidarCode.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -57,6 +57,7 @@ public class EnviarEmail extends HttpServlet {
                 
                 pessoaDAO.alterar(oPessoa);
                 
+                request.setAttribute("email", email);
                 request.setAttribute("tipomensagem", "Sucesso");
                 request.setAttribute("mensagem", "Email Enviado com sucesso!");
                 request.getRequestDispatcher("public/views/validarcode.jsp").forward(request, response);
