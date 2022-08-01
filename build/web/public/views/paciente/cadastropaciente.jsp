@@ -39,15 +39,15 @@
                         </div>
                         <div class="personalinformationinput">
                             <label for="cpf">CPF</label>
-                            <input type="text" id="cpf"  name="cpf" placeholder="Digite seu CPF" maxlength="11" required>
+                            <input type="text" id="cpf"  name="cpf" placeholder="Digite seu CPF" maxlength="14" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="nascimento">Data de nascimento</label>
-                            <input type="date" id="nascimento" name="nascimento" required> 
+                            <input type="date" placeholder="dd-mm-yyyy" id="nascimento" name="nascimento" required> 
                         </div>
                         <div>
                             <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone" placeholder="(17) 99532-4221" maxlength="11" required>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(17) 99532-4221" maxlength="15" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="senha">Senha</label>
@@ -102,6 +102,7 @@
                 <img id="closebutton" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
             </div>
         </div>
+        <script src="${pageContext.request.contextPath}/src/mascaras.js"></script>
         <script src="${pageContext.request.contextPath}/src/apicep.js"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
     </body>

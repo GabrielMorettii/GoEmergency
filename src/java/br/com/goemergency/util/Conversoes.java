@@ -5,7 +5,6 @@
  */
 package br.com.goemergency.util;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,10 +17,18 @@ public class Conversoes {
     //Método para converter String em Data
     public static Date ConverterData(String data) {
         try {
-            DateFormat fmt = new SimpleDateFormat("MM-dd-yyyy");
-
             if ((data != null) || (!data.trim().equals(""))) {
-                return fmt.parse(data);
+                String[] arrayString = data.split("-");
+                
+                String aux = arrayString[0];
+                arrayString[0] = arrayString[2];
+                arrayString[2] = aux;
+                
+                String str = String.join("/", arrayString);
+                
+                Date date = new SimpleDateFormat("dd/MM/yyyy").parse(str); 
+
+                return date;
             }else{
                 return null;
             }
