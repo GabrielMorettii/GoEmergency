@@ -88,15 +88,15 @@ public final class cadastropaciente_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                        </div>\n");
       out.write("                        <div class=\"personalinformationinput\">\n");
       out.write("                            <label for=\"cpf\">CPF</label>\n");
-      out.write("                            <input type=\"text\" id=\"cpf\"  name=\"cpf\" placeholder=\"Digite seu CPF\" maxlength=\"11\" required>\n");
+      out.write("                            <input type=\"text\" id=\"cpf\"  name=\"cpf\" placeholder=\"Digite seu CPF\" maxlength=\"14\" required>\n");
       out.write("                        </div>\n");
       out.write("                        <div class=\"personalinformationinput\">\n");
       out.write("                            <label for=\"nascimento\">Data de nascimento</label>\n");
-      out.write("                            <input type=\"date\" id=\"nascimento\" name=\"nascimento\" required> \n");
+      out.write("                            <input type=\"date\" placeholder=\"dd-mm-yyyy\" id=\"nascimento\" name=\"nascimento\" required> \n");
       out.write("                        </div>\n");
       out.write("                        <div>\n");
       out.write("                            <label for=\"telefone\">Telefone</label>\n");
-      out.write("                            <input type=\"tel\" id=\"telefone\" name=\"telefone\" placeholder=\"(17) 99532-4221\" maxlength=\"11\" required>\n");
+      out.write("                            <input type=\"tel\" id=\"telefone\" name=\"telefone\" placeholder=\"(17) 99532-4221\" maxlength=\"15\" required>\n");
       out.write("                        </div>\n");
       out.write("                        <div class=\"personalinformationinput\">\n");
       out.write("                            <label for=\"senha\">Senha</label>\n");
@@ -163,6 +163,9 @@ public final class cadastropaciente_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("/public/assets/close.png\" alt=\"Close\">\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
+      out.write("        <script src=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/src/mascaras.js\"></script>\n");
       out.write("        <script src=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/src/apicep.js\"></script>\n");

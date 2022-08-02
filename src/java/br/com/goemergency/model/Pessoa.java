@@ -64,8 +64,10 @@ public class Pessoa {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpf(String cpf) {       
+       cpf = cpf.replaceAll("[^a-zA-Z0-9]","");
+       
+       this.cpf = cpf;
     }
 
     public String getNome() {
@@ -115,6 +117,8 @@ public class Pessoa {
     }
 
     public void setTelefone(String Telefone) {
+        Telefone = Telefone.replaceAll("[^a-zA-Z0-9]","");
+        
         this.Telefone = Telefone;
     }
 

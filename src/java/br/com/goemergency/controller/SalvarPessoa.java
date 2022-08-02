@@ -39,7 +39,7 @@ public class SalvarPessoa extends HttpServlet {
         //Entrada
         Pessoa oPessoa = new Pessoa();
         Endereco oEndereco = new Endereco();
-
+        
         //Recuperar os dados
         oPessoa.setNome(request.getParameter("nome"));
         oPessoa.setEmail(request.getParameter("email"));
