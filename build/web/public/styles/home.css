@@ -292,16 +292,3 @@ main{
   color: #555555;
 }
 
-footer{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-
-  color: black;
-
-  box-shadow: 1px 1px 3px rgb(85, 84, 84);
-
-  height: 60px;
-}

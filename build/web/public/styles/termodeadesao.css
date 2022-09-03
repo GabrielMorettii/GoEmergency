@@ -1,0 +1,76 @@
+*{
+    overflow: hidden;
+}
+
+main{
+    width: 40vw;
+    height: 70vh;
+
+    margin: 0 auto;
+    margin-top: 3rem;
+
+    border-radius: 5px;
+    background-color: #FFFF;
+    
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+
+#upperform, #checkboxes{
+ padding-left: 40px;
+}
+
+#upperform{
+    display: flex;
+    margin-bottom: 40px;
+
+    padding-top: 40px;
+}
+
+#upperform img{
+    max-width: 50%;
+    justify-self: center;
+    align-self: center;
+
+    padding-right: 40px;
+}
+
+#textadesao{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    width: 70%;
+    padding-right: 50px;
+
+    font-weight: 300;
+}
+
+#textadesao h3{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+#textadesao ul li{
+    margin-top: 10px;
+}
+
+main form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+main form a:visited,
+main form a:active{
+    color: #0000EF;
+}
+
+main form p{
+    margin-top: 10px;
+
+    font-weight: 300;
+}
+
