@@ -5,8 +5,6 @@
  */
 package br.com.goemergency.dao;
 
-import br.com.goemergency.model.Pessoa;
-import java.sql.SQLException;
 import java.util.List;
 
 

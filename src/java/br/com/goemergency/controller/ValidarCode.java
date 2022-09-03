@@ -47,6 +47,7 @@ public class ValidarCode extends HttpServlet {
             
             if (!digitos.equals(oPessoa.getCode())) {
                 request.setAttribute("tipomensagem", "Erro");
+                request.setAttribute("email", email);
                 request.setAttribute("mensagem", "Digitos invalido, por favor, digite o certo.");
                 request.getRequestDispatcher("public/views/validarcode.jsp").forward(request, response);
                 return;
