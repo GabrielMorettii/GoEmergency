@@ -133,13 +133,16 @@ main{
 
 #servicesmain{
   display: flex;
-  justify-content: space-around;
 
   column-gap: 20px;
   margin-top: 20px;
 }
 
-#servicesmain div:first-child{
+#servicesmain a{
+  text-decoration: none;
+}
+
+#servicesmain a:first-child div{
   background-color: #3dd7eb;
 }
 

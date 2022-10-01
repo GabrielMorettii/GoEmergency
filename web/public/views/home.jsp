@@ -22,9 +22,8 @@
               <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img src="https://templates.hibotheme.com/teli/default/assets/img/logo.png" alt="Logo"></a>
               <div id="positionright">
                 <li><a href="${pageContext.request.contextPath}/public/views/home.jsp">Home</a></li>
-                <li><a href="#">Contato</a></li>
-                <li><a href="#">Dúvidas</a></li>
-                <li><a href="#">Sobre</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
                 <li><a href="${pageContext.request.contextPath}/public/views/login.jsp"><img src="https://medico24hs.com.br/wp-content/uploads/2022/05/Icone_Usuario_Menu_22.svg">Entrar</a></li>
                 <li id="cadastrohome"><a href="${pageContext.request.contextPath}/public/views/paciente/cadastropaciente.jsp" id="linkcadastro" class="whitecolor">Cadastro</a></li>
               </div>
@@ -37,21 +36,27 @@
               <h1>Cuide da sua saúde com médicos online 24h</h1>
               <p>Evite filas, salas de espera e custos com deslocamento. Tenha acesso a saúde de qualidade por um preço justo.</p>
               <div id="servicesmain">
-                <div class="whitecolor">
-                  <img src="${pageContext.request.contextPath}/public/assets/lupa.png" alt="Lupa">
-                  <p class="whitecolor">Consulte sintomas</p>
-                  <p class="whitecolor">Iniciar busca</p>
-                </div>
-                <div class="whitecolor">
-                  <img src="${pageContext.request.contextPath}/public/assets/agenda.png" alt="Agenda">
-                  <p>Agendar teleconsultas</p>
-                  <p class="greycolor">Agendar agora</p>
-                </div>
-                <div class="whitecolor">
-                  <img src="${pageContext.request.contextPath}/public/assets/frasco.png" alt="Frasco">
-                  <p>Consulte exames</p>
-                  <p class="greycolor">Buscar exames</p>
-                </div>
+                <a href="${pageContext.request.contextPath}/public/views/sintomas.jsp">
+                  <div class="whitecolor">
+                    <img src="${pageContext.request.contextPath}/public/assets/lupa.png" alt="Lupa">
+                    <p class="whitecolor">Consulte sintomas</p>
+                    <p class="whitecolor">Iniciar busca</p>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="whitecolor">
+                    <img src="${pageContext.request.contextPath}/public/assets/agenda.png" alt="Agenda">
+                    <p>Agendar teleconsultas</p>
+                    <p class="greycolor">Agendar agora</p>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="whitecolor">
+                    <img src="${pageContext.request.contextPath}/public/assets/frasco.png" alt="Frasco">
+                    <p>Consulte exames</p>
+                    <p class="greycolor">Buscar exames</p>
+                  </div>
+                </a>
               </div>
               <img src="${pageContext.request.contextPath}/public/assets/photo-1589859762194-eaae75c61f64.jpeg" alt="pinturadefundo" id="backgroundprincipal">
               <img id="imgmedico" src="${pageContext.request.contextPath}/public/assets/medico-duvidas2_preview_rev_1.png" alt="Imagem de médico">
