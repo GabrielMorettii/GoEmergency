@@ -72,30 +72,34 @@ public class Medico extends Pessoa{
         this.pessoa = pessoa;
     }
 
+    @Override
     public Date getInactivatedAt() {
         return inactivatedAt;
     }
 
+    @Override
     public void setInactivatedAt(Date inactivatedAt) {
         this.inactivatedAt = inactivatedAt;
     }
 
+    @Override
     public Date getCreatedAt() {
         return createdAt;
     }
 
+    @Override
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
+    @Override
     public Date getUpdatedat() {
         return updatedat;
     }
 
+    @Override
     public void setUpdatedat(Date updatedat) {
         this.updatedat = updatedat;
     }
-
-   
    
 }
