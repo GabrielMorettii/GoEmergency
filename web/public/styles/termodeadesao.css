@@ -1,12 +1,7 @@
-*{
-    overflow: hidden;
-}
-
 main{
-    width: 40vw;
-    height: 70vh;
+    max-width: 650px;
 
-    margin: 0 auto;
+    margin: 6rem auto;
     margin-top: 3rem;
 
     border-radius: 5px;
@@ -18,6 +13,11 @@ main{
     position: relative;
 }
 
+#logo{
+    max-width: 18vw;
+    min-width: 200px;
+}
+
 #upperform, #checkboxes{
  padding-left: 40px;
 }
@@ -25,16 +25,19 @@ main{
 #upperform{
     display: flex;
     margin-bottom: 40px;
-
     padding-top: 40px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#textform{
+    display: flex;
 }
 
 #upperform img{
     max-width: 50%;
     justify-self: center;
     align-self: center;
-
-    padding-right: 40px;
 }
 
 #textadesao{
@@ -74,3 +77,13 @@ main form p{
     font-weight: 300;
 }
 
+
+@media only screen and (max-width: 500px) {
+  #textadesao{
+    width: 100%;
+  }
+  
+  #svgtermo{
+      display: none;
+  }
+}

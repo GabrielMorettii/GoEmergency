@@ -43,7 +43,7 @@ public class ListarDoenca extends HttpServlet {
             out.println("<h1>Servlet ListarDoenca at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        }
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

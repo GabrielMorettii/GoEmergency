@@ -12,14 +12,20 @@ main{
 }
 
 #content{
-    width: 40vw;
-    border-radius: 10px;
+min-width: 564px;
+max-width: 50%;
+border-radius: 10px;
 
     display: flex;
     flex-direction: column;
     gap: 50px;
 
     margin-bottom: 150px;
+}
+
+#logo{
+  width: 20vw;
+  min-width: 200px;
 }
 
 #recomendacao{
@@ -29,6 +35,7 @@ main{
 }
 
 #recomendacao, #causas{
+    box-shadow: 0 0 2px black;
     background-color: #ffff;
 }
 
@@ -135,8 +142,8 @@ main{
 
 #doencaativabackground{
     position: absolute;
-    width: 35vw;
-    height: 100vh;
+width: 50vw;
+height: 100vh;
 
     border-left: 1px solid rgba(0, 0, 0, 0.4);
     background: #FFFFFF;
@@ -191,4 +198,27 @@ main{
 #doencadetalhes pre{
     margin: 10px 0;
     white-space: pre-line;
+}
+
+#togglediv{
+    top: 12%;
+}
+
+
+@media only screen and (max-width: 1050px) {
+  #doencaativabackground{
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #content{
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  #imgmedicoiconbackground{
+      display: none;
+  }
 }

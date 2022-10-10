@@ -1,6 +1,6 @@
 <%-- 
-    Document   : esqueceusenha
-    Created on : Jul 13, 2022, 9:36:01 AM
+    Document   : validarcode
+    Created on : Jul 13, 2022, 9:38:30 AM
     Author     : moretti
 --%>
 
@@ -8,28 +8,34 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GoEmergency</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/public/assets/favicon-removebg-preview.png" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/esqueceusenha.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/validarcode.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
         <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
+        <title>GoEmergency</title>
     </head>
     <body>
-        <img id="background" src="${pageContext.request.contextPath}/public/assets/Forgot password-cuate.png" alt="Esqueceu a senha imagem">
+        <img id="background" src="${pageContext.request.contextPath}/public/assets/Enter OTP-bro.png" alt="Validar codigo imagem">
         <div id="content">
-            <h1>Resete sua senha</h1>
-            <div id="divcadeado">
-                <img id="cadeado" src="${pageContext.request.contextPath}/public/assets/cadeado.png" alt="Cadeado">
+            <h1>Verifique seu código</h1>
+            <div id="divemail">
+                <img id="emailicon" src="${pageContext.request.contextPath}/public/assets/email.png" alt="Email">
             </div>
-            <p>Digite o email associado com sua a conta e nós enviaremos um e-mail com as instruções para resetar sua senha.</p>
-            <form action="${pageContext.request.contextPath}/EnviarEmail" method="POST">
-                <label for="">Email</label>
-                <input type="email" placeholder="joaodasilva@gmail.com" name="email" id="recoverinput" required>
-                <button type="submit">Enviar</button>
+            <p>Por favor digite o código de 5 dígitos que foi enviado para o seu email</p>
+            <form id="formcode" action="${pageContext.request.contextPath}/ValidarCode" method="POST">
+                <input type="hidden" name="email" value="${email}">
+                <div id="codeinputdiv">
+                    <input type="text" name="digito1" class="codeinput" maxlength="1">
+                    <input type="text" name="digito2" class="codeinput" maxlength="1">
+                    <input type="text" name="digito3" class="codeinput" maxlength="1">
+                    <input type="text" name="digito4" class="codeinput" maxlength="1">
+                    <input type="text" name="digito5" class="codeinput" maxlength="1">
+                </div>
+                <button type="submit">Verificar</button>
             </form>
             <p>Já lembrou ? <a id="voltarlogin" href="${pageContext.request.contextPath}/public/views/login.jsp">Volte para logar</a></p>
         </div>

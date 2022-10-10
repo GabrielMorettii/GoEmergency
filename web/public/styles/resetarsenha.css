@@ -28,10 +28,10 @@ body{
 
 #content{
   height: 100vh;
-  width: 600px;
+  max-width: 600px;
   padding-top: 5vh;
-  padding: 90px;
-  margin: 0 auto;
+padding: 5vw;
+margin: 0 auto;
 
   display: grid;
   
@@ -98,4 +98,16 @@ button[type=submit]:hover{
 
 #voltarlogin:hover{
   opacity: 0.7;
+}
+
+
+@media only screen and (max-width: 1173px) {
+  body{
+  grid-template-columns: 0 1fr;
+  }
+  
+  #background{
+    height: 0;
+    padding: 0;
+  }
 }
