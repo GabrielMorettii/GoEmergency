@@ -15,12 +15,14 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comumsintomas.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/termodeadesao.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
         <title>GoEmergency</title>
     </head>
     <body>
          <header>
             <ul>
-              <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img src="https://templates.hibotheme.com/teli/default/assets/img/logo.png" alt="Logo"></a>
+              <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img id="logo" src="${pageContext.request.contextPath}/public/assets/logo.png" alt="Logo"></a>
               <div id="positionright">
                 <li> <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img src="${pageContext.request.contextPath}/public/assets/Symptomate-5.svg" id="voltaricon"/>Voltar</a></li>
               </div>
@@ -28,18 +30,20 @@
         </header>
         <main>
             <div id="upperform">
-                <div id="textadesao">
-                    <h3>Termos de Serviço </h3>
-                    <p>Antes de iniciar a avaliação, leia os Termos de Serviço. Lembre-se que:</p>
-                    <ul>
-                        <li><strong>A avaliação não é um diagnóstico.</strong> O checkup é para fins informativos e não é uma opinião médica qualificada.</li>
-                        <li><strong>Não use em emergências.</strong> Em caso de emergência de saúde, ligue imediatamente para o número de emergência local.</li>
-                        <li><strong> Seus dados estão seguros.</strong> As informações que você fornece são anônimas e não são compartilhadas com ninguém.</li>
-                    </ul>
+                <h3>Termos de Serviço </h3>
+                <p>Antes de iniciar a avaliação, leia os Termos de Serviço. Lembre-se que:</p>
+                <div id="textform">
+                    <div id="textadesao">
+                        <ul>
+                            <li><strong>A avaliação não é um diagnóstico.</strong> O checkup é para fins informativos e não é uma opinião médica qualificada.</li>
+                            <li><strong>Não use em emergências.</strong> Em caso de emergência de saúde, ligue imediatamente para o número de emergência local.</li>
+                            <li><strong> Seus dados estão seguros.</strong> As informações que você fornece são anônimas e não são compartilhadas com ninguém.</li>
+                        </ul>
+                     </div>
+                    <img id="svgtermo" src="${pageContext.request.contextPath}/public/assets/svgexport-6.svg" alt="svg6">
                 </div>
-                <img src="${pageContext.request.contextPath}/public/assets/svgexport-6.svg" alt="svg6">
             </div>
-            <form action="${pageContext.request.contextPath}/public/views/sintomas.jsp">
+            <form action="${pageContext.request.contextPath}/ListarSintomas">
                 <div id="checkboxes">
                     <p>
                         <input type="checkbox" required> Eu li e aceito os <a href="#">Termos de Serviço</a> e a <a href="#">Política de Privacidade</a>. <br>
@@ -66,8 +70,18 @@
                 </div>
                 <img id="closebutton" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
             </div>
-        </div>  
+        </div>
+        <div id="load">
+            <img src="${pageContext.request.contextPath}/public/assets/loading-gif.gif" alt="gifloading">
+        </div>
+        <div id="togglediv">
+            <input type="checkbox" class="checkbox" id="chk" />
+            <label class="label" for="chk">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <div class="ball"></div>
+            </label>
+        </div>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
-        <script src="${pageContext.request.contextPath}/src/sintomas.js"></script>
     </body>
 </html>

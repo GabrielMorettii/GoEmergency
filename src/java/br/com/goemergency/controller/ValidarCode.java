@@ -49,7 +49,7 @@ public class ValidarCode extends HttpServlet {
                 request.setAttribute("tipomensagem", "Erro");
                 request.setAttribute("email", email);
                 request.setAttribute("mensagem", "Digitos invalido, por favor, digite o certo.");
-                request.getRequestDispatcher("public/views/validarcode.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/validarcode.jsp").forward(request, response);
                 return;
             }
         } catch (Exception ex) {
@@ -60,7 +60,7 @@ public class ValidarCode extends HttpServlet {
         request.setAttribute("email", email);
         request.setAttribute("tipomensagem", "Sucesso");
         request.setAttribute("mensagem", "Código correto, estamos redirecionando para trocar sua senha");
-        request.getRequestDispatcher("public/views/resetarsenha.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/resetarsenha.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

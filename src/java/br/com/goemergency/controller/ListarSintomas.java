@@ -11,7 +11,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+import br.com.goemergency.model.Sintomas;
+import java.util.List;
+import com.google.gson.Gson;
 
 /**
  *
@@ -32,11 +34,17 @@ public class ListarSintomas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         try {
             SintomasDAOImpl daosintoma = new SintomasDAOImpl();
-            request.setAttribute("listadesintomas", daosintoma.listar());
             
-            request.getRequestDispatcher("public/views/sintomas.jsp").forward(request, response);
+            List<Sintomas> sintomas = daosintoma.listar();
+            
+            String sintomasJson = new Gson().toJson(sintomas);
+            
+            request.setAttribute("listadesintomas", sintomasJson);
+            
+            request.getRequestDispatcher("WEB-INF/sintomas.jsp").forward(request, response);
         }catch(Exception ex){
             System.out.println("Erro ao ListarSintomas");
             ex.printStackTrace();

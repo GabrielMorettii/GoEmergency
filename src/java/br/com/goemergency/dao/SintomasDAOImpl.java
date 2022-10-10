@@ -29,19 +29,19 @@ public class SintomasDAOImpl {
         }
     }
 
-    public List<Object> listar() {
-        List<Object> resultado = new ArrayList<>();
+    public List<Sintomas> listar() {
+        List<Sintomas> resultado = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "select nomesintoma, partecorpo from sintomas;";
+        String sql = "select idsintoma, nomesintoma, partecorpo from sintomas;";
         try {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Sintomas oSintoma = new Sintomas();
-                oSintoma.setIdSintoma(rs.getInt("idSintoma"));
-                oSintoma.setNomesintoma(rs.getString("nomeSintoma"));
+                oSintoma.setIdSintoma(rs.getInt("idsintoma"));
+                oSintoma.setNomesintoma(rs.getString("nomesintoma"));
                 oSintoma.setPartecorpo(rs.getString("partecorpo"));
                 resultado.add(oSintoma);
             }

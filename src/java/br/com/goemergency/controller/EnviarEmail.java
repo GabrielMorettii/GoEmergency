@@ -60,7 +60,7 @@ public class EnviarEmail extends HttpServlet {
                 request.setAttribute("email", email);
                 request.setAttribute("tipomensagem", "Sucesso");
                 request.setAttribute("mensagem", "Email Enviado com sucesso!");
-                request.getRequestDispatcher("public/views/validarcode.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/validarcode.jsp").forward(request, response);
             } catch (Exception ex) {
                 System.out.println("Erro no Servlet EnviarEmail Erro:" + ex.getMessage());
                 ex.printStackTrace();

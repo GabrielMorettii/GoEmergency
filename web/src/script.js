@@ -3,19 +3,57 @@ const modal = document.querySelector("#modalbox");
 const tipomensagem = document.querySelector("#tipomensagem");
 const mensagem = document.querySelector("#mensagem");
 const iconmodal = document.querySelector("#iconmodal");
+const checktoggle = document.querySelector("#chk");
+const loadingElement = document.querySelector("#load");
 
-closebutton.addEventListener("click", () => {
-  modal.classList.toggle("inactive");
-});
+const enabledDarkMode = window.localStorage.getItem('isDarkEnabled');
 
-if(tipomensagem.textContent === 'Erro') {
-    iconmodal.setAttribute('src', '/GoEmergency/public/assets/warning(1).png');    
+window.onload = () => {
+    loadingElement.style.display = "none"
     
-    modal.classList.remove('inactive');
-    modal.classList.add('erro');
-}else if(tipomensagem.textContent === 'Sucesso'){
-    iconmodal.setAttribute('src', '/GoEmergency/public/assets/check(1).png');  
+    DarkReader.setFetchMethod(window.fetch);
     
-    modal.classList.remove("inactive");
-    modal.classList.add('sucesso');
-} 
+    if(enabledDarkMode){
+        checktoggle.checked = true;
+        
+        DarkReader.enable({
+            rightness: 100,
+            contrast: 90,
+            sepia: 10
+        });
+    } 
+
+    checktoggle.addEventListener('change', (e) => {
+      const isEnabled = DarkReader.isEnabled();      
+      
+      if(isEnabled){
+         window.localStorage.removeItem("isDarkEnabled"); 
+          
+         DarkReader.disable();
+      } else {
+        window.localStorage.setItem("isDarkEnabled", true);
+            
+         DarkReader.enable({
+            rightness: 100,
+            contrast: 90,
+            sepia: 10
+        });
+      }
+    });
+
+    closebutton.addEventListener("click", () => {
+      modal.classList.toggle("inactive");
+    });
+
+    if(tipomensagem.textContent === 'Erro') {
+        iconmodal.setAttribute('src', '/GoEmergency/public/assets/warning(1).png');    
+
+        modal.classList.remove('inactive');
+        modal.classList.add('erro');
+    }else if(tipomensagem.textContent === 'Sucesso'){
+        iconmodal.setAttribute('src', '/GoEmergency/public/assets/check(1).png');  
+
+        modal.classList.remove("inactive");
+        modal.classList.add('sucesso');
+    } 
+}

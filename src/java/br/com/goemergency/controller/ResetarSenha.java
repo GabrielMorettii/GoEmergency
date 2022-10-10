@@ -45,7 +45,7 @@ public class ResetarSenha extends HttpServlet {
             if (!novasenha.equals(confirmacao)) {
                 request.setAttribute("tipomensagem", "Erro");
                 request.setAttribute("mensagem", "Senhas não coincidem!");
-                request.getRequestDispatcher("public/views/resetarsenha.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/resetarsenha.jsp").forward(request, response);
                 return;
             }
             

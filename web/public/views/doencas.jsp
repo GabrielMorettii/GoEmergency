@@ -12,15 +12,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/public/assets/favicon-removebg-preview.png" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/doencas.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comumsintomas.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/doencas.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
         <title>GoEmergency</title>
     </head>
     <body>
         <header>
             <ul>
-                <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img src="https://templates.hibotheme.com/teli/default/assets/img/logo.png" alt="Logo"></a>
+                <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img src="${pageContext.request.contextPath}/public/assets/logo.png" alt="Logo" id="logo"></a>
                 <div id="positionright">
                     <li> <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img src="${pageContext.request.contextPath}/public/assets/Symptomate-5.svg" id="voltaricon"/>Voltar</a></li>
                 </div>
@@ -194,6 +196,18 @@
                 </div>
             </div>
         </div>
+        </div>
+             <div id="load">
+            <img src="${pageContext.request.contextPath}/public/assets/loading-gif.gif" alt="gifloading">
+        </div>
+        <div id="togglediv">
+            <input type="checkbox" class="checkbox" id="chk" />
+            <label class="label" for="chk">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <div class="ball"></div>
+            </label>
+        </div>                       
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
         <script src="${pageContext.request.contextPath}/src/doencas.js"></script>
     </body>

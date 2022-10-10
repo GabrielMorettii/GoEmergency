@@ -14,6 +14,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/cadastro.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
         <title>GoEmergency</title>
     </head>
     <body>
@@ -45,7 +47,7 @@
                             <label for="nascimento">Data de nascimento</label>
                             <input type="date" id="nascimento" name="nascimento" required> 
                         </div>
-                        <div>
+                        <div class="personalinformationinput">
                             <label for="telefone">Telefone</label>
                             <input type="tel" id="telefone" name="telefone" placeholder="(17) 99532-4221" maxlength="15" required>
                         </div>
@@ -109,7 +111,19 @@
                 </div>
                 <img id="closebutton" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
             </div>
-        </div>           
+        </div>
+        </div>
+             <div id="load">
+            <img src="${pageContext.request.contextPath}/public/assets/loading-gif.gif" alt="gifloading">
+        </div>
+        <div id="togglediv">
+            <input type="checkbox" class="checkbox" id="chk" />
+            <label class="label" for="chk">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <div class="ball"></div>
+            </label>
+        </div>     
         <script src="${pageContext.request.contextPath}/src/mascaras.js"></script>
         <script src="${pageContext.request.contextPath}/src/apicep.js"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
