@@ -14,6 +14,8 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/public/assets/favicon-removebg-preview.png" type="image/x-icon">
         <link href="${pageContext.request.contextPath}/public/styles/login.css" rel="stylesheet">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
     </head>
     <body>
          <div id="content">
@@ -23,7 +25,7 @@
             </div>
             <div id="login">
                 <div id="iconelogin">
-                  <img id="icone" src="https://img.freepik.com/vetores-gratis/forma-medica-do-coracao-e-design-de-logotipo-medico_23987-717.jpg?w=2000" alt="Imagem de Médico">
+                  <img id="icone" src="${pageContext.request.contextPath}/public/assets/logo2.png" alt="Imagem de Médico">
                 </div>
                 <div id="textologin">
                     <h2>Bem vindo de volta!</h2>
@@ -59,6 +61,17 @@
                 </div>
                 <img id="closebutton" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
             </div>
+        </div>
+        <div id="load">
+            <img src="${pageContext.request.contextPath}/public/assets/loading-gif.gif" alt="gifloading">
+        </div>
+        <div id="togglediv">
+            <input type="checkbox" class="checkbox" id="chk" />
+            <label class="label" for="chk">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <div class="ball"></div>
+            </label>
         </div>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
     </body>

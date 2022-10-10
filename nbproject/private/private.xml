@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/util/scriptsql.sql</file>
+            <file>file:/home/moretti/Downloads/GoEmergency/web/public/views/doencas.jsp</file>
+            <file>file:/home/moretti/Downloads/GoEmergency/web/public/views/paciente/cadastropaciente.jsp</file>
+            <file>file:/home/moretti/Downloads/GoEmergency/web/public/views/medico/cadastromedico.jsp</file>
+            <file>file:/home/moretti/Downloads/GoEmergency/web/public/views/sintomas.jsp</file>
+            <file>file:/home/moretti/Downloads/GoEmergency/web/public/views/login.jsp</file>
+            <file>file:/home/moretti/Downloads/GoEmergency/web/public/views/termodeadesao.jsp</file>
         </group>
     </open-files>
 </project-private>

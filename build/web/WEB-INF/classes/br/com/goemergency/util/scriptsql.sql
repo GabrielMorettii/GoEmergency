@@ -503,3 +503,37 @@ Mantenha os ambientes limpos e bem ventilados.
 Só saia de casa se for estritamente necessário.
 Se estiver doente, evite ao máximo contato com outras pessoas.
 Utilize sempre máscaras quando precisar sair de casa. Elas funcionam como uma barreira física contra gotículas potencialmente contaminadas.');
+
+CREATE TABLE IF NOT EXISTS public.doenca
+(
+    iddoenca integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    nomedoenca character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    descricao character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    causas character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    diagnostico character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    tratamento character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    medicoespecialista character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    prevencao character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT doenca_pkey PRIMARY KEY (iddoenca)
+)
+
+insert into doencas_sintomas values (DEFAULT, 1, 47);
+insert into doencas_sintomas values (DEFAULT, 1, 73);
+insert into doencas_sintomas values (DEFAULT, 1, 77);
+insert into doencas_sintomas values (DEFAULT, 1, 74);
+insert into doencas_sintomas values (DEFAULT, 1, 41);
+insert into doencas_sintomas values (DEFAULT, 1, 37);
+insert into doencas_sintomas values (DEFAULT, 1, 38);
+
+insert into doencas_sintomas values (DEFAULT, 2, 56);
+insert into doencas_sintomas values (DEFAULT, 2, 69);
+insert into doencas_sintomas values (DEFAULT, 2, 169);
+insert into doencas_sintomas values (DEFAULT, 2, 213);
+insert into doencas_sintomas values (DEFAULT, 2, 218);
+
+insert into doencas_sintomas values (DEFAULT, 3, 90);
+insert into doencas_sintomas values (DEFAULT, 3, 1);
+insert into doencas_sintomas values (DEFAULT, 3, 52);
+insert into doencas_sintomas values (DEFAULT, 3, 22);
+insert into doencas_sintomas values (DEFAULT, 3, 44);
+insert into doencas_sintomas values (DEFAULT, 3, 10);

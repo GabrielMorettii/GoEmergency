@@ -8,13 +8,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>GoEmergency</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/public/assets/favicon-removebg-preview.png" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/esqueceusenha.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
-        <title>GoEmergency</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
     </head>
     <body>
         <img id="background" src="${pageContext.request.contextPath}/public/assets/Forgot password-cuate.png" alt="Esqueceu a senha imagem">
@@ -40,7 +42,18 @@
                 </div>
                 <img id="closebutton" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
             </div>
-        </div>           
+        </div> 
+        <div id="load">
+            <img src="${pageContext.request.contextPath}/public/assets/loading-gif.gif" alt="gifloading">
+        </div>    
+        <div id="togglediv">
+            <input type="checkbox" class="checkbox" id="chk" />
+            <label class="label" for="chk">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <div class="ball"></div>
+            </label>
+        </div>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
     </body>
 </html>

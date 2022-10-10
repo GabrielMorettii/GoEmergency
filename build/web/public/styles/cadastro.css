@@ -54,7 +54,7 @@
 }
 
 #formsignup input, #UFCRM{
-  width: 300px;
+  max-width: 300px;
   padding: 10px;
   margin-top: 5px;
   border: 0;
@@ -78,6 +78,11 @@ label + input{
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
+}
+
+.personalinformationinput, .addressinformation{
+    display: flex;
+    flex-direction: column;
 }
 
 #submitbuttonform{
@@ -105,3 +110,41 @@ label + input{
   opacity: 0.7;
 }
 
+@media only screen and (max-width: 1671px) {  
+  #signup{
+      padding: 5%;
+  }
+}
+
+@media only screen and (max-width: 1544px) {  
+    #content{
+     grid-template-columns: 0 1fr;
+     background-color: #fff;
+    }
+    
+    #signup{
+        margin: 0 auto;
+    }
+    
+   
+  
+  }
+  
+  @media only screen and (max-width: 1000px) {  
+      #content{
+         height: 100%;
+      } 
+      
+     #personalinformation, #address {
+        display: block;
+        grid-template-columns: 0;
+        grid-template-rows: 0;
+        gap: 0;
+    }
+    
+    .personalinformationinput, .addressinformation{
+      max-width: none;
+      width: 100%;
+    }
+    
+  }

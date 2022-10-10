@@ -24,13 +24,16 @@ body{
   overflow-x: hidden;
 }
 
+a{
+    text-decoration: none;
+}
+
 header{
   width: 100%;
   height: 100px;
 
   font-size: 1.1rem;
 
-  position: fixed;
   top: 0;
 
   z-index: 5;
@@ -92,90 +95,55 @@ header ul{
   border-radius: 10px;
 }
 
+#logo{
+    max-width: 18vw;
+    min-width: 193px;
+}
+
 main{
   width: 100%;
   height: 100%;
   position: relative;
-
-  padding-top: 20vh;
-  padding-left: 15vw;
-  padding-right: 15vw;
 }
 
-#imgmedico{
-  position: absolute;
-  height: 800px;
 
-  right: -200px;
-  top: 0;
-}
-
-#backgroundprincipal{
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  z-index: -1;
-
-  width: 100%;
-  height: 800px;
-}
 
 #maincontent{
   display: flex;
   flex-direction: column;
   row-gap: 20px;
 
-  width: 50%;
-
+  width: 33vw;
   font-size: 18px;
 }
 
-#servicesmain{
-  display: flex;
-  justify-content: space-around;
-
-  column-gap: 20px;
-  margin-top: 20px;
+#telaprincipal{
+    background: url('../assets/wallpaper-principal.jpg') left;
+    padding: 10vw;
 }
 
-#servicesmain div:first-child{
-  background-color: #3dd7eb;
+#verificarsintomas{
+    display: flex;
+    background: #3577B4;
+    border-radius: 5px;
+    border: 0;
+    padding: 10px;
+    width: max-content;
+    gap: 10px;
+    align-items: center;
 }
 
-#servicesmain div{
-  border-radius: 10px;
-  color: #333;
-  background-color: rgb(237, 237, 237);
-
-  width: 250px;
-  
-  padding: 60px 20px 40px 20px;
-}
-
-#servicesmain div:hover, .especialistacard:hover{
-  cursor: pointer;
-  transform: translateY(-10px);
-
-  transition: 0.2s;
-
-  box-shadow: 2px 2px 5px rgb(177, 171, 171);
-}
-
-#servicesmain div p{
-  margin-top: 10px;
-}
-
-#servicesmain div p + p{
-  font-size: 14px;
+#verificarsintomas:hover{
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 #especialistas{
   display: flex;
   flex-direction: column;
   row-gap: 40px;
-
-  margin-top: 300px;
+  padding: 5vw;
+  
 }
 
 #especialistas h2{
@@ -205,8 +173,7 @@ main{
   width: 100%;
   height: 1px;
 
-  margin-top: 100px;
-
+  margin-top: 3vh;
   background-color: rgb(182, 182, 182);
 }
 
@@ -268,7 +235,7 @@ main{
 }
 
 #sobre img{
-  width: 500px;
+    max-width: 300px;
 
   border-radius: 10px;
 }
@@ -276,14 +243,17 @@ main{
 #sobre{
   display: flex;
   justify-content: center;
+  
+  width: 90%;
+  margin: 100px auto;
 
-  margin: 100px 0;
   column-gap: 30px;
 }
 
 #textosobre{
   display: flex;
   flex-direction: column;
+  padding-right: 20vw;
   gap: 20px;
 }
 
@@ -292,3 +262,84 @@ main{
   color: #555555;
 }
 
+footer{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: black;
+    
+    background-color: white;
+
+    box-shadow: 1px 1px 3px rgb(85, 84, 84);
+
+    height: 60px;
+}
+
+@media only screen and (max-width: 1165px) {
+  #especialistascards{
+   display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-flow: dense;
+  }
+  
+  #textosobre{
+      padding-right: 0;
+  }
+}
+
+@media only screen and (max-width: 1067px) {
+  #maincontent{
+    width: 80%;
+  }
+  
+  #homelink, #sobrelink{
+      display: none;
+  }
+  
+  #header ul{
+      width: 100%;
+      padding: 0 5vh;
+  }
+  
+  #sobre img{
+      display: none;
+  }
+}
+
+
+@media only screen and (max-width: 894px) {
+ #togglediv{
+    right: unset;
+    left: 2%;
+  }
+}
+
+@media only screen and (max-width: 722px) {
+  header ul, #positionright{
+   flex-direction: column;
+  }
+
+  
+  header{
+      height: auto;
+  }
+  
+  #cadastrohome{
+      margin-bottom: 20px;
+  }
+  
+   #maincontent{
+    width: 100%;
+  }
+  
+  #especialistascards{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    gap: 10px;
+    }
+}
