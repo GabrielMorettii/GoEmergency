@@ -499,7 +499,20 @@ Evite abraços, beijos e apertos de mãos.
 Mantenha o distanciamento mínimo de 1 metro entre pessoas em lugares públicos e de convívio social.
 Higienize periodicamente os objetos que são utilizados com frequência tais como celular, brinquedos das crianças, teclados de computador e etc....
 Não compartilhe objetos de uso pessoal como talheres, toalhas, pratos e copos.
-Mantenha os ambientes limpos e bem ventilados.
+    Mantenha os ambientes limpos e bem ventilados.
 Só saia de casa se for estritamente necessário.
 Se estiver doente, evite ao máximo contato com outras pessoas.
 Utilize sempre máscaras quando precisar sair de casa. Elas funcionam como uma barreira física contra gotículas potencialmente contaminadas.');
+
+CREATE TABLE IF NOT EXISTS public.doenca
+(
+    iddoenca integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    nomedoenca character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    descricao character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    causas character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    diagnostico character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    tratamento character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    medicoespecialista character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    prevencao character varying(8000) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT doenca_pkey PRIMARY KEY (iddoenca)
+)

@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/util/scriptsql.sql</file>
+            <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/model/Doencas.java</file>
+            <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/dao/DoencasDAOImpl.java</file>
+            <file>file:/C:/Meu/GoEmergency/web/public/views/sintomas.jsp</file>
+            <file>file:/C:/Meu/GoEmergency/src/java/br/com/goemergency/controller/ListarDoencas.java</file>
         </group>
     </open-files>
 </project-private>
