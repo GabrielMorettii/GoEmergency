@@ -38,8 +38,6 @@ public class Medico extends Pessoa{
     public Medico(Integer idPessoa, String cpf, String nome, Date datanascimento, String email, String senha, Integer idEndereco, String Telefone, 
             Boolean isMedico, Boolean isAdmin, Date inactivatedAt, Date createdAt, Date updatedat) {
         super(idPessoa, cpf, nome, datanascimento, email, senha, idEndereco, Telefone, isMedico, isAdmin, inactivatedAt, createdAt, updatedat);
-        this.isPaciente = false;
-        this.isMedico = true;
     }
 
     public Integer getIdMedico() {

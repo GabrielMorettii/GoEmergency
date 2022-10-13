@@ -42,9 +42,10 @@ public class DoencasDAOImpl {
                 + ", d.diagnostico\n"
                 + ", d.tratamento\n"
                 + ", d.medicoespecialista\n"
-                + ", d.prevencao from doenca d \n" 
+                + ", d.prevencao\n"
+                + ", s.nomesintoma from doenca d \n" 
                 + "inner join doencas_sintomas ds on d.iddoenca "
-                + "= ds.iddoenca WHERE idsintoma = ANY(ARRAY[?]);");
+                + "= ds.iddoenca inner join sintomas s on ds.idsintoma = s.idsintoma WHERE s.idsintoma = ANY(ARRAY[?]);");
         try {
             Array anArray = conn.createArrayOf("INTEGER", ids);
             stmt = conn.prepareStatement(sql);
@@ -61,6 +62,7 @@ public class DoencasDAOImpl {
                 oDoenca.setTratamento(rs.getString("tratamento"));
                 oDoenca.setMedicoespecialista(rs.getString("medicoespecialista"));
                 oDoenca.setPrevencao(rs.getString("prevencao"));
+                oDoenca.setNomesintoma(rs.getString("nomesintoma"));
                 resultado.add(oDoenca);
             }
         } catch (SQLException ex) {

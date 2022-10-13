@@ -5,13 +5,14 @@
 package br.com.goemergency.controller;
 
 import br.com.goemergency.dao.DoencasDAOImpl;
+import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Array;
+import java.util.List;
 
 /**
  *
@@ -32,12 +33,25 @@ public class ListarDoencas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        response.setContentType("text/html;charset=UTF-8");
-       Integer [] ids = { 1,2,3 };
+       
+       String[] testeArray = request.getParameter("sintomas").split(",");
+       
+       Integer[] ids = new Integer[testeArray.length];
+       
+       for (int i = 0; i < testeArray.length; i++) {
+            ids[i] = Integer.parseInt(testeArray[i]);
+       }
+       
         try {
             DoencasDAOImpl daodoenca = new DoencasDAOImpl();
-            request.setAttribute("listadedoencas", daodoenca.listar(ids));
+            
+            List<Object> doencas = daodoenca.listar(ids);
 
-            request.getRequestDispatcher("public/views/doencas.jsp").forward(request, response);
+            String doencasJson = new Gson().toJson(doencas);
+            
+            request.setAttribute("listadedoencas", doencasJson);    
+
+            request.getRequestDispatcher("WEB-INF/doencas.jsp").forward(request, response);
         }catch(Exception ex){
             System.out.println("Erro ao ListarDoencas");
             ex.printStackTrace();

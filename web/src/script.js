@@ -56,4 +56,10 @@ window.onload = () => {
         modal.classList.remove("inactive");
         modal.classList.add('sucesso');
     } 
+    
+    if(!modal.classList.contains('inactive')){
+        setTimeout(()=>{
+           modal.classList.add('inactive');
+        }, 5000);
+    }
 }

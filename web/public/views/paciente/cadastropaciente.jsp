@@ -14,6 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/cadastro.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum-2.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
         <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
         <title>GoEmergency</title>
@@ -27,7 +28,7 @@
                 <h2>Cadastrar</h2>
                 <h6>Saiba mais informações!</h6>
                 <p id="description">Cadastra-se para poder consultar sintomas e obter ajuda.</p>
-                <form action="${pageContext.request.contextPath}/SalvarPessoa" method="POST" id="formsignup">
+                <form action="${pageContext.request.contextPath}/SalvarPessoa" method="POST" id="formsignup" enctype="multipart/form-data">
                     <h3>Informações Pessoais</h3>
 
                     <div id="personalinformation">
@@ -46,6 +47,10 @@
                         <div class="personalinformationinput">
                             <label for="nascimento">Data de nascimento</label>
                             <input type="date" placeholder="dd-mm-yyyy" id="nascimento" name="nascimento" required> 
+                        </div>
+                        <div class="personalinformationinput">
+                            <label for="avatar">Avatar</label>
+                            <input type="file" id="avatar" name="avatar" size="50"> 
                         </div>
                         <div class="personalinformationinput">
                             <label for="telefone">Telefone</label>
@@ -115,7 +120,13 @@
                     <i class="fas fa-sun"></i>
                     <div class="ball"></div>
             </label>
-        </div> 
+        </div>
+         <script type="text/javascript">
+            function googleTranslateElementInit() {
+              new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <script src="${pageContext.request.contextPath}/src/mascaras.js"></script>
         <script src="${pageContext.request.contextPath}/src/apicep.js"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>

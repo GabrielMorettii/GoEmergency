@@ -310,14 +310,7 @@ footer{
 }
 
 
-@media only screen and (max-width: 894px) {
- #togglediv{
-    right: unset;
-    left: 2%;
-  }
-}
-
-@media only screen and (max-width: 722px) {
+@media only screen and (max-width: 948px) {
   header ul, #positionright{
    flex-direction: column;
   }

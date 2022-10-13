@@ -132,7 +132,7 @@ border-radius: 10px;
 
 #modaldoenca{
     background: rgba(33, 39, 48, 0.4);
-
+z-index: 1;
     position: fixed;
     top: 0;
 

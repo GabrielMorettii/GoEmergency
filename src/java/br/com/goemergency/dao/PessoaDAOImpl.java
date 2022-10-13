@@ -16,13 +16,21 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
+import javax.imageio.ImageIO;
+import org.apache.commons.codec.binary.Base64OutputStream;
 
 /**
  *
@@ -51,9 +59,8 @@ public class PessoaDAOImpl implements GenericDAO {
         Pessoa pessoa = (Pessoa) object;
         Integer idPessoa = null;
         String sql = "INSERT INTO PESSOA"
-                + "(cpf, nome, datanascimento, email, senha, telefone, "
-                + "idendereco, isPaciente, isMedico, isAdmin)"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING (idpessoa)";
+                + "(cpf, nome, datanascimento, email, senha, telefone, idendereco, isPaciente, isMedico, isAdmin, avatar)"
+                + " VALUES (?,?,?,?,?,?,?,?,?,?,?) RETURNING (idpessoa)";
 
         try {
             stmt = conn.prepareStatement(sql);
@@ -68,6 +75,7 @@ public class PessoaDAOImpl implements GenericDAO {
             stmt.setBoolean(8, pessoa.isIsPaciente());
             stmt.setBoolean(9, pessoa.isIsMedico());
             stmt.setBoolean(10, pessoa.isIsAdmin());
+            stmt.setBinaryStream(11, pessoa.getAvatar());
 
             rs = stmt.executeQuery();
 
@@ -300,13 +308,14 @@ public class PessoaDAOImpl implements GenericDAO {
 
             if (rs.next()) {
                 oPessoa = new Pessoa();
-
+                
                 oPessoa.setIdPessoa(rs.getInt("idpessoa"));
                 oPessoa.setNome(rs.getString("nome"));
-                oPessoa.setEmail(rs.getString("Email"));
-
-                oPessoa.setIdPessoa(rs.getInt("idPessoa"));
+                oPessoa.setEmail(rs.getString("email"));
                 oPessoa.setCpf(rs.getString("cpf"));
+                oPessoa.setIsAdmin(rs.getBoolean("isadmin"));
+                oPessoa.setIsMedico(rs.getBoolean("ismedico"));
+                oPessoa.setIsPaciente(rs.getBoolean("ispaciente"));
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao Logar Pessoa \n Erro: " + ex.getMessage());

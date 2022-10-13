@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comumsintomas.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/sintomas.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum-2.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
         <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
         <title>GoEmergency</title>
@@ -90,6 +91,12 @@
          <script type='text/javascript'>
             var listadesintomas = JSON.parse(`${listadesintomas}`);
          </script>
+         <script type="text/javascript">
+            function googleTranslateElementInit() {
+              new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
         <script src="${pageContext.request.contextPath}/src/sintomas.js"></script>
     </body>
