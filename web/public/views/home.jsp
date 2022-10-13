@@ -12,8 +12,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/public/assets/favicon-removebg-preview.png" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/home.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/home.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
         <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
         <title>GoEmergency</title>
@@ -23,10 +23,8 @@
             <ul>
               <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img id="logo" src="${pageContext.request.contextPath}/public/assets/logo.png" alt="Logo"></a>
               <div id="positionright">
-                <li id="homelink"><a href="${pageContext.request.contextPath}/public/views/home.jsp">Home</a></li>
+                <li><div id="google_translate_element"></div></li>
                 <li><a href="#">Contato</a></li>
-                <li><a href="#">Dúvidas</a></li>
-                <li id="sobrelink"><a href="#">Sobre</a></li>
                 <li><a href="${pageContext.request.contextPath}/public/views/login.jsp"><img src="https://medico24hs.com.br/wp-content/uploads/2022/05/Icone_Usuario_Menu_22.svg">Entrar</a></li>
                 <li id="cadastrohome"><a href="${pageContext.request.contextPath}/public/views/paciente/cadastropaciente.jsp" id="linkcadastro" class="whitecolor">Cadastro</a></li>
               </div>
@@ -112,6 +110,12 @@
                     <div class="ball"></div>
             </label>
         </div>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+              new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
   </body>
 </html>

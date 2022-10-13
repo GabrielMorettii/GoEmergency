@@ -14,6 +14,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/public/assets/favicon-removebg-preview.png" type="image/x-icon">
         <link href="${pageContext.request.contextPath}/public/styles/login.css" rel="stylesheet">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum-2.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
         <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
     </head>
@@ -25,7 +26,9 @@
             </div>
             <div id="login">
                 <div id="iconelogin">
-                  <img id="icone" src="${pageContext.request.contextPath}/public/assets/logo2.png" alt="Imagem de Médico">
+                    <a href="${pageContext.request.contextPath}/public/views/home.jsp">
+                        <img id="icone" src="${pageContext.request.contextPath}/public/assets/logo2.png" alt="Imagem de Médico">
+                    </a>
                 </div>
                 <div id="textologin">
                     <h2>Bem vindo de volta!</h2>
@@ -73,6 +76,12 @@
                     <div class="ball"></div>
             </label>
         </div>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+              new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
     </body>
 </html>

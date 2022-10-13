@@ -4,22 +4,21 @@
  */
 package br.com.goemergency.controller;
 
-import br.com.goemergency.dao.DoencasDAOImpl;
-import com.google.gson.Gson;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author windows
+ * @author moretti
  */
-@WebServlet(name = "ListarDoenca", urlPatterns = {"/ListarDoenca"})
-public class ListarDoencas extends HttpServlet {
+@WebServlet(name = "DeslogarPessoa", urlPatterns = {"/DeslogarPessoa"})
+public class DeslogarPessoa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,30 +31,15 @@ public class ListarDoencas extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setContentType("text/html;charset=UTF-8");
-       
-       String[] testeArray = request.getParameter("sintomas").split(",");
-       
-       Integer[] ids = new Integer[testeArray.length];
-       
-       for (int i = 0; i < testeArray.length; i++) {
-            ids[i] = Integer.parseInt(testeArray[i]);
-       }
-       
-        try {
-            DoencasDAOImpl daodoenca = new DoencasDAOImpl();
-            
-            List<Object> doencas = daodoenca.listar(ids);
-
-            String doencasJson = new Gson().toJson(doencas);
-            
-            request.setAttribute("listadedoencas", doencasJson);    
-
-            request.getRequestDispatcher("WEB-INF/doencas.jsp").forward(request, response);
-        }catch(Exception ex){
-            System.out.println("Erro ao ListarDoencas");
-            ex.printStackTrace();
-        }
+        response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = request.getSession(true);
+        
+        session.invalidate();
+        
+        response.sendRedirect(request.getContextPath() + "/public/views/home.jsp");
+        
+        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

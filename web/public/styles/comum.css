@@ -21,6 +21,12 @@
   right: 1vw;
   top: 1vw;
   z-index: 5;
+  
+  transition: transform 1s;
+}
+
+#modalbox.inactive{
+    transform: translateX(-400px)
 }
 
 #voltaricon{
@@ -144,7 +150,51 @@
      width: 500px;
  }
  
+ /* google translate */
  
+ body{
+     position: unset !important;
+ }
+ 
+ #google_translate_element select{
+   background-color: transparent;
+   color: #173552;
+   border: none;
+   border-radius:3px;
+   padding:6px 8px
+ }
+ 
+ .goog-te-combo{
+     font-size: 18px !important;
+ }
+ 
+ .goog-logo-link{
+    display:none !important;
+ }
+   
+ .goog-te-gadget{
+    color:transparent!important;
+     display: grid;
+    grid-template-columns: 1fr 0;
+  }
+  
+.goog-te-banner-frame{
+    display:none !important;
+    visibility: hidden !important;
+    position: static !important;
+    z-index: 0 !important;
+}
+ 
+ #goog-gt-tt, .goog-te-balloon-frame
+{
+    display: none !important;
+}
+
+.goog-text-highlight 
+{ 
+    background: none !important;
+    box-shadow: none !important;
+}
  
 @media only screen and (max-width: 1579px) {
   #iconmodal{

@@ -12,16 +12,17 @@ import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.Conversoes;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
-/**
- *
- * @author VINICIUSP-PC
- */
+@MultipartConfig(maxFileSize = 120000000)
 @WebServlet(name = "SalvarPessoa", urlPatterns = {"/SalvarPessoa"})
 public class SalvarPessoa extends HttpServlet {
 
@@ -36,17 +37,16 @@ public class SalvarPessoa extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Entrada
         Pessoa oPessoa = new Pessoa();
         Endereco oEndereco = new Endereco();
-        
-        //Recuperar os dados
+                
         oPessoa.setNome(request.getParameter("nome"));
         oPessoa.setEmail(request.getParameter("email"));
         oPessoa.setCpf(request.getParameter("cpf"));
         oPessoa.setDatanascimento(Conversoes.ConverterData(request.getParameter("nascimento")));
         oPessoa.setTelefone(request.getParameter("telefone"));
         oPessoa.setSenha(Criptografar.encriptografar(request.getParameter("senha")));
+        oPessoa.setIsPaciente(true);
 
         oEndereco.setBairro(request.getParameter("bairro"));
         oEndereco.setCep(request.getParameter("cep"));
@@ -55,7 +55,18 @@ public class SalvarPessoa extends HttpServlet {
         oEndereco.setNumero(Integer.parseInt(request.getParameter("numero")));
         oEndereco.setRua(request.getParameter("rua"));
 
+        Part avatar = request.getPart("avatar");
+
+        FileInputStream inputStream = null;
+
+        if(avatar != null){
+            inputStream = (FileInputStream) avatar.getInputStream();
+
+            oPessoa.setAvatar(inputStream);
+        }
+
         String mensagem = "";
+        
         try {
             PessoaDAOImpl pessoaDAO = new PessoaDAOImpl();
             GenericDAO endererecoDAO = new EnderecoDAOImpl();

@@ -17,6 +17,7 @@ public class Doencas {
     private String tratamento;
     private String medicoespecialista;
     private String prevencao;
+    private String nomesintoma;
 
     public Doencas() {
     }
@@ -94,6 +95,14 @@ public class Doencas {
 
     public void setPrevencao(String prevencao) {
         this.prevencao = prevencao;
+    }
+
+    public void setNomesintoma(String nomesintoma) {
+        this.nomesintoma = nomesintoma;
+    }
+
+    public String getNomesintoma() {
+        return nomesintoma;
     }
 
    

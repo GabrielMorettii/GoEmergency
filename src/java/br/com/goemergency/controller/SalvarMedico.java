@@ -50,7 +50,8 @@ public class SalvarMedico extends HttpServlet {
         oMedico.setSenha(Criptografar.encriptografar(request.getParameter("senha")));
         oMedico.setCrm(request.getParameter("crm"));
         oMedico.setUfcrm(request.getParameter("ufcrm"));
-
+        oMedico.setIsMedico(true);
+        
         oEndereco.setBairro(request.getParameter("bairro"));
         oEndereco.setCep(request.getParameter("cep"));
         oEndereco.setEstado(request.getParameter("estado"));

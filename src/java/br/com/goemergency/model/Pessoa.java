@@ -5,6 +5,7 @@
  */
 package br.com.goemergency.model;
 
+import java.io.InputStream;
 import java.util.Date;
 
 
@@ -18,7 +19,9 @@ public class Pessoa {
     private String code;
     private Integer idEndereco;
     private String Telefone;
-    protected Boolean isPaciente = true;
+    private String foto;
+    private InputStream avatar;
+    protected Boolean isPaciente = false;
     protected Boolean isMedico = false;
     protected Boolean isAdmin = false;
     private Date inactivatedAt;
@@ -169,6 +172,23 @@ public class Pessoa {
     public void setUpdatedat(Date updatedat) {
         this.updatedat = updatedat;
     }
+
+    public InputStream getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(InputStream avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+    
     
 }
 

@@ -5,6 +5,7 @@
 package br.com.goemergency.controller;
 
 import br.com.goemergency.dao.PessoaDAOImpl;
+import br.com.goemergency.filter.FilterAutenticacaoLogin;
 import br.com.goemergency.util.Criptografar;
 import br.com.goemergency.model.Pessoa;
 import jakarta.servlet.ServletException;
@@ -44,14 +45,12 @@ public class LogarPessoa extends HttpServlet {
                 Pessoa oPessoa = dao.logarPessoa(email, Criptografar.encriptografar(senha));
                         
                 if(oPessoa != null){
-                    request.setAttribute("tipomensagem", "Sucesso");
-                    request.setAttribute("mensagem", "Logado com sucesso!");
-                    request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
-//                    HttpSession session = request.getSession(true);
-//                    session.setAttribute("oPessoaLogado", oPessoa);
-//                    session.setAttribute("mensagem", "Seja bem vindo!");
-//
-//                    request.getRequestDispatcher("menu.jsp").forward(request, response);
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("oPessoa", oPessoa);
+                    session.setAttribute("username", oPessoa.getNome());
+                    
+                    response.sendRedirect(request.getContextPath() + "/public/views/login.jsp");
+                    return;
                 } else {
                     mensagem = "Email ou senha inválidos!";
                 }     
@@ -61,7 +60,7 @@ public class LogarPessoa extends HttpServlet {
             }
         }else {
           mensagem = "Usuário ou senha não preenchidos!";
-        }
+        } 
         
         request.setAttribute("tipomensagem", "Erro");
         request.setAttribute("mensagem", mensagem);

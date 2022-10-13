@@ -1,11 +1,10 @@
 <%-- 
-    Document   : sintomas
-    Created on : Sep 3, 2022, 10:19:49 AM
+    Document   : doencas
+    Created on : Sep 3, 2022, 10:09:41 AM
     Author     : moretti
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comumsintomas.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/sintomas.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/doencas.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum-2.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
         <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
@@ -24,36 +23,36 @@
     <body>
         <header>
             <ul>
-                <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img id="logo" src="${pageContext.request.contextPath}/public/assets/logo.png" alt="Logo"></a>
+                <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img src="${pageContext.request.contextPath}/public/assets/logo.png" alt="Logo" id="logo"></a>
                 <div id="positionright">
                     <li> <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img src="${pageContext.request.contextPath}/public/assets/Symptomate-5.svg" id="voltaricon"/>Voltar</a></li>
                 </div>
             </ul>
         </header>
         <main>
-            <form action="${pageContext.request.contextPath}/ListarDoenca" method="POST">
-                <div id="pesquisararea">
-                    <div id="upperformsintoma">
-                        <div id="textpesquisar">
-                                <h3>Adicione seus sintomas</h3>
-                                <p>Adicione o máximo de sintomas possível para obter resultados mais precisos.</p>
-                                <select id="sintomas">
-                                    <option disabled value="" selected hidden>Pesquisar, por exemplo: dor de cabeça</option>
-                                </select>
-                                <ul id="sintomaspesquisados"></ul>
-                         </div>
-                        <div id="modeloanatomico">
+            <div id="content">
+                <div id="recomendacao">
+                    <div id="textrecomendacao">
+                        <h5>Consulte um médico</h5>
+                        <p>Seus sintomas podem exigir avaliação médica. Agende uma consulta com seu médico. Se os seus sintomas piorarem, consulte um médico imediatamente</p>
+                        <div id="tipodeconsulta">
+                            <p><strong>Médico recomendado</strong> Clínico Geral </p>
+                            <p><strong>Tipo de consulta recomendada </strong> Consulta presencial</p>
                         </div>
                     </div>
-                <div id="girarbotao">
-                        <img src="${pageContext.request.contextPath}/public/assets/Symptomate-4.svg" alt="giraricon">
-                        Girar modelo
+                    <div id="imgmedicoiconbackground">
+                        <img id="imgmedicoicon" src="${pageContext.request.contextPath}/public/assets/svgexport-3.svg" alt="imgmedicoicon">
+                    </div>
                 </div>
-                <div id="submitform">
-                    <a href="${pageContext.request.contextPath}/public/views/termodeadesao.jsp"><img src="${pageContext.request.contextPath}/public/assets/Symptomate-5.svg" id="voltaricon"/>Voltar</a>
-                    <input type="submit" id="pesquisardoenca" value="Pesquisar">
+                <div id="causas">
+                    <h6>Possíveis causas</h6>
+                    <div id="line"></div>
+                    <div id="doencaspossiveis">
+                    </div>
+                    <br>
+                    <p id="footercausas">A lista de possíveis condições pode não ser completa, é fornecida apenas para fins informativos, não é uma opinião médica qualificada e não pode substituir o diagnóstico médico.</p>
                 </div>
-            </form>
+            </div>
         </main>
         <footer>
             Copyright @ Gabriel e Vinicius 2022. Todos os direitos reservados.
@@ -68,15 +67,23 @@
                 <img id="closebutton" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
             </div>
         </div>  
-        <div id="popupsintoma">
-            <div id="headerpopup">
-                <span id="titulopartesdocorpo"></span>
-                <img id="fecharpopup" src="${pageContext.request.contextPath}/public/assets/closepopup.svg" alt="Close">
+        <div id="modaldoenca" class="inactive">
+            <div id="doencaativabackground">
+                <div id="doencahead">
+                    <img src="${pageContext.request.contextPath}/public/assets/svgexport-9.svg" id="closebuttondoenca" alt="closebuttonicon" style="width: 27px">
+                    <div id="nomedoenca">
+                        <p id="nomedoencatitle">Abscesso cerebral</p>
+                        <div class="tipodeevidencia">
+                            <img src="${pageContext.request.contextPath}/public/assets/carregar (1).png" alt="barradeprogresso">
+                            <span>Evidência moderada</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="doencadetalhes">
+                </div>
             </div>
-            <ul id="listadesintomasespecifico">
-            </ul>
         </div>
-         </div>
+        </div>
              <div id="load">
             <img src="${pageContext.request.contextPath}/public/assets/loading-gif.gif" alt="gifloading">
         </div>
@@ -87,9 +94,9 @@
                     <i class="fas fa-sun"></i>
                     <div class="ball"></div>
             </label>
-        </div>   
-         <script type='text/javascript'>
-            var listadesintomas = JSON.parse(`${listadesintomas}`);
+        </div>
+        <script type='text/javascript'>
+            var listadedoencas = <%=request.getAttribute("listadedoencas")%>;
          </script>
          <script type="text/javascript">
             function googleTranslateElementInit() {
@@ -98,7 +105,6 @@
         </script>
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
-        <script src="${pageContext.request.contextPath}/src/sintomas.js"></script>
+        <script src="${pageContext.request.contextPath}/src/doencas.js"></script>
     </body>
 </html>
-
