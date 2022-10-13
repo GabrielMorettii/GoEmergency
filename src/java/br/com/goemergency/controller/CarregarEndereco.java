@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  *
@@ -37,7 +36,7 @@ public class CarregarEndereco extends HttpServlet {
         try{
             GenericDAO dao = new EnderecoDAOImpl();//Add Import
             request.setAttribute("oEndereco", dao.carregar(idEndereco));
-            request.getRequestDispatcher("ListarEndereco").forward(request, response);
+            request.getRequestDispatcher("ListarPessoa").forward(request, response);
         }catch(Exception ex){
             System.out.println("Erro no Servlet CarregarEndereco");
             ex.printStackTrace();

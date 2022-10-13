@@ -4,21 +4,26 @@
  */
 package br.com.goemergency.controller;
 
-import br.com.goemergency.dao.DoencasDAOImpl;
+import br.com.goemergency.dao.EnderecoDAOImpl;
+import br.com.goemergency.dao.GenericDAO;
+import br.com.goemergency.dao.PessoaDAOImpl;
+import br.com.goemergency.model.Endereco;
+import br.com.goemergency.model.Pessoa;
+import br.com.goemergency.util.Conversoes;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Array;
+import java.io.PrintWriter;
 
 /**
  *
  * @author windows
  */
-@WebServlet(name = "ListarDoenca", urlPatterns = {"/ListarDoenca"})
-public class ListarDoencas extends HttpServlet {
+@WebServlet(name = "AlterarPessoa", urlPatterns = {"/AlterarPessoa"})
+public class AlterarPessoa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,17 +36,48 @@ public class ListarDoencas extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setContentType("text/html;charset=UTF-8");
-       Integer [] ids = { 1,2,3 };
-        try {
-            DoencasDAOImpl daodoenca = new DoencasDAOImpl();
-            request.setAttribute("listadedoencas", daodoenca.listar(ids));
+        response.setContentType("text/html;charset=UTF-8");
 
-            request.getRequestDispatcher("public/views/doencas.jsp").forward(request, response);
-        }catch(Exception ex){
-            System.out.println("Erro ao ListarDoencas");
+        Pessoa oPessoa = new Pessoa();
+        Endereco oEndereco = new Endereco();
+
+        //Recuperar os dados
+        oPessoa.setNome(request.getParameter("nome"));
+        oPessoa.setEmail(request.getParameter("email"));
+        oPessoa.setCpf(request.getParameter("cpf"));
+        oPessoa.setDatanascimento(Conversoes.ConverterData(request.getParameter("nascimento")));
+        oPessoa.setTelefone(request.getParameter("telefone"));
+
+        oEndereco.setBairro(request.getParameter("bairro"));
+        oEndereco.setCep(request.getParameter("cep"));
+        oEndereco.setEstado(request.getParameter("estado"));
+        oEndereco.setCidade(request.getParameter("cidade"));
+        oEndereco.setNumero(Integer.parseInt(request.getParameter("numero")));
+        oEndereco.setRua(request.getParameter("rua"));
+
+        try {
+            GenericDAO dao = new PessoaDAOImpl();
+            GenericDAO dao1 = new EnderecoDAOImpl();
+
+            oPessoa.setIdPessoa(Integer.parseInt(request.getParameter("idpessoa")));
+            if (dao.alterar(oPessoa)) {
+
+                request.setAttribute("tipomensagem", "Sucesso");
+                request.setAttribute("mensagem", "Pessoa alterada com sucesso!");
+                request.getRequestDispatcher("").forward(request, response);
+            }
+            
+            oEndereco.setIdEndereco(Integer.parseInt(request.getParameter("idendereco")));
+            if(dao1.alterar(oEndereco)){
+                request.setAttribute("tipomensagem", "Sucesso");
+                request.setAttribute("mensagem", "Endereco alterada com sucesso!");
+                request.getRequestDispatcher("").forward(request, response);
+            }
+        } catch (Exception ex) {
+            System.out.println("Erro ao AlterarPessoa Erro:" + ex.getMessage());
             ex.printStackTrace();
         }
+        request.getRequestDispatcher("ListarPessoa").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

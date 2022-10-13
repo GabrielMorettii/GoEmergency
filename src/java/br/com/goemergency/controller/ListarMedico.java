@@ -35,13 +35,17 @@ public class ListarMedico extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String especialidade = request.getParameter("espeacialidade");
         try{
             
             GenericDAO daoEndereco = new EnderecoDAOImpl();
             request.setAttribute("listadeenderecos", daoEndereco.listar());
-            
+            if(!especialidade.equals("") && !especialidade.equals(null)){
+            MedicoDAOImpl daoMedico = new MedicoDAOImpl();
+            request.setAttribute("especialidade", daoMedico.listar(especialidade));
+            }
             GenericDAO daoMedico = new MedicoDAOImpl();
-            request.setAttribute("listademedico", daoMedico.listar());
+            request.setAttribute("listademedicos", daoMedico.listar());
             
             request.getRequestDispatcher("Medico/gerenciarmedico.jsp")
                     .forward(request, response);            
