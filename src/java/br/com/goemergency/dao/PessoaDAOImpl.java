@@ -5,6 +5,7 @@
  */
 package br.com.goemergency.dao;
 
+import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.ConnectionFactory;
 import jakarta.mail.Message;
@@ -44,6 +45,9 @@ public class PessoaDAOImpl implements GenericDAO {
             conn = ConnectionFactory.conectar();
             System.out.println("Conectado com sucesso");
         } catch (Exception ex) {
+            System.out.println("Erro ao Conectar no Banco. Erro:"
+                    + ex.getMessage());
+            ex.printStackTrace();
             throw new Exception(ex.getMessage());
         }
     }
@@ -100,9 +104,9 @@ public class PessoaDAOImpl implements GenericDAO {
         List<Object> resultado = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT p*, e.*"
+        String sql = "SELECT p.*, e.*"
                 + " from pessoa p, Endereco e"
-                + " where p.idEndereco = e.idEndereco"
+                + " where p.idEndereco = e.idEndereco and p.inactivatedat is null"
                 + " order by p.nome;";
         try {
             stmt = conn.prepareStatement(sql);
@@ -115,11 +119,12 @@ public class PessoaDAOImpl implements GenericDAO {
                 oPessoa.setCpf(rs.getString("cpf"));
                 oPessoa.setDatanascimento(rs.getDate("datanascimento"));
                 oPessoa.setEmail(rs.getString("Email"));
-                oPessoa.setSenha(rs.getString("senha"));
-//                oPessoa.setEndereco(new Endereco(rs.getString("rua")));
+
+                oPessoa.setIdEndereco(rs.getInt("idendereco"));
                 oPessoa.setIsPaciente(rs.getBoolean("isPaciente"));
                 oPessoa.setIsMedico(rs.getBoolean("isMedico"));
                 oPessoa.setIsAdmin(rs.getBoolean("isAdmin"));
+                
                 resultado.add(oPessoa);
             }
         } catch (SQLException ex) {
@@ -142,13 +147,12 @@ public class PessoaDAOImpl implements GenericDAO {
         PreparedStatement stmt = null;
         Pessoa oPessoa = new Pessoa();
 
-        String sql = "Update pessoa set inactivatedat = current_timestamp, updatedat = current_timestamp where idPessoa=?";
+        String sql = "Update pessoa set inactivatedat = current_timestamp, "
+                + "updatedat = current_timestamp where idPessoa=?";
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setDate(1, new java.sql.Date(oPessoa.getInactivatedAt().getTime()));
-            stmt.setDate(2, new java.sql.Date(oPessoa.getUpdatedat().getTime()));
-            stmt.setInt(3, oPessoa.getIdPessoa());
+            stmt.setInt(1, idObject);
             stmt.executeUpdate();
         } catch (Exception ex) {
             System.out.println("Erro ao Exluir PessoaDAOImpl \n Erro: " + ex.getMessage());
@@ -162,8 +166,45 @@ public class PessoaDAOImpl implements GenericDAO {
             }
         }
     }
-    
-    public Pessoa carregar(String email){
+
+    @Override
+    public Object carregar(int idObject) {
+        Pessoa oPessoa = new Pessoa();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "select * from pessoa where idpessoa = ?;";
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idObject);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                oPessoa.setIdPessoa(rs.getInt("idpessoa"));
+                oPessoa.setNome(rs.getString("nome"));
+                oPessoa.setCpf(rs.getString("cpf"));
+                oPessoa.setDatanascimento(rs.getDate("datanascimento"));
+                oPessoa.setEmail(rs.getString("Email"));
+                oPessoa.setTelefone(rs.getString("telefone"));
+                oPessoa.setIdEndereco(rs.getInt("idendereco"));
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao Carregar Medico \n Erro: " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                ConnectionFactory.fechar(conn, stmt, null);
+            } catch (Exception ex) {
+                System.out.println("Erro ao Fechar Conexão Erro:" + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+
+        return oPessoa;
+    }
+
+    public Pessoa carregar(String email) {
         PreparedStatement stmt = null;
         Pessoa oPessoa = new Pessoa();
         ResultSet rs = null;
@@ -181,8 +222,8 @@ public class PessoaDAOImpl implements GenericDAO {
                 oPessoa.setCpf(rs.getString("cpf"));
                 oPessoa.setDatanascimento(rs.getDate("datanascimento"));
                 oPessoa.setEmail(rs.getString("email"));
-                oPessoa.setSenha(rs.getString("senha"));      
-                oPessoa.setTelefone(rs.getString("telefone")); 
+                //  oPessoa.setSenha(rs.getString("senha"));      
+                oPessoa.setTelefone(rs.getString("telefone"));
                 oPessoa.setIdEndereco(rs.getInt("idendereco"));
                 oPessoa.setCode(rs.getString("code"));
             }
@@ -194,7 +235,6 @@ public class PessoaDAOImpl implements GenericDAO {
         return oPessoa;
     }
 
-
     @Override
     public Boolean alterar(Object object) {
         PreparedStatement stmt = null;
@@ -205,12 +245,9 @@ public class PessoaDAOImpl implements GenericDAO {
                 + "cpf = ?, "
                 + "datanascimento = ?, "
                 + "email = ?, "
-                + "senha = ?, "
                 + "telefone = ?, "
-                + "idendereco = ?, "
-                + "code = ?, "
                 + "updatedAt = current_timestamp "
-                + " WHERE idpessoa = ?";
+                + " WHERE idpessoa = ?;";
 
         try {
             stmt = conn.prepareStatement(sql);
@@ -219,15 +256,25 @@ public class PessoaDAOImpl implements GenericDAO {
             stmt.setString(2, oPessoa.getCpf());
             stmt.setDate(3, new java.sql.Date(oPessoa.getDatanascimento().getTime()));
             stmt.setString(4, oPessoa.getEmail());
-            stmt.setString(5, oPessoa.getSenha());
-            stmt.setString(6, oPessoa.getTelefone());
-            stmt.setInt(7, oPessoa.getIdEndereco());
-            stmt.setString(8, oPessoa.getCode());
-            stmt.setInt(9, oPessoa.getIdPessoa());
+            stmt.setString(5, oPessoa.getTelefone());
+            stmt.setDate(6, new java.sql.Date(oPessoa.getUpdatedat().getTime()));
+            stmt.setInt(7, oPessoa.getIdPessoa());
 
-            stmt.executeUpdate();
+            try {
+                if (new PessoaDAOImpl().alterar(oPessoa)) {
+                    stmt.executeUpdate();
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception ex) {
+                System.out.println("Erro ao alterar PessoaDAOImpl. Erro:"
+                        + ex.getMessage());
+                ex.printStackTrace();
 
-            return true;
+                return false;
+            }
+
         } catch (Exception ex) {
             System.out.println("Erro ao alterar PessoaDAOImpl. Erro:"
                     + ex.getMessage());
@@ -287,13 +334,13 @@ public class PessoaDAOImpl implements GenericDAO {
     public boolean enviarEmail(Pessoa pessoa) throws SQLException, MessagingException {
         try {
             String from = "vp259407@gmail.com";
-            
+
             final String username = "e6b7667169ed6d";
-            
+
             final String password = "72127b0658ffe0";
 
             String host = "smtp.mailtrap.io";
-            
+
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
@@ -470,7 +517,7 @@ public class PessoaDAOImpl implements GenericDAO {
             System.out.println("Erro ao Encontrar Email \n Erro: " + ex.getMessage());
             return false;
         }
-        
+
         return true;
     }
 
@@ -598,10 +645,5 @@ public class PessoaDAOImpl implements GenericDAO {
     public static String imprimeCPF(String CPF) {
         return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
-    }
-
-    @Override
-    public Object carregar(int idObject) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

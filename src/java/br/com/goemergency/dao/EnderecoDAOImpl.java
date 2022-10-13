@@ -10,6 +10,7 @@
 package br.com.goemergency.dao;
 
 import br.com.goemergency.model.Endereco;
+import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,9 +79,7 @@ public class EnderecoDAOImpl implements GenericDAO {
         List<Object> resultado = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT idEndereco, rua, numero, bairro, cep, nomecidade, nomeEstado"
-                + " from estado, Endereco, cidade "
-                + " where cidade.idestado = estado.idestado and Endereco.idcidade = cidade.idcidade ";
+        String sql = "select * from endereco where inactivatedat is null;";
         try {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -92,9 +91,9 @@ public class EnderecoDAOImpl implements GenericDAO {
                 oEndereco.setNumero(rs.getInt("numero"));
                 oEndereco.setBairro(rs.getString("bairro"));
                 oEndereco.setCep(rs.getString("cep"));
-                //Adicionar construtor com os atributos especificos na classe Cidade
-//                oEndereco.setCidade(new Cidade(rs.getString("nomeCidade")));
-//                oEndereco.setEstado(new Estado(rs.getString("nomeEstado")));
+                oEndereco.setCidade(rs.getString("cidade"));
+                oEndereco.setEstado(rs.getString("estado"));
+                
                 resultado.add(oEndereco);
             }
         } catch (SQLException ex) {
@@ -116,7 +115,8 @@ public class EnderecoDAOImpl implements GenericDAO {
     public void excluir(int idObject) {
         PreparedStatement stmt = null;
         Endereco oEndereco = null;
-        String sql = "update FROM Endereco set inactivatedAt = current_timestamp, updatedat = current_timestamp WHERE idEndereco=?";
+        String sql = "update FROM Endereco set inactivatedAt = current_timestamp, "
+                + "updatedat = current_timestamp WHERE idEndereco=?";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setDate(1,  new java.sql.Date (oEndereco.getInactivatedAt().getTime()));
@@ -142,11 +142,7 @@ public class EnderecoDAOImpl implements GenericDAO {
         ResultSet rs = null;
         Endereco oEndereco = null;
 
-        String sql = " SELECT idEndereco, rua, bairro, cep, numero, nomecidade,cidade.idcidade, nomestado,"
-                + " estado.idestado"
-                + " FROM cidade, Endereco, estado"
-                + " WHERE Endereco.idcidade = cidade.idcidade and cidade.idestado = estado.idestado"
-                + " AND Endereco.idEndereco = ?";
+        String sql = "select * from endereco where idEndereco = ? and inactivatdat is null";
 
         try {
             stmt = conn.prepareStatement(sql);
@@ -157,17 +153,12 @@ public class EnderecoDAOImpl implements GenericDAO {
                 oEndereco = new Endereco();
                 oEndereco.setIdEndereco(rs.getInt("idEndereco"));
                 oEndereco.setRua(rs.getString("rua"));
+                oEndereco.setNumero(rs.getInt("numero"));
                 oEndereco.setBairro(rs.getString("bairro"));
                 oEndereco.setCep(rs.getString("cep"));
-                oEndereco.setNumero(rs.getInt("numero"));
-//                //Adicionar construtor com os atributos especificos na classe Cidade
-////                Cidade oCidade = new Cidade(rs.getInt("idCidade"),
-////                        rs.getString("nomeCidade"));
-////                oEndereco.setCidade(oCidade);
-////                Estado oEstado = new Estado(rs.getInt("idEstado"),
-//                        rs.getString("siglaestado"),
-//                        rs.getString("nomeEstado"));
-//                oEndereco.setEstado(oEstado);
+                oEndereco.setCidade(rs.getString("cidade"));
+                oEndereco.setEstado(rs.getString("estado"));
+                
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao Carregar EnderecoDAOImpl"
@@ -187,23 +178,33 @@ public class EnderecoDAOImpl implements GenericDAO {
     @Override
     public Boolean alterar(Object object) {
         Endereco oEndereco = (Endereco) object;
+        Pessoa oPessoa = (Pessoa) object;
         PreparedStatement stmt = null;
-        String sql = "UPDATE Endereco SET"
-                + " rua = ?, bairro = ?, cep = ?, numero = ?,"
-                + " idcidade = ?, idestado = ?, updatedat = current_timestamp"
-                + " WHERE idEndereco = ?;";
+        String sql = " UPDATE e SET "
+                + "cep = ?, "
+                + "rua = ?, "
+                + "bairro = ?, "
+                + "cidade = ?, "
+                + "estado = ?, "
+                + "numero = ?, "
+                + "updatedAt = current_timestamp "
+                + "FROM dbo.Endereco e "
+                + "INNER JOIN dbo.Pessoa p "
+                + "ON p.idendereco = e.idendereco"
+                + "WHERE idpessoa = ?;";
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, oEndereco.getRua());
-            stmt.setString(2, oEndereco.getBairro());
-            stmt.setString(3, oEndereco.getCep());
-            stmt.setInt(4, oEndereco.getNumero());
-            //parametro chave
-//            stmt.setInt(5, oEndereco.getCidade().getIdCidade());
-//            stmt.setInt(6, oEndereco.getEstado().getIdEstado());
-            stmt.setDate(7,  new java.sql.Date (oEndereco.getUpdatedat().getTime()));
-            stmt.setInt(8, oEndereco.getIdEndereco());
-            stmt.execute();
+            stmt.setString(1, oEndereco.getCep());
+            stmt.setString(2, oEndereco.getRua());
+            stmt.setString(3, oEndereco.getBairro());
+            stmt.setString(4, oEndereco.getCidade());
+            stmt.setString(5, oEndereco.getEstado()); 
+            stmt.setInt(6, oEndereco.getNumero());
+            stmt.setDate(7, new java.sql.Date(oEndereco.getUpdatedat().getTime()));
+            stmt.setInt(8, oPessoa.getIdPessoa());
+            
+            stmt.executeUpdate();
+            
             return true;
             //Dicaaaaaa copiar do catch para baixo
         } catch (Exception ex) {

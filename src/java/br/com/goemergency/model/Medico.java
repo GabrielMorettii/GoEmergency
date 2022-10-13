@@ -15,6 +15,7 @@ public class Medico extends Pessoa{
     private Integer idMedico;
     private String crm;
     private String ufcrm;
+    private String especialidade;
     private Pessoa pessoa;
     private Date inactivatedAt;
     private Date createdAt;
@@ -23,21 +24,22 @@ public class Medico extends Pessoa{
     public Medico() {
     }
 
-    public Medico(Integer idMedico, String crm, String ufcrm, Pessoa pessoa, Date inactivatedAt, Date createdAt, Date updatedat) {
+    public Medico(Integer idMedico, String crm, String ufcrm, String especialidade, Pessoa pessoa, Date inactivatedAt, Date createdAt, Date updatedat) {
         this.idMedico = idMedico;
         this.crm = crm;
         this.ufcrm = ufcrm;
+        this.especialidade = especialidade;
         this.pessoa = pessoa;
         this.inactivatedAt = inactivatedAt;
         this.createdAt = createdAt;
         this.updatedat = updatedat;
     }
 
-    public Medico(Integer idPessoa, String cpf, String nome, Date datanascimento, String email, String senha, Integer idEndereco, String Telefone, Boolean isMedico, Boolean isAdmin, Date inactivatedAt, Date createdAt, Date updatedat) {
+    public Medico(Integer idPessoa, String cpf, String nome, Date datanascimento, String email, String senha, Integer idEndereco, String Telefone, 
+            Boolean isMedico, Boolean isAdmin, Date inactivatedAt, Date createdAt, Date updatedat) {
         super(idPessoa, cpf, nome, datanascimento, email, senha, idEndereco, Telefone, isMedico, isAdmin, inactivatedAt, createdAt, updatedat);
     }
 
-    
     public Integer getIdMedico() {
         return idMedico;
     }
@@ -60,6 +62,14 @@ public class Medico extends Pessoa{
 
     public void setUfcrm(String ufcrm) {
         this.ufcrm = ufcrm;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
     }
 
     public Pessoa getPessoa() {
@@ -99,5 +109,29 @@ public class Medico extends Pessoa{
     public void setUpdatedat(Date updatedat) {
         this.updatedat = updatedat;
     }
-   
+
+    public Boolean getIsPaciente() {
+        return isPaciente;
+    }
+
+    public void setIsPaciente(Boolean isPaciente) {
+        this.isPaciente = isPaciente;
+    }
+
+    public Boolean getIsMedico() {
+        return isMedico;
+    }
+
+    public void setIsMedico(Boolean isMedico) {
+        this.isMedico = isMedico;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
 }
