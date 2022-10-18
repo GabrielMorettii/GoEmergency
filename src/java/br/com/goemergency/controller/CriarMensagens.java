@@ -4,21 +4,23 @@
  */
 package br.com.goemergency.controller;
 
-import br.com.goemergency.dao.ChatDAOImpl;
-import br.com.goemergency.model.Chat;
+import br.com.goemergency.dao.MensagensDAOImpl;
+import br.com.goemergency.model.Mensagens;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 
 /**
  *
- * @author windows
+ * @author Aluno
  */
-@WebServlet(name = "CriarChat", urlPatterns = {"/CriarChat"})
-public class CriarChat extends HttpServlet {
+@WebServlet(name = "CriarMensagens", urlPatterns = {"/CriarMensagens"})
+public class CriarMensagens extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,38 +34,22 @@ public class CriarChat extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Chat oChat = new Chat();
-
-        oChat.setIdmedico(Integer.parseInt(request.getParameter("idmedico")));
-        oChat.setIdpaciente(Integer.parseInt(request.getParameter("idpaciente")));
-
+        Mensagens oMensagens = new Mensagens();
+        
+        oMensagens.setIdChat(Integer.parseInt(request.getParameter("idchat")));
+        oMensagens.setConteudo(request.getParameter("conteudo"));
+        oMensagens.setIsadministrative(Boolean.TRUE);
+        
         String mensagem = "";
-        try {
-            ChatDAOImpl chatDAO = new ChatDAOImpl();
-
-            if (chatDAO.isValidChat(oChat) != null) {
-                request.setAttribute("idchat", oChat.getIdchat());
-            } else {
-                if (chatDAO.cadastrar(oChat) != null) {
-                    request.setAttribute("idchat", oChat.getIdchat());
-                } else {
-                    mensagem = "Erro ao cadastrar chat";
-                    request.setAttribute("tipomensagem", "Erro");
-                    request.setAttribute("mensagem", mensagem);
-                    return;
-                }
+        try{
+            MensagensDAOImpl mensagensDAO = new MensagensDAOImpl();
+            if(mensagensDAO.cadastrar(oMensagens) != null){
+                request.setAttribute("idmensagens", oMensagens.getIdmensagem());
             }
-            request.getRequestDispatcher("ListarMensagens").forward(request, response);
-            return;
-
-        } catch (Exception ex) {
-            System.out.println("Erro no Servlet CriarChat Erro:" + ex.getMessage());
+        }catch(Exception ex) {
+            System.out.println("Erro no Servlet CriarMensagens Erro:" + ex.getMessage());
             mensagem = "Erro Interno, entre em contato com o Suporte!";
         }
-
-        request.setAttribute("tipomensagem", "Erro");
-        request.setAttribute("mensagem", mensagem);
-        request.getRequestDispatcher("").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

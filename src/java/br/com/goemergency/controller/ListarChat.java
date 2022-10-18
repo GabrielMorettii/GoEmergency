@@ -5,6 +5,7 @@
 package br.com.goemergency.controller;
 
 import br.com.goemergency.dao.ChatDAOImpl;
+import br.com.goemergency.model.Chat;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -31,11 +32,15 @@ public class ListarChat extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        Chat oChat = new Chat();
 
+        oChat.setIdmedico(Integer.parseInt(request.getParameter("idmedico")));
+        
         try {
 
             ChatDAOImpl chatDAO = new ChatDAOImpl();
-            request.setAttribute("listadechat", chatDAO.listar());
+            request.setAttribute("listadechat", chatDAO.listar(oChat));
 
             request.getRequestDispatcher("")
                     .forward(request, response);
