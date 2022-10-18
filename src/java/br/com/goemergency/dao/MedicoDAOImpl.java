@@ -5,7 +5,6 @@
  */
 package br.com.goemergency.dao;
 
-import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Medico;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.ConnectionFactory;
@@ -48,7 +47,7 @@ public class MedicoDAOImpl implements GenericDAO {
             stmt.setString(2, oMedico.getUfcrm());
             stmt.setString(3, oMedico.getEspecialidade());
             try{
-                stmt.setInt(3, new PessoaDAOImpl().cadastrar(oMedico));
+                stmt.setInt(4, new PessoaDAOImpl().cadastrar(oMedico));
             }catch(Exception ex){
                 System.out.println("Erro ao cadastrar pessoa (Medico)");
             }
@@ -268,7 +267,7 @@ public class MedicoDAOImpl implements GenericDAO {
                 
                 return false;
             }
-        }catch(Exception ex){
+        }catch(SQLException ex){
             System.out.println("Erro ao salvar Pessoa(Medico). Erro:"
                     + ex.getMessage());
             ex.printStackTrace();

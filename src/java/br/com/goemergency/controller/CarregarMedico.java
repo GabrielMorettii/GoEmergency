@@ -8,7 +8,6 @@ package br.com.goemergency.controller;
 import br.com.goemergency.dao.MedicoDAOImpl;
 import br.com.goemergency.dao.GenericDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,11 +32,11 @@ public class CarregarMedico extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idPessoa = Integer.parseInt(request.getParameter("idMedicocarregar"));
+        int idMedico = Integer.parseInt(request.getParameter("idMedicocarregar"));
         
         try{
             GenericDAO dao = new MedicoDAOImpl();//Add Import
-            request.setAttribute("oMedico", dao.carregar(idPessoa));
+            request.setAttribute("oMedico", dao.carregar(idMedico));
             request.getRequestDispatcher("ListarMedico").forward(request, response);
         }catch(Exception ex){
             System.out.println("Erro no Servlet CarregarMedico");
