@@ -40,19 +40,24 @@ public class CriarChat extends HttpServlet {
         String mensagem = "";
         try {
             ChatDAOImpl chatDAO = new ChatDAOImpl();
+            
+            Integer idchat = chatDAO.isValidChat(oChat);
 
-            if (chatDAO.isValidChat(oChat) != null) {
-                request.setAttribute("idchat", oChat.getIdchat());
+            if (idchat != null) {
+                request.setAttribute("idchat", idchat);
             } else {
-                if (chatDAO.cadastrar(oChat) != null) {
-                    request.setAttribute("idchat", oChat.getIdchat());
+                idchat = chatDAO.cadastrar(oChat);
+                
+                if (idchat != null) {
+                    request.setAttribute("idchat", idchat);
                 } else {
-                    mensagem = "Erro ao cadastrar chat";
+                    mensagem = "Erro ao Cadastrar Chat";
                     request.setAttribute("tipomensagem", "Erro");
                     request.setAttribute("mensagem", mensagem);
                     return;
                 }
             }
+            
             request.getRequestDispatcher("ListarMensagens").forward(request, response);
             return;
 

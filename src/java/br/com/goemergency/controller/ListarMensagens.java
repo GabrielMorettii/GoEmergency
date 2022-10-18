@@ -6,6 +6,7 @@ package br.com.goemergency.controller;
 
 import br.com.goemergency.dao.MensagensDAOImpl;
 import br.com.goemergency.model.Chat;
+import br.com.goemergency.model.Mensagens;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,19 +34,21 @@ public class ListarMensagens extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Chat oChat = new Chat();
-
-        oChat.setIdchat(Integer.parseInt((String)request.getAttribute("idchat")));
+        
+        Mensagens oMessage = new Mensagens();
+        
+        oMessage.setIdChat((Integer) request.getAttribute("idchat"));
         
         try {
 
             MensagensDAOImpl mensagensDAO = new MensagensDAOImpl();
-            request.setAttribute("listademensagens", mensagensDAO.listar(oChat));
+            
+            request.setAttribute("listademensagens", mensagensDAO.listar(oMessage));
 
             request.getRequestDispatcher("")
                     .forward(request, response);
         } catch (Exception ex) {
-            System.out.println("Erro ao ListarChat");
+            System.out.println("Erro ao ListarMensagens");
             ex.printStackTrace();
         }
     }

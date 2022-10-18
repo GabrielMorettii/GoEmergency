@@ -6,11 +6,13 @@ package br.com.goemergency.controller;
 
 import br.com.goemergency.dao.MensagensDAOImpl;
 import br.com.goemergency.model.Mensagens;
+import br.com.goemergency.model.Pessoa;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -34,15 +36,27 @@ public class CriarMensagens extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         Mensagens oMensagens = new Mensagens();
+        
+        HttpSession session = request.getSession();
+        
+        Pessoa oPessoa = (Pessoa) session.getAttribute("oPessoa");
         
         oMensagens.setIdChat(Integer.parseInt(request.getParameter("idchat")));
         oMensagens.setConteudo(request.getParameter("conteudo"));
-        oMensagens.setIsadministrative(Boolean.TRUE);
+        
+        if(oPessoa != null && oPessoa.isIsMedico() == true){
+             oMensagens.setIsadministrative(true);
+        } else {
+            oMensagens.setIsadministrative(false);
+        }
         
         String mensagem = "";
+        
         try{
             MensagensDAOImpl mensagensDAO = new MensagensDAOImpl();
+            
             if(mensagensDAO.cadastrar(oMensagens) != null){
                 request.setAttribute("idmensagens", oMensagens.getIdmensagem());
             }

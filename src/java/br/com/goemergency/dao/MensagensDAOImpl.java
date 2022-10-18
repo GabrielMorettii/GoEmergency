@@ -7,9 +7,12 @@ package br.com.goemergency.dao;
 import br.com.goemergency.model.Mensagens;
 import br.com.goemergency.util.ConnectionFactory;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +39,7 @@ public class MensagensDAOImpl {
         Integer idMensagens = null;
         Mensagens oMensagens = (Mensagens) object;
 
-        String sql = "Insert into mensagens (idMensagens, conteudo, isadministrative, createdat) values(?, ?, ?, current_timestamp) "
+        String sql = "Insert into mensagens (idchat, conteudo, isadministrative) values(?, ?, ?) "
                 + "returning (idmensagem);";
 
         try {
@@ -44,6 +47,7 @@ public class MensagensDAOImpl {
             stmt.setInt(1, oMensagens.getIdChat());
             stmt.setString(2, oMensagens.getConteudo());
             stmt.setBoolean(3, oMensagens.getIsadministrative());
+            
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -69,6 +73,7 @@ public class MensagensDAOImpl {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Mensagens oMensagens = (Mensagens) object;
+        
         String sql = "select conteudo, isadministrative, createdat from "
                 + "mensagens where idchat = ? "
                 + "order by createdat asc;";
@@ -79,7 +84,7 @@ public class MensagensDAOImpl {
 
             while (rs.next()) {
                 oMensagens.setConteudo(rs.getString("conteudo"));
-                oMensagens.setIsadministrative(Boolean.TRUE);
+                oMensagens.setIsadministrative(rs.getBoolean("isadministrative"));
                 oMensagens.setCreatedat(rs.getDate("createdat"));
 
                 resultado.add(oMensagens);

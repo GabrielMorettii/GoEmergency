@@ -45,7 +45,7 @@ public class ChatDAOImpl {
             stmt.setInt(2, oChat.getIdpaciente());
             rs = stmt.executeQuery();
             if (rs.next()) {
-                oChat.setIdchat(oChat.getIdchat());
+                idChat = rs.getInt("idchat");
             } else {
                 return null;
             }

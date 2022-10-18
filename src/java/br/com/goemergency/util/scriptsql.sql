@@ -536,7 +536,7 @@ create table mensagens (
 	idchat integer not null,
 	conteudo varchar (8000) not null,
 	isAdministrative Boolean not NULL,
-	createdAt date DEFAULT CURRENT_TIMESTAMP,
+        createdAt TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
 	CONSTRAINT fk_idchat FOREIGN KEY (idchat)
         REFERENCES public.chat (idchat)
 )
