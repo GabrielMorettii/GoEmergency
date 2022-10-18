@@ -12,17 +12,12 @@ import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.Conversoes;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-@MultipartConfig(maxFileSize = 120000000)
 @WebServlet(name = "SalvarPessoa", urlPatterns = {"/SalvarPessoa"})
 public class SalvarPessoa extends HttpServlet {
 
@@ -54,16 +49,6 @@ public class SalvarPessoa extends HttpServlet {
         oEndereco.setCidade(request.getParameter("cidade"));
         oEndereco.setNumero(Integer.parseInt(request.getParameter("numero")));
         oEndereco.setRua(request.getParameter("rua"));
-
-        Part avatar = request.getPart("avatar");
-
-        FileInputStream inputStream = null;
-
-        if(avatar != null){
-            inputStream = (FileInputStream) avatar.getInputStream();
-
-            oPessoa.setAvatar(inputStream);
-        }
 
         String mensagem = "";
         

@@ -112,10 +112,10 @@ public class FilterAutenticacaoLogin implements Filter {
            chain.doFilter(request, response); 
            return;
         } else if (oPessoa.isIsAdmin()) {
-            request.getRequestDispatcher("/public/views/administrador/crudpessoas.jsp").forward(request, response);
+            request.getRequestDispatcher("/ListarPessoa").forward(request, response);
             return;
         } else if (oPessoa.isIsPaciente()) {
-            request.getRequestDispatcher("/public/views/termodeadesao.jsp").forward(request, response);
+            request.getRequestDispatcher("/public/views/principal/paciente/categories.jsp").forward(request, response);
              return;
         }  else if (oPessoa.isIsMedico()) {
             request.getRequestDispatcher("/public/views/esqueceusenha.jsp").forward(request, response);

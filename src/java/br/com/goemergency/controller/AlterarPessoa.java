@@ -60,19 +60,15 @@ public class AlterarPessoa extends HttpServlet {
             GenericDAO dao1 = new EnderecoDAOImpl();
 
             oPessoa.setIdPessoa(Integer.parseInt(request.getParameter("idpessoa")));
-            if (dao.alterar(oPessoa)) {
-
+            oEndereco.setIdEndereco(Integer.parseInt(request.getParameter("idendereco")));
+            
+            if (dao.alterar(oPessoa) && dao1.alterar(oEndereco)) {
                 request.setAttribute("tipomensagem", "Sucesso");
                 request.setAttribute("mensagem", "Pessoa alterada com sucesso!");
-                request.getRequestDispatcher("").forward(request, response);
+                request.getRequestDispatcher("/ListarPessoa").forward(request, response);
+                return;
             }
             
-            oEndereco.setIdEndereco(Integer.parseInt(request.getParameter("idendereco")));
-            if(dao1.alterar(oEndereco)){
-                request.setAttribute("tipomensagem", "Sucesso");
-                request.setAttribute("mensagem", "Endereco alterada com sucesso!");
-                request.getRequestDispatcher("").forward(request, response);
-            }
         } catch (Exception ex) {
             System.out.println("Erro ao AlterarPessoa Erro:" + ex.getMessage());
             ex.printStackTrace();

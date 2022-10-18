@@ -53,8 +53,21 @@
                             <input type="tel" id="telefone" name="telefone" placeholder="(17) 99532-4221" maxlength="15" required>
                         </div>
                         <div class="personalinformationinput">
-                            <label for="senha">Senha</label>
-                            <input type="password" id="senha" name="senha" placeholder="Digite seu Senha" required>
+                            <label for="especialidade">Especialidade</label>
+                            <select id="especialidade" name="especialidade" required>
+                                <option value="Cardiologista">Cardiologista</option>
+                                <option value="Endocrinologista">Endocrinologista</option>
+                                <option value="Clínico Geral">Clínico Geral</option>
+                                <option value="Esdoscopista">Esdoscopista</option>
+                                <option value="Gastroenterologista">Gastroenterologista</option>
+                                <option value="Nutricionista">Nutricionista</option>
+                                <option value="Neurologista">Neurologista</option>
+                                <option value="Ortopedista">Ortopedista</option>
+                                <option value="Otorrinolaringologista">Otorrinolaringologista</option>
+                                <option value="Pneumologista">Pneumologista</option>
+                                <option value="Proctologia">Proctologia</option>
+                                <option value="Radiologista">Radiologista</option>
+                            </select>
                         </div>
                         <div class="personalinformationinput">
                             <label for="UFCRM">UF CRM</label>
@@ -64,6 +77,10 @@
                         <div class="personalinformationinput">
                             <label for="CRM">CRM</label>
                             <input type="text" id="CRM" name="crm" placeholder="CRM" maxlength="11" required>
+                        </div>
+                         <div class="personalinformationinput">
+                            <label for="senha">Senha</label>
+                            <input type="password" id="senha" name="senha" placeholder="Digite seu Senha" required>
                         </div>
                     </div>
 

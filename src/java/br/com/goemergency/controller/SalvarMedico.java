@@ -19,10 +19,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-/**
- *
- * @author VINICIUSP-PC
- */
 @WebServlet(name = "SalvarMedico", urlPatterns = {"/SalvarMedico"})
 public class SalvarMedico extends HttpServlet {
 
@@ -47,6 +43,7 @@ public class SalvarMedico extends HttpServlet {
         oMedico.setCpf(request.getParameter("cpf"));
         oMedico.setDatanascimento(Conversoes.ConverterData(request.getParameter("nascimento")));
         oMedico.setTelefone(request.getParameter("telefone"));
+        oMedico.setEspecialidade(request.getParameter("especialidade"));
         oMedico.setSenha(Criptografar.encriptografar(request.getParameter("senha")));
         oMedico.setCrm(request.getParameter("crm"));
         oMedico.setUfcrm(request.getParameter("ufcrm"));
@@ -58,7 +55,6 @@ public class SalvarMedico extends HttpServlet {
         oEndereco.setCidade(request.getParameter("cidade"));
         oEndereco.setNumero(Integer.parseInt(request.getParameter("numero")));
         oEndereco.setRua(request.getParameter("rua"));
-        
    
         String mensagem = "";
         try{
@@ -77,6 +73,7 @@ public class SalvarMedico extends HttpServlet {
                request.setAttribute("tipomensagem", "Sucesso");
                request.setAttribute("mensagem", "Médico cadastrado com Sucesso!");
                request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+               return;
                
             }else{
                mensagem="Falha ao cadastrar Medico";

@@ -7,32 +7,22 @@ package br.com.goemergency.model;
 
 import java.util.Date;
 
-/**
- *
- * @author Tassia
- */
 public class Medico extends Pessoa{
     private Integer idMedico;
     private String crm;
     private String ufcrm;
     private String especialidade;
     private Pessoa pessoa;
-    private Date inactivatedAt;
-    private Date createdAt;
-    private Date updatedat;
 
     public Medico() {
     }
 
-    public Medico(Integer idMedico, String crm, String ufcrm, String especialidade, Pessoa pessoa, Date inactivatedAt, Date createdAt, Date updatedat) {
+    public Medico(Integer idMedico, String crm, String ufcrm, String especialidade, Pessoa pessoa) {
         this.idMedico = idMedico;
         this.crm = crm;
         this.ufcrm = ufcrm;
         this.especialidade = especialidade;
         this.pessoa = pessoa;
-        this.inactivatedAt = inactivatedAt;
-        this.createdAt = createdAt;
-        this.updatedat = updatedat;
     }
 
     public Medico(Integer idPessoa, String cpf, String nome, Date datanascimento, String email, String senha, Integer idEndereco, String Telefone, 
@@ -78,36 +68,6 @@ public class Medico extends Pessoa{
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-    }
-
-    @Override
-    public Date getInactivatedAt() {
-        return inactivatedAt;
-    }
-
-    @Override
-    public void setInactivatedAt(Date inactivatedAt) {
-        this.inactivatedAt = inactivatedAt;
-    }
-
-    @Override
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    @Override
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    @Override
-    public Date getUpdatedat() {
-        return updatedat;
-    }
-
-    @Override
-    public void setUpdatedat(Date updatedat) {
-        this.updatedat = updatedat;
     }
 
     public Boolean getIsPaciente() {

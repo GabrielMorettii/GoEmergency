@@ -142,7 +142,7 @@ public class EnderecoDAOImpl implements GenericDAO {
         ResultSet rs = null;
         Endereco oEndereco = null;
 
-        String sql = "select * from endereco where idEndereco = ? and inactivatdat is null";
+        String sql = "select * from endereco where idEndereco = ? and inactivatedat is null";
 
         try {
             stmt = conn.prepareStatement(sql);
@@ -178,9 +178,8 @@ public class EnderecoDAOImpl implements GenericDAO {
     @Override
     public Boolean alterar(Object object) {
         Endereco oEndereco = (Endereco) object;
-        Pessoa oPessoa = (Pessoa) object;
         PreparedStatement stmt = null;
-        String sql = " UPDATE e SET "
+        String sql = "UPDATE endereco SET "
                 + "cep = ?, "
                 + "rua = ?, "
                 + "bairro = ?, "
@@ -188,10 +187,7 @@ public class EnderecoDAOImpl implements GenericDAO {
                 + "estado = ?, "
                 + "numero = ?, "
                 + "updatedAt = current_timestamp "
-                + "FROM dbo.Endereco e "
-                + "INNER JOIN dbo.Pessoa p "
-                + "ON p.idendereco = e.idendereco"
-                + "WHERE idpessoa = ?;";
+                + "WHERE idendereco = ?;";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, oEndereco.getCep());
@@ -200,8 +196,7 @@ public class EnderecoDAOImpl implements GenericDAO {
             stmt.setString(4, oEndereco.getCidade());
             stmt.setString(5, oEndereco.getEstado()); 
             stmt.setInt(6, oEndereco.getNumero());
-            stmt.setDate(7, new java.sql.Date(oEndereco.getUpdatedat().getTime()));
-            stmt.setInt(8, oPessoa.getIdPessoa());
+            stmt.setInt(7, oEndereco.getIdEndereco());
             
             stmt.executeUpdate();
             

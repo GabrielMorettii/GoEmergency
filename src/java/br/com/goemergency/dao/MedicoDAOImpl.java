@@ -9,6 +9,7 @@ import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Medico;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.ConnectionFactory;
+import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,7 +49,7 @@ public class MedicoDAOImpl implements GenericDAO {
             stmt.setString(2, oMedico.getUfcrm());
             stmt.setString(3, oMedico.getEspecialidade());
             try{
-                stmt.setInt(3, new PessoaDAOImpl().cadastrar(oMedico));
+                stmt.setInt(4, new PessoaDAOImpl().cadastrar(oMedico));
             }catch(Exception ex){
                 System.out.println("Erro ao cadastrar pessoa (Medico)");
             }
@@ -78,28 +79,31 @@ public class MedicoDAOImpl implements GenericDAO {
         List<Object> resultado = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT p.*, m.*, e.*"
-                + " from pessoa p, Medico m, Endereco e"
-                + " where p.idpessoa = m.idpessoa and p.idEndereco = e.idEndereco"
+        String sql = "SELECT p.*, m.idmedico, m.crm, m.ufcrm, m.especialidade"
+                + " from pessoa p, Medico m"
+                + " where p.idpessoa = m.idpessoa"
                 + " and p.inactivatedat is null"
-                + " order by p.nome;";
+                + " and p.ismedico is true order by m.idmedico;";
         try {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Medico oMedico = new Medico();
-                oMedico.setIdPessoa(rs.getInt("idpessoa"));
                 oMedico.setNome(rs.getString("nome"));
                 oMedico.setCpf(rs.getString("cpf"));
                 oMedico.setDatanascimento(rs.getDate("datanascimento"));
-                oMedico.setEmail(rs.getString("Email"));
+                oMedico.setEmail(rs.getString("email"));
+                oMedico.setTelefone(rs.getString("telefone"));
                 oMedico.setIdEndereco(rs.getInt("idendereco"));
+                oMedico.setIdPessoa(rs.getInt("idpessoa"));
                 
                 oMedico.setCrm(rs.getString("crm"));
                 oMedico.setUfcrm(rs.getString("ufcrm"));
-                oMedico.setIdMedico(rs.getInt("idMedico"));
+                oMedico.setIdMedico(rs.getInt("idmedico"));
                 oMedico.setEspecialidade(rs.getString("especialidade"));
+                oMedico.setCreatedAt(rs.getDate("createdat"));
+                oMedico.setUpdatedat(rs.getDate("updatedat"));
                 
                 resultado.add(oMedico);
             }
@@ -122,7 +126,7 @@ public class MedicoDAOImpl implements GenericDAO {
         List<Object> resultado = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT p.nome, m.especialidade"
+        String sql = "SELECT p.*, m.*"
                 + " from pessoa p, Medico m"
                 + " where p.idpessoa = m.idpessoa "
                 + "and m.especialidade = ?"
@@ -171,7 +175,7 @@ public class MedicoDAOImpl implements GenericDAO {
         Medico oMedico = new Medico();
         Pessoa oPessoa = new Pessoa();
         
-        String sql="Update pessoa set inactvatedat = current_timestamp where idpessoa=?;"
+        String sql="Update pessoa set inactivatedat = current_timestamp where idpessoa=?;"
                 +"COMMIT;"
                 + "UPDATE m SET m.inactivatedAt = p.inactivatedAt " +
                     "FROM medico m INNER JOIN pessoa p ON "
@@ -182,7 +186,7 @@ public class MedicoDAOImpl implements GenericDAO {
             stmt.setInt(2, idObject);
             stmt.executeUpdate();
         }catch (Exception ex){
-            System.out.println("Erro ao Exluir Medico \n Erro: "+ ex.getMessage());
+            System.out.println("Erro ao Excluir Medico \n Erro: "+ ex.getMessage());
             ex.printStackTrace();
         }finally {
             try{
@@ -221,7 +225,7 @@ public class MedicoDAOImpl implements GenericDAO {
                 oMedico.setCrm(rs.getString("crm"));
                 oMedico.setUfcrm(rs.getString("ufcrm"));
                 oMedico.setIdMedico(rs.getInt("idMedico"));
-
+                oMedico.setEspecialidade(rs.getString("especialidade"));
                 }
             } catch (SQLException ex) {
                 System.out.println("Erro ao Carregar Medico \n Erro: " + ex.getMessage());
@@ -244,7 +248,7 @@ public class MedicoDAOImpl implements GenericDAO {
         Medico oMedico = (Medico) object;
         
         String sql = "UPDATE Medico SET "
-                + "crm = ?, ufcrm = ?, updatedAt = current_timestamp "
+                + "crm = ?, ufcrm = ? "
                 + "WHERE idpessoa = ?;";
                 
         try{
@@ -254,20 +258,9 @@ public class MedicoDAOImpl implements GenericDAO {
             stmt.setString(2, oMedico.getUfcrm());
             stmt.setInt(3, oMedico.getIdPessoa());
             
-            try{
-               if(new PessoaDAOImpl().alterar(oMedico)){
-                   stmt.executeUpdate();
-                   return true;
-               }else{
-                   return false;
-               }
-            } catch(Exception ex){
-                System.out.println("Erro ao alterar MedicoDAOImpl. Erro:"
-                    + ex.getMessage());
-                ex.printStackTrace();
-                
-                return false;
-            }
+            stmt.executeUpdate();
+            
+            return true;
         }catch(Exception ex){
             System.out.println("Erro ao salvar Pessoa(Medico). Erro:"
                     + ex.getMessage());

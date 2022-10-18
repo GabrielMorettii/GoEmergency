@@ -32,11 +32,12 @@ public class ExcluirPessoa extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idPessoa = Integer.parseInt(request.getParameter("idPessoaexcluir"));
+        int idPessoa = Integer.parseInt(request.getParameter("idpessoaexcluir"));
+        
         try{
             GenericDAO dao = new PessoaDAOImpl();//Add importação
             dao.excluir(idPessoa);
-            request.getRequestDispatcher("ListarPessoa").forward(request, response);            
+            request.getRequestDispatcher("/ListarPessoa").forward(request, response);            
         }catch(Exception ex){
             System.out.println("Erro no Servlet ExcluirPessoa: "+ex.getMessage());
             ex.printStackTrace();

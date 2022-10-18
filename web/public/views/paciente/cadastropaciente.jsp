@@ -28,7 +28,7 @@
                 <h2>Cadastrar</h2>
                 <h6>Saiba mais informações!</h6>
                 <p id="description">Cadastra-se para poder consultar sintomas e obter ajuda.</p>
-                <form action="${pageContext.request.contextPath}/SalvarPessoa" method="POST" id="formsignup" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/SalvarPessoa" method="POST" id="formsignup">
                     <h3>Informações Pessoais</h3>
 
                     <div id="personalinformation">
@@ -47,10 +47,6 @@
                         <div class="personalinformationinput">
                             <label for="nascimento">Data de nascimento</label>
                             <input type="date" placeholder="dd-mm-yyyy" id="nascimento" name="nascimento" required> 
-                        </div>
-                        <div class="personalinformationinput">
-                            <label for="avatar">Avatar</label>
-                            <input type="file" id="avatar" name="avatar" size="50"> 
                         </div>
                         <div class="personalinformationinput">
                             <label for="telefone">Telefone</label>

@@ -39,13 +39,16 @@ public class AlterarMedico extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         Medico oMedico = new Medico();
         Pessoa oPessoa = new Pessoa();
         Endereco oEndereco = new Endereco();
         
         oMedico.setCrm(request.getParameter("crm"));
         oMedico.setUfcrm(request.getParameter("ufcrm"));
-        
+        oMedico.setEspecialidade(request.getParameter("especialidade"));
+        oMedico.setIdPessoa(Integer.parseInt(request.getParameter("idpessoa")));
+         
         oPessoa.setNome(request.getParameter("nome"));
         oPessoa.setEmail(request.getParameter("email"));
         oPessoa.setCpf(request.getParameter("cpf"));
@@ -58,38 +61,27 @@ public class AlterarMedico extends HttpServlet {
         oEndereco.setCidade(request.getParameter("cidade"));
         oEndereco.setNumero(Integer.parseInt(request.getParameter("numero")));
         oEndereco.setRua(request.getParameter("rua"));
+                
         try {
             GenericDAO dao = new MedicoDAOImpl();
             GenericDAO dao1 = new PessoaDAOImpl();
             GenericDAO dao2 = new EnderecoDAOImpl();
 
             oMedico.setIdMedico(Integer.parseInt(request.getParameter("idmedico")));
-            if (dao.alterar(oPessoa)) {
-
-                request.setAttribute("tipomensagem", "Sucesso");
-                request.setAttribute("mensagem", "Pessoa alterada com sucesso!");
-                request.getRequestDispatcher("").forward(request, response);
-            }
-            
             oPessoa.setIdPessoa(Integer.parseInt(request.getParameter("idpessoa")));
-            if (dao1.alterar(oPessoa)) {
-
+            oEndereco.setIdEndereco(Integer.parseInt(request.getParameter("idendereco")));
+            
+            if (dao.alterar(oMedico) &&  dao1.alterar(oPessoa) && dao2.alterar(oEndereco)) {
                 request.setAttribute("tipomensagem", "Sucesso");
                 request.setAttribute("mensagem", "Pessoa alterada com sucesso!");
-                request.getRequestDispatcher("").forward(request, response);
-            }
-            
-            oEndereco.setIdEndereco(Integer.parseInt(request.getParameter("idendereco")));
-            if(dao2.alterar(oEndereco)){
-                request.setAttribute("tipomensagem", "Sucesso");
-                request.setAttribute("mensagem", "Endereco alterada com sucesso!");
-                request.getRequestDispatcher("").forward(request, response);
+                request.getRequestDispatcher("/ListarMedico").forward(request, response);
+                return;
             }
         } catch (Exception ex) {
-            System.out.println("Erro ao AlterarPessoa Erro:" + ex.getMessage());
+            System.out.println("Erro ao AlterarMedico Erro:" + ex.getMessage());
             ex.printStackTrace();
         }
-        request.getRequestDispatcher("ListarPessoa").forward(request, response);
+        request.getRequestDispatcher("/ListarMedico").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

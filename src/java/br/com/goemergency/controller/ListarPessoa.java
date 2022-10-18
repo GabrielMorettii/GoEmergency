@@ -5,16 +5,16 @@
  */
 package br.com.goemergency.controller;
 
-import br.com.goemergency.dao.EnderecoDAOImpl;
 import br.com.goemergency.dao.GenericDAO;
 import br.com.goemergency.dao.PessoaDAOImpl;
+import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 /**
  *
  * @author Aluno
@@ -34,16 +34,17 @@ public class ListarPessoa extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         try{
-            
-            GenericDAO daoendereco = new EnderecoDAOImpl();
-            request.setAttribute("listadeenderecos", daoendereco.listar());
-      
-            
             GenericDAO daopessoa = new PessoaDAOImpl();
-            request.setAttribute("listadepessoa", daopessoa.listar());
             
-            request.getRequestDispatcher("cliente/gerenciarcliente.jsp")
+             List<Object> pessoas = daopessoa.listar();
+             
+             String pessoasJson = new Gson().toJson(pessoas);
+             
+            request.setAttribute("listadepessoas", pessoasJson);
+            
+            request.getRequestDispatcher("/public/views/administrador/crudpessoas.jsp")
                     .forward(request, response);            
         }catch(Exception ex){
             System.out.println("Erro ao ListarPessoa");

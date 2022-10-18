@@ -220,8 +220,13 @@ position: absolute;
 
 /* medico */
 
-.UFCRM{
+.UFCRM, #especialidade{
     height: 50px;
+}
+
+#containertable{
+    max-width: 80vw;
+    overflow-x: scroll;
 }
 
 /* */ 

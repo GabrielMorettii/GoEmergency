@@ -40,87 +40,24 @@
         <main>
             <div id="content">
                 <h2>Lista de Pessoas</h2>
-                <table>
-                    <thead>
-                         <th>Id</th>
-                         <th>Cpf</th>
-                         <th>Nome</th>
-                         <th>Nascimento</th>
-                         <th>Email</th>
-                         <th>Endereço Id</th>
-                         <th>Telefone</th>
-                         <th>Criado há</th>
-                         <th>Atualizado há</th>
-                         <th colspan="2">Gerenciar</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>Luis Ricardo Lazarini</td>
-                            <td>2000-08-26</td>
-                            <td>luisricardosantoslazarini@gmail.com</td>
-                             <td>2</td>
-                            <td>17993457654</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton" onclick="Editar(this)"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>Luis Ricardo Lazarini</td>
-                            <td>2000-08-26</td>
-                            <td>luisricardosantoslazarini@gmail.com</td>
-                             <td>2</td>
-                            <td>17993457654</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>Luis Ricardo Lazarini</td>
-                            <td>2000-08-26</td>
-                            <td>luisricardosantoslazarini@gmail.com</td>
-                             <td>2</td>
-                            <td>17993457654</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>Luis Ricardo Lazarini</td>
-                            <td>2000-08-26</td>
-                            <td>luisricardosantoslazarini@gmail.com</td>
-                             <td>2</td>
-                            <td>17993457654</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>Luis Ricardo Lazarini</td>
-                            <td>2000-08-26</td>
-                            <td>luisricardosantoslazarini@gmail.com</td>
-                            <td>2</td>
-                            <td>17993457654</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="containertable">
+                    <table>
+                        <thead>
+                             <th>Id</th>
+                             <th>CPF</th>
+                             <th>Nome</th>
+                             <th>Nascimento</th>
+                             <th>Email</th>
+                             <th>Endereço Id</th>
+                             <th>Telefone</th>
+                             <th>Criado em</th>
+                             <th>Atualizado em</th>
+                             <th colspan="2">Gerenciar</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
                 <button id="criarbotao" type="button">
                     Adicionar Pessoa
                 </button>
@@ -152,13 +89,13 @@
         </div>   
         <div id="menupopup" class="inactive">
             <ul>
-                <a href="${pageContext.request.contextPath}/public/views/administrador/crudpessoas.jsp">
+                <a href="${pageContext.request.contextPath}/ListarPessoa">
                     <div style="color: black">
                         <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path clip-rule="evenodd" d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                         <span>Pessoas</span>
                     </div>
                 </a>
-                <a href="${pageContext.request.contextPath}/public/views/administrador/crudmedicos.jsp">
+                <a href="${pageContext.request.contextPath}/ListarMedico">
                      <div>
                         <img src="${pageContext.request.contextPath}/public/assets/medico.svg" alt="medico" width="16px" height="16px">
                         <span>Médicos</span>
@@ -166,64 +103,70 @@
                 </a>
             </ul>
         </div>
-        <div id="editmodal" class="inactive">
-            <div id="contenteditmodal" class="inactive">
+        <div id="editmodal" class=${(oPessoaCarregada != null) ? "" : "inactive"}>
+            <div id="contenteditmodal" class=${(oPessoaCarregada != null) ? "" : "inactive"}>
                 <div id="headereditmodal">
                     <p>Editar Pessoa</p>
                     <img id="closebuttonmodal" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
                 </div>
-                <form action="${pageContext.request.contextPath}/SalvarPessoa" method="POST" id="formsignup">
+                <form action="${pageContext.request.contextPath}/AlterarPessoa" method="POST" id="formsignup">
                     <h3>Informações Pessoais</h3>
+                    
+                    <input type="hidden" name="idpessoa" value=${oPessoaCarregada.getIdPessoa()}>
 
                     <div id="personalinformation">
                         <div class="personalinformationinput">
                             <label for="nome">Nome</label>
-                            <input type="text" id="nome" name="nome" placeholder="Digite seu nome" maxlength="50" required>
+                            <input type="text" id="nome" name="nome" value=${oPessoaCarregada.getNome()} placeholder="Digite seu nome" maxlength="50" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Digite seu email" maxlength="50" required>
+                            <input type="email" id="email" name="email" value=${oPessoaCarregada.getEmail()} placeholder="Digite seu email" maxlength="50" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="cpf">CPF</label>
-                            <input type="text" id="cpf"  name="cpf" placeholder="Digite seu CPF" maxlength="14" required>
+                            <input type="text" id="cpf"  name="cpf" value=${oPessoaCarregada.getCpf()} placeholder="Digite seu CPF" maxlength="14" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="nascimento">Data de nascimento</label>
-                            <input type="date" placeholder="dd-mm-yyyy" id="nascimento" name="nascimento" required> 
+                            <input type="date" placeholder="dd-mm-yyyy" value=${oPessoaCarregada.getDatanascimento()} id="nascimento" name="nascimento" required> 
                         </div>
                         <div class="personalinformationinput">
                             <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone" placeholder="(17) 99532-4221" maxlength="15" required>
+                            <input type="tel" id="telefone" name="telefone"  value=${oPessoaCarregada.getTelefone()} placeholder="(17) 99532-4221" maxlength="15" required>
                         </div>
                     </div>
                     
                     <h3>Endereço</h3>
 
+                    
+                    <input type="hidden" name="idendereco" value=${oPessoaCarregada.getIdEndereco()}>
+
+                                      
                     <div id="address">
                         <div class="addressinformation">
                             <label for="cep">CEP</label>
-                            <input type="text" id="cep" name="cep" placeholder="CEP" maxlength="8" required>
+                            <input type="text" id="cep" name="cep" placeholder="CEP" value="${oEstadoCarregado.getCep()}" maxlength="8" required>
                         </div>
                         <div class="addressinformation">
                             <label for="bairro">Bairro</label>
-                            <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
+                            <input type="text" id="bairro" name="bairro" value="${oEstadoCarregado.getBairro()}" placeholder="Bairro" required>
                         </div>
                         <div class="addressinformation">
                             <label for="rua">Rua</label>
-                            <input type="text" id="rua" name="rua" placeholder="Rua" required>
+                            <input type="text" id="rua" name="rua"  value="${oEstadoCarregado.getRua()}" placeholder="Rua" required>
                         </div>
                         <div class="addressinformation">
                             <label for="numero">Número</label>
-                            <input type="text" id="numero" name="numero" placeholder="Número" required>
+                            <input type="text" id="numero" name="numero" value="${oEstadoCarregado.getNumero()}" placeholder="Número" required>
                         </div>
                         <div class="addressinformation">
                             <label for="cidade">Cidade</label>
-                            <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+                            <input type="text" id="cidade" name="cidade" value="${oEstadoCarregado.getCidade()}" placeholder="Cidade" required>
                         </div>
                         <div class="addressinformation">
                             <label for="estado">Estado</label>
-                            <input type="text" id="estado" name="estado" placeholder="Estado" required>
+                            <input type="text" id="estado" name="estado" value="${oEstadoCarregado.getEstado()}" placeholder="Estado" required>
                         </div>
                     </div>
                     
@@ -295,6 +238,8 @@
             </div>       
         </div>
          <script type="text/javascript">
+            var listadepessoas = <%= request.getAttribute("listadepessoas") %>;
+             
             function googleTranslateElementInit() {
               new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
             }

@@ -53,7 +53,7 @@
   gap: 30px;
 }
 
-#formsignup input, #UFCRM{
+#formsignup input, #UFCRM, #especialidade{
   max-width: 300px;
   padding: 10px;
   margin-top: 5px;
@@ -63,7 +63,7 @@
   border-radius: 5px;
 }
 
-input[type="date"]{
+input[type="date"],  #UFCRM, #especialidade{
   color: gray;
 }
 

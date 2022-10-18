@@ -5,8 +5,11 @@
  */
 package br.com.goemergency.controller;
 
+import br.com.goemergency.dao.EnderecoDAOImpl;
 import br.com.goemergency.dao.MedicoDAOImpl;
 import br.com.goemergency.dao.GenericDAO;
+import br.com.goemergency.model.Endereco;
+import br.com.goemergency.model.Medico;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -33,12 +36,22 @@ public class CarregarMedico extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idPessoa = Integer.parseInt(request.getParameter("idMedicocarregar"));
+        int idPessoa = Integer.parseInt(request.getParameter("idmedicocarregar"));
         
         try{
-            GenericDAO dao = new MedicoDAOImpl();//Add Import
-            request.setAttribute("oMedico", dao.carregar(idPessoa));
-            request.getRequestDispatcher("ListarMedico").forward(request, response);
+            GenericDAO dao = new MedicoDAOImpl();
+            GenericDAO daoendereco = new EnderecoDAOImpl();
+            
+            Medico medico = (Medico) dao.carregar(idPessoa);
+            
+            request.setAttribute("oMedicoCarregado", medico);
+            
+            Endereco ender = (Endereco) daoendereco.carregar(medico.getIdEndereco());
+            
+            request.setAttribute("oEnderecoCarregado", ender);
+            
+            
+            request.getRequestDispatcher("/ListarMedico").forward(request, response);
         }catch(Exception ex){
             System.out.println("Erro no Servlet CarregarMedico");
             ex.printStackTrace();

@@ -46,6 +46,7 @@ main{
     position: relative;
     
     padding: 20px;
+    height: 100%;
 }
 
 .categorycard:hover{
@@ -81,4 +82,8 @@ main{
     position: absolute;
     bottom: 0;
     right: 0;
+}
+
+footer {
+    position: unset;
 }

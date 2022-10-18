@@ -40,59 +40,27 @@
         <main>
             <div id="content">
                 <h2>Lista de Médicos</h2>
-                <table>
+                <div id="containertable">
+                    <table>
                     <thead>
                          <th>Id</th>
-                         <th>Crm</th>
-                         <th>UFCrm</th>
-                         <th>IdPessoa</th>
-                         <th>Criado há</th>
-                         <th>Atualizado há</th>
+                         <th>Nome</th>
+                         <th>CPF</th>
+                         <th>CRM</th>
+                         <th>UFCRM</th>
+                         <th>Especialidade</th>
+                         <th>Nascimento</th>
+                         <th>Email</th>
+                         <th>Endereço Id</th>
+                         <th>Telefone</th>
+                         <th>Criado em</th>
+                         <th>Atualizado em</th>
                          <th colspan="2">Gerenciar</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>SP</td>
-                             <td>2</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton" onclick="Editar(this)"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>SP</td>
-                             <td>2</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton" onclick="Editar(this)"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>SP</td>
-                             <td>2</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton" onclick="Editar(this)"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>703.212.391-05</td>
-                            <td>SP</td>
-                             <td>2</td>
-                            <td>5 minutos</td>
-                            <td>2 minutos</td>
-                            <td class="editbutton" onclick="Editar(this)"><p>Editar</p></td>
-                            <td class="deletebutton"><p>Deletar</p></td>
-                        </tr>
                     </tbody>
-                </table>
+                     </table>
+                </div>
                 <button id="criarbotao" type="button">
                     Adicionar Médico
                 </button>
@@ -124,13 +92,13 @@
         </div>   
         <div id="menupopup" class="inactive">
             <ul>
-                 <a href="${pageContext.request.contextPath}/public/views/administrador/crudpessoas.jsp">
+                 <a href="${pageContext.request.contextPath}/ListarPessoa">
                     <div style="color: black">
                         <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path clip-rule="evenodd" d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                         <span>Pessoas</span>
                     </div>
                 </a>
-                <a href="${pageContext.request.contextPath}/public/views/administrador/crudmedicos.jsp">
+                <a href="${pageContext.request.contextPath}/ListarMedico">
                      <div>
                         <img src="${pageContext.request.contextPath}/public/assets/medico.svg" alt="medico" width="16px" height="16px">
                         <span>Médicos</span>
@@ -138,30 +106,100 @@
                 </a>
             </ul>
         </div>
-        <div id="editmodal" class="inactive">
-            <div id="contenteditmodal" class="inactive">
+        <div id="editmodal" class=${(oMedicoCarregado != null) ? "" : "inactive"}>
+            <div id="contenteditmodal" class=${(oMedicoCarregado != null) ? "" : "inactive"}>
                 <div id="headereditmodal">
                     <p>Editar Médico</p>
                     <img id="closebuttonmodal" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
                 </div>
-                <form action="${pageContext.request.contextPath}/SalvarPessoa" method="POST" id="formsignup">
-                    <h3>Informações Pessoais</h3>
-
+                <form action="${pageContext.request.contextPath}/AlterarMedico" method="POST" id="formsignup">
+                     <h3>Informações Pessoais</h3>
+                    
+                    <input type="hidden" name="idmedico" value=${oMedicoCarregado.getIdMedico()}>
+                    <input type="hidden" name="idpessoa" value=${oMedicoCarregado.getIdPessoa()}>
+                    
                     <div id="personalinformation">
                         <div class="personalinformationinput">
-                            <label for="idpessoa">ID Pessoa</label>
-                            <input type="text" id="idpessoa" name="idpessoa" placeholder="Id da pessoa relacionada" required>
+                            <label for="nome">Nome</label>
+                            <input type="text" id="nome" name="nome" value=${oMedicoCarregado.getNome()} placeholder="Digite seu nome" maxlength="50" required>
                         </div>
                         <div class="personalinformationinput">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value=${oMedicoCarregado.getEmail()} placeholder="Digite seu email" maxlength="50" required>
+                        </div>
+                        <div class="personalinformationinput">
+                            <label for="cpf">CPF</label>
+                            <input type="text" id="cpf"  name="cpf" value=${oMedicoCarregado.getCpf()} placeholder="Digite seu CPF" maxlength="14" required>
+                        </div>
+                        <div class="personalinformationinput">
+                            <label for="nascimento">Data de nascimento</label>
+                            <input type="date" placeholder="dd-mm-yyyy" value=${oMedicoCarregado.getDatanascimento()} id="nascimento" name="nascimento" required> 
+                        </div>
+                        <div class="personalinformationinput">
+                            <label for="telefone">Telefone</label>
+                            <input type="tel" id="telefone" name="telefone"  value=${oMedicoCarregado.getTelefone()} placeholder="(17) 99532-4221" maxlength="15" required>
+                        </div>
+                         <div class="personalinformationinput">
                             <label for="CRM">CRM</label>
-                            <input type="text" class="CRM" name="crm" placeholder="CRM" maxlength="11" required>
+                            <input type="text" class="CRM" name="crm" value="${oMedicoCarregado.getCrm()}" placeholder="CRM" maxlength="11" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="UFCRM">UF CRM</label>
-                            <select class="UFCRM" name="ufcrm" required>
+                            <select class="UFCRM" name="ufcrm" value="${oMedicoCarregado.getUfcrm()}" required>
+                            </select>
+                        </div>
+                        <div class="personalinformationinput">
+                            <label for="especialidade">Especialidade</label>
+                            <select id="especialidade" name="especialidade" value="${oMedicoCarregado.getEspecialidade()}" required>
+                                <option value="Cardiologista">Cardiologista</option>
+                                <option value="Endocrinologista">Endocrinologista</option>
+                                <option value="Clínico Geral">Clínico Geral</option>
+                                <option value="Esdoscopista">Esdoscopista</option>
+                                <option value="Gastroenterologista">Gastroenterologista</option>
+                                <option value="Nutricionista">Nutricionista</option>
+                                <option value="Neurologista">Neurologista</option>
+                                <option value="Ortopedista">Ortopedista</option>
+                                <option value="Otorrinolaringologista">Otorrinolaringologista</option>
+                                <option value="Pneumologista">Pneumologista</option>
+                                <option value="Proctologia">Proctologia</option>
+                                <option value="Radiologista">Radiologista</option>
                             </select>
                         </div>
                     </div>
+                    
+                    <h3>Endereço</h3>
+
+                    
+                    <input type="hidden" name="idendereco" value=${oMedicoCarregado.getIdEndereco()}>
+
+                                      
+                    <div id="address">
+                        <div class="addressinformation">
+                            <label for="cep">CEP</label>
+                            <input type="text" id="cep" name="cep" placeholder="CEP" value="${oEnderecoCarregado.getCep()}" maxlength="8" required>
+                        </div>
+                        <div class="addressinformation">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" id="bairro" name="bairro" value="${oEnderecoCarregado.getBairro()}" placeholder="Bairro" required>
+                        </div>
+                        <div class="addressinformation">
+                            <label for="rua">Rua</label>
+                            <input type="text" id="rua" name="rua"  value="${oEnderecoCarregado.getRua()}" placeholder="Rua" required>
+                        </div>
+                        <div class="addressinformation">
+                            <label for="numero">Número</label>
+                            <input type="text" id="numero" name="numero" value="${oEnderecoCarregado.getNumero()}" placeholder="Número" required>
+                        </div>
+                        <div class="addressinformation">
+                            <label for="cidade">Cidade</label>
+                            <input type="text" id="cidade" name="cidade" value="${oEnderecoCarregado.getCidade()}" placeholder="Cidade" required>
+                        </div>
+                        <div class="addressinformation">
+                            <label for="estado">Estado</label>
+                            <input type="text" id="estado" name="estado" value="${oEnderecoCarregado.getEstado()}" placeholder="Estado" required>
+                        </div>
+                    </div>
+
                     <input id="submitbuttonform" type="submit" value="Salvar">
                 </form>
             </div>
@@ -170,7 +208,7 @@
                     <p>Criar Médico</p>
                     <img id="closebuttoncreatemodal" src="${pageContext.request.contextPath}/public/assets/close.png" alt="Close">
                 </div>
-                <form action="${pageContext.request.contextPath}/SalvarPessoa" method="POST" id="formsignup">
+                <form action="${pageContext.request.contextPath}/SalvarMedico" method="POST" id="formsignup">
                     <h3>Informações Pessoais</h3>
 
                     <div id="personalinformation">
@@ -200,7 +238,7 @@
                         </div>
                         <div class="personalinformationinput">
                             <label for="UFCRM">UF CRM</label>
-                            <select class="UFCRM" name="ufcrm" required>
+                            <select class="UFCRM" id="ufcrm" name="ufcrm" required>
                             </select>
                         </div>
                         <div class="personalinformationinput">
@@ -243,6 +281,8 @@
             </div>       
         </div>
         <script type="text/javascript">
+            var listademedicos = <%= request.getAttribute("listademedicos") %>;
+            
             function googleTranslateElementInit() {
               new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
             }
@@ -251,8 +291,8 @@
         <script src="${pageContext.request.contextPath}/src/apicep.js"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
         <script src="${pageContext.request.contextPath}/src/medico.js"></script>
-        <script src="${pageContext.request.contextPath}/src/crudmedicos.js"></script>
         <script src="${pageContext.request.contextPath}/src/crudpessoas.js"></script>
+        <script src="${pageContext.request.contextPath}/src/crudmedicos.js"></script>
     </body>
 </html>
 

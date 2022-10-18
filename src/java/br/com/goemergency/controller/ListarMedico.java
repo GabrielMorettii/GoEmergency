@@ -8,6 +8,7 @@ package br.com.goemergency.controller;
 import br.com.goemergency.dao.EnderecoDAOImpl;
 import br.com.goemergency.dao.MedicoDAOImpl;
 import br.com.goemergency.dao.GenericDAO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -35,20 +37,34 @@ public class ListarMedico extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String especialidade = request.getParameter("espeacialidade");
+        String especialidade = request.getParameter("especialidade");
+        
         try{
-            
-            GenericDAO daoEndereco = new EnderecoDAOImpl();
-            request.setAttribute("listadeenderecos", daoEndereco.listar());
-            if(!especialidade.equals("") && !especialidade.equals(null)){
             MedicoDAOImpl daoMedico = new MedicoDAOImpl();
-            request.setAttribute("especialidade", daoMedico.listar(especialidade));
-            }
-            GenericDAO daoMedico = new MedicoDAOImpl();
-            request.setAttribute("listademedicos", daoMedico.listar());
             
-            request.getRequestDispatcher("Medico/gerenciarmedico.jsp")
-                    .forward(request, response);            
+             List<Object> medicos = null;
+             
+             Boolean buscaporespecialidade = !especialidade.equals("") && !especialidade.equals(null);
+             
+             if(buscaporespecialidade){
+               medicos = daoMedico.listar(especialidade);
+            } else {
+               medicos = daoMedico.listar();
+            }
+            
+            String medicosJson = new Gson().toJson(medicos);
+            
+            request.setAttribute("listademedicos", medicosJson);
+            
+            if(buscaporespecialidade){
+                request.getRequestDispatcher("/public/views/principal/paciente/chat.jsp")
+                    .forward(request, response);
+                return;
+            } else {
+                request.getRequestDispatcher("/public/views/administrador/crudmedicos.jsp")
+                    .forward(request, response);   
+                return;
+            }
         }catch(Exception ex){
             System.out.println("Erro no Servlet ListarMedico");
             ex.printStackTrace();

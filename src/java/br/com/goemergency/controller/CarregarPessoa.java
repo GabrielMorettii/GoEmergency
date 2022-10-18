@@ -5,8 +5,11 @@
  */
 package br.com.goemergency.controller;
 
+import br.com.goemergency.dao.EnderecoDAOImpl;
 import br.com.goemergency.dao.PessoaDAOImpl;
 import br.com.goemergency.dao.GenericDAO;
+import br.com.goemergency.model.Endereco;
+import br.com.goemergency.model.Pessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -35,9 +38,18 @@ public class CarregarPessoa extends HttpServlet {
         int idPessoa = Integer.parseInt(request.getParameter("idpessoacarregar"));
         
         try{
-            GenericDAO dao = new PessoaDAOImpl();//Add Import
-            request.setAttribute("oPessoa", dao.carregar(idPessoa));
-            request.getRequestDispatcher("ListarPessoa").forward(request, response);
+            GenericDAO daopessoa = new PessoaDAOImpl();
+            GenericDAO daoendereco = new EnderecoDAOImpl();
+            
+            Pessoa pessoa = (Pessoa) daopessoa.carregar(idPessoa);
+            
+            request.setAttribute("oPessoaCarregada", pessoa);
+            
+            Endereco ender = (Endereco) daoendereco.carregar(pessoa.getIdEndereco());
+            
+            request.setAttribute("oEstadoCarregado", ender);
+            
+            request.getRequestDispatcher("/ListarPessoa").forward(request, response);
         }catch(Exception ex){
             System.out.println("Erro no Servlet CarregarPessoa");
             ex.printStackTrace();

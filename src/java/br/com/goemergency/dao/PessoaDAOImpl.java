@@ -5,7 +5,6 @@
  */
 package br.com.goemergency.dao;
 
-import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.ConnectionFactory;
 import jakarta.mail.Message;
@@ -16,21 +15,13 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
-import javax.imageio.ImageIO;
-import org.apache.commons.codec.binary.Base64OutputStream;
 
 /**
  *
@@ -59,8 +50,8 @@ public class PessoaDAOImpl implements GenericDAO {
         Pessoa pessoa = (Pessoa) object;
         Integer idPessoa = null;
         String sql = "INSERT INTO PESSOA"
-                + "(cpf, nome, datanascimento, email, senha, telefone, idendereco, isPaciente, isMedico, isAdmin, avatar)"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?,?) RETURNING (idpessoa)";
+                + "(cpf, nome, datanascimento, email, senha, telefone, idendereco, isPaciente, isMedico, isAdmin)"
+                + " VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING (idpessoa)";
 
         try {
             stmt = conn.prepareStatement(sql);
@@ -75,7 +66,6 @@ public class PessoaDAOImpl implements GenericDAO {
             stmt.setBoolean(8, pessoa.isIsPaciente());
             stmt.setBoolean(9, pessoa.isIsMedico());
             stmt.setBoolean(10, pessoa.isIsAdmin());
-            stmt.setBinaryStream(11, pessoa.getAvatar());
 
             rs = stmt.executeQuery();
 
@@ -107,7 +97,8 @@ public class PessoaDAOImpl implements GenericDAO {
         String sql = "SELECT p.*, e.*"
                 + " from pessoa p, Endereco e"
                 + " where p.idEndereco = e.idEndereco and p.inactivatedat is null"
-                + " order by p.nome;";
+                + "  and p.ispaciente is true order by p.idpessoa;";
+                
         try {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -116,14 +107,16 @@ public class PessoaDAOImpl implements GenericDAO {
                 Pessoa oPessoa = new Pessoa();
                 oPessoa.setIdPessoa(rs.getInt("idpessoa"));
                 oPessoa.setNome(rs.getString("nome"));
+                
                 oPessoa.setCpf(rs.getString("cpf"));
                 oPessoa.setDatanascimento(rs.getDate("datanascimento"));
-                oPessoa.setEmail(rs.getString("Email"));
-
+                oPessoa.setEmail(rs.getString("email"));
+                
+                oPessoa.setTelefone(rs.getString("telefone"));
                 oPessoa.setIdEndereco(rs.getInt("idendereco"));
-                oPessoa.setIsPaciente(rs.getBoolean("isPaciente"));
-                oPessoa.setIsMedico(rs.getBoolean("isMedico"));
-                oPessoa.setIsAdmin(rs.getBoolean("isAdmin"));
+                
+                oPessoa.setCreatedAt(rs.getDate("createdat"));
+                oPessoa.setUpdatedat(rs.getDate("updatedat"));
                 
                 resultado.add(oPessoa);
             }
@@ -243,7 +236,6 @@ public class PessoaDAOImpl implements GenericDAO {
         String sql = "UPDATE pessoa SET "
                 + "nome = ?, "
                 + "cpf = ?, "
-                + "datanascimento = ?, "
                 + "email = ?, "
                 + "telefone = ?, "
                 + "updatedAt = current_timestamp "
@@ -251,30 +243,16 @@ public class PessoaDAOImpl implements GenericDAO {
 
         try {
             stmt = conn.prepareStatement(sql);
-
+            
             stmt.setString(1, oPessoa.getNome());
             stmt.setString(2, oPessoa.getCpf());
-            stmt.setDate(3, new java.sql.Date(oPessoa.getDatanascimento().getTime()));
-            stmt.setString(4, oPessoa.getEmail());
-            stmt.setString(5, oPessoa.getTelefone());
-            stmt.setDate(6, new java.sql.Date(oPessoa.getUpdatedat().getTime()));
-            stmt.setInt(7, oPessoa.getIdPessoa());
-
-            try {
-                if (new PessoaDAOImpl().alterar(oPessoa)) {
-                    stmt.executeUpdate();
-                    return true;
-                } else {
-                    return false;
-                }
-            } catch (Exception ex) {
-                System.out.println("Erro ao alterar PessoaDAOImpl. Erro:"
-                        + ex.getMessage());
-                ex.printStackTrace();
-
-                return false;
-            }
-
+            stmt.setString(3, oPessoa.getEmail());
+            stmt.setString(4, oPessoa.getTelefone());
+            stmt.setInt(5, oPessoa.getIdPessoa());
+            
+            stmt.executeUpdate();
+            
+            return true;
         } catch (Exception ex) {
             System.out.println("Erro ao alterar PessoaDAOImpl. Erro:"
                     + ex.getMessage());
