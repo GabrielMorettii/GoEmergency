@@ -516,3 +516,27 @@ CREATE TABLE IF NOT EXISTS public.doenca
     prevencao character varying(8000) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT doenca_pkey PRIMARY KEY (iddoenca)
 )
+
+alter table medico
+add column especialidade varchar(100) not null
+
+create table chat (
+    idchat integer NOT NULL GENERATED ALWAYS AS IDENTITY,
+    idmedico integer NOT NULL,
+    idpaciente integer NOT NULL,
+    CONSTRAINT chat_pkey PRIMARY KEY (idchat),
+    CONSTRAINT fk_idmedico FOREIGN KEY (idmedico)
+        REFERENCES public.medico (idmedico),
+    CONSTRAINT fk_idpaciente FOREIGN KEY (idpaciente)
+        REFERENCES public.pessoa (idpessoa)
+)
+
+create table mensagens (
+	idmensagem integer NOT NULL GENERATED ALWAYS AS IDENTITY,
+	idchat integer not null,
+	conteudo varchar (8000) not null,
+	isAdministrative Boolean not NULL,
+        createdAt TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	CONSTRAINT fk_idchat FOREIGN KEY (idchat)
+        REFERENCES public.chat (idchat)
+)

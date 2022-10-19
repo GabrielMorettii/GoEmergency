@@ -5,7 +5,6 @@
  */
 package br.com.goemergency.dao;
 
-import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.ConnectionFactory;
 import jakarta.mail.Message;
@@ -16,22 +15,13 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
-import javax.imageio.ImageIO;
-import org.apache.commons.codec.binary.Base64OutputStream;
-
 /**
  *
  * @author Aluno

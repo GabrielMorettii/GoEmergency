@@ -64,7 +64,7 @@ public class AlterarMedico extends HttpServlet {
             GenericDAO dao2 = new EnderecoDAOImpl();
 
             oMedico.setIdMedico(Integer.parseInt(request.getParameter("idmedico")));
-            if (dao.alterar(oPessoa)) {
+            if (dao.alterar(oMedico)) {
 
                 request.setAttribute("tipomensagem", "Sucesso");
                 request.setAttribute("mensagem", "Pessoa alterada com sucesso!");

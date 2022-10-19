@@ -20,7 +20,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 @MultipartConfig(maxFileSize = 120000000)
 @WebServlet(name = "SalvarPessoa", urlPatterns = {"/SalvarPessoa"})
