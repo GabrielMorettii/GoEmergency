@@ -5,7 +5,6 @@
  */
 package br.com.goemergency.dao;
 
-import br.com.goemergency.model.Endereco;
 import br.com.goemergency.model.Medico;
 import br.com.goemergency.model.Pessoa;
 import br.com.goemergency.util.ConnectionFactory;
