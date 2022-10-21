@@ -163,7 +163,7 @@ table tbody tr:nth-child(2n){
     margin-bottom: 10px
 }
 
-form input{
+form input, #profile{
     padding: 10px;
     box-shadow: 0 0 1px black;
     border-radius: 3px;

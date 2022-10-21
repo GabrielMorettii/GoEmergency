@@ -113,7 +113,8 @@
                     <h3>Informações Pessoais</h3>
                     
                     <input type="hidden" name="idpessoa" value=${oPessoaCarregada.getIdPessoa()}>
-
+                    <input type="hidden" name="senha" value=${oPessoaCarregada.getSenha()}>
+                    
                     <div id="personalinformation">
                         <div class="personalinformationinput">
                             <label for="nome">Nome</label>
@@ -202,6 +203,17 @@
                             <label for="telefone">Telefone</label>
                             <input type="tel" id="telefone" name="telefone" placeholder="(17) 99532-4221" maxlength="15" required>
                         </div>
+                        <div class="personalinformationinput">
+                            <label for="senha">Senha</label>
+                            <input type="password" id="senha" name="senha" placeholder="Digite seu Senha" required>
+                        </div>
+                        <div class="personalinformationinput">
+                            <label for="profile">Perfil</label>
+                            <select id="profile" name="profile" required>
+                                <option value="administrador">Administrador</option>
+                                <option value="paciente">Paciente</option>
+                            </select>
+                        </div>
                     </div>
                     
                     <h3>Endereço</h3>
@@ -245,6 +257,7 @@
             }
         </script>
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>            
+        <script src="${pageContext.request.contextPath}/src/mascaras.js"></script>
         <script src="${pageContext.request.contextPath}/src/apicep.js"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
         <script src="${pageContext.request.contextPath}/src/crudpessoas.js"></script>

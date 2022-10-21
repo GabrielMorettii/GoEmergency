@@ -47,7 +47,8 @@ public class AlterarPessoa extends HttpServlet {
         oPessoa.setCpf(request.getParameter("cpf"));
         oPessoa.setDatanascimento(Conversoes.ConverterData(request.getParameter("nascimento")));
         oPessoa.setTelefone(request.getParameter("telefone"));
-
+        oPessoa.setSenha(request.getParameter("senha"));
+        
         oEndereco.setBairro(request.getParameter("bairro"));
         oEndereco.setCep(request.getParameter("cep"));
         oEndereco.setEstado(request.getParameter("estado"));

@@ -30,14 +30,11 @@ function cpf(v){
     v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
     return v;
 }
-    
-window.onload = function(){
-    id('telefone').onkeyup = function(){
-        mascara( this, mtel );
-    };
-    
-    id('cpf').onkeyup = function(){
-        mascara( this, cpf );
-    };
+       
+ id('telefone').onkeyup = function(){
+   mascara( this, mtel );
 };
-   
+
+id('cpf').onkeyup = function(){
+    mascara( this, cpf );
+};

@@ -41,7 +41,19 @@ public class SalvarPessoa extends HttpServlet {
         oPessoa.setDatanascimento(Conversoes.ConverterData(request.getParameter("nascimento")));
         oPessoa.setTelefone(request.getParameter("telefone"));
         oPessoa.setSenha(Criptografar.encriptografar(request.getParameter("senha")));
-        oPessoa.setIsPaciente(true);
+        
+         if(request.getParameter("decisaoadm") == null){
+             oPessoa.setIsPaciente(true);
+         } else {
+            String profile = request.getParameter("profile");
+            
+            if(profile == "administrador"){
+                oPessoa.setIsAdmin(true);
+            } else {
+                oPessoa.setIsPaciente(true);
+            }
+         }
+         
 
         oEndereco.setBairro(request.getParameter("bairro"));
         oEndereco.setCep(request.getParameter("cep"));

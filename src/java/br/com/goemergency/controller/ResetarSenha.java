@@ -52,15 +52,21 @@ public class ResetarSenha extends HttpServlet {
             
             oPessoa.setSenha(Criptografar.encriptografar(novasenha));
             
-            pessoaDAO.alterar(oPessoa);
+            if(pessoaDAO.alterar(oPessoa)){
+                request.setAttribute("tipomensagem", "Sucesso");
+                request.setAttribute("mensagem", "Senha alterada com sucesso!");
+                request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+                return;
+            }          
         } catch (Exception ex) {
             System.out.println("Erro no Servlet ResetarSenha\n Erro:" + ex.getMessage());
             ex.printStackTrace();
         }
-
-        request.setAttribute("tipomensagem", "Sucesso");
-        request.setAttribute("mensagem", "Senha alterada com sucesso!");
-        request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+        
+        request.setAttribute("tipomensagem", "Erro");
+        request.setAttribute("mensagem", "Não foi possível resetar a senha, tente novamente");
+        request.getRequestDispatcher("WEB-INF/resetarsenha.jsp").forward(request, response);
+        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

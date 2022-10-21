@@ -177,6 +177,7 @@ public class PessoaDAOImpl implements GenericDAO {
                 oPessoa.setCpf(rs.getString("cpf"));
                 oPessoa.setDatanascimento(rs.getDate("datanascimento"));
                 oPessoa.setEmail(rs.getString("Email"));
+                oPessoa.setSenha(rs.getString("senha"));
                 oPessoa.setTelefone(rs.getString("telefone"));
                 oPessoa.setIdEndereco(rs.getInt("idendereco"));
 
@@ -214,7 +215,7 @@ public class PessoaDAOImpl implements GenericDAO {
                 oPessoa.setCpf(rs.getString("cpf"));
                 oPessoa.setDatanascimento(rs.getDate("datanascimento"));
                 oPessoa.setEmail(rs.getString("email"));
-                //  oPessoa.setSenha(rs.getString("senha"));      
+                oPessoa.setSenha(rs.getString("senha"));      
                 oPessoa.setTelefone(rs.getString("telefone"));
                 oPessoa.setIdEndereco(rs.getInt("idendereco"));
                 oPessoa.setCode(rs.getString("code"));
@@ -237,6 +238,8 @@ public class PessoaDAOImpl implements GenericDAO {
                 + "cpf = ?, "
                 + "email = ?, "
                 + "telefone = ?, "
+                + "code = ?, "
+                + "senha = ?, "
                 + "updatedAt = current_timestamp "
                 + " WHERE idpessoa = ?;";
 
@@ -247,7 +250,9 @@ public class PessoaDAOImpl implements GenericDAO {
             stmt.setString(2, oPessoa.getCpf());
             stmt.setString(3, oPessoa.getEmail());
             stmt.setString(4, oPessoa.getTelefone());
-            stmt.setInt(5, oPessoa.getIdPessoa());
+            stmt.setString(5, oPessoa.getCode());
+            stmt.setString(6, oPessoa.getSenha());
+            stmt.setInt(7, oPessoa.getIdPessoa());
             
             stmt.executeUpdate();
             
