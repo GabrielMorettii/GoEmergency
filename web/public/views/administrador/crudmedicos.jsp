@@ -129,7 +129,7 @@
                         </div>
                         <div class="personalinformationinput">
                             <label for="cpf">CPF</label>
-                            <input type="text" id="cpf"  name="cpf" value=${oMedicoCarregado.getCpf()} placeholder="Digite seu CPF" maxlength="14" required>
+                            <input type="text" id="cpf" class="cpf" name="cpf" value=${oMedicoCarregado.getCpf()} placeholder="Digite seu CPF" maxlength="14" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="nascimento">Data de nascimento</label>
@@ -137,7 +137,7 @@
                         </div>
                         <div class="personalinformationinput">
                             <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone"  value=${oMedicoCarregado.getTelefone()} placeholder="(17) 99532-4221" maxlength="15" required>
+                            <input type="tel" id="telefone"  class="telefone" name="telefone"  value=${oMedicoCarregado.getTelefone()} placeholder="(17) 99532-4221" maxlength="15" required>
                         </div>
                          <div class="personalinformationinput">
                             <label for="CRM">CRM</label>
@@ -222,7 +222,7 @@
                         </div>
                         <div class="personalinformationinput">
                             <label for="cpf">CPF</label>
-                            <input type="text" id="cpf"  name="cpf" placeholder="Digite seu CPF" maxlength="14" required>
+                            <input type="text" id="cpf" class="cpf" name="cpf" placeholder="Digite seu CPF" maxlength="14" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="nascimento">Data de nascimento</label>
@@ -230,7 +230,7 @@
                         </div>
                         <div class="personalinformationinput">
                             <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone" placeholder="(17) 99532-4221" maxlength="15" required>
+                            <input type="tel" id="telefone" class="telefone" name="telefone" placeholder="(17) 99532-4221" maxlength="15" required>
                         </div>
                         <div class="personalinformationinput">
                             <label for="senha">Senha</label>
@@ -287,8 +287,9 @@
               new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
             }
         </script>
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>            
-        <script src="${pageContext.request.contextPath}/src/apicep.js"></script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
+        <script src="${pageContext.request.contextPath}/src/mascarascrud.js"></script>
+        <script src="${pageContext.request.contextPath}/src/apicepcrud.js"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
         <script src="${pageContext.request.contextPath}/src/medico.js"></script>
         <script src="${pageContext.request.contextPath}/src/crudpessoas.js"></script>

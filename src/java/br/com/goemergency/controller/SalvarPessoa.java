@@ -42,12 +42,12 @@ public class SalvarPessoa extends HttpServlet {
         oPessoa.setTelefone(request.getParameter("telefone"));
         oPessoa.setSenha(Criptografar.encriptografar(request.getParameter("senha")));
         
-         if(request.getParameter("decisaoadm") == null){
+         if(request.getParameter("profile") == null){
              oPessoa.setIsPaciente(true);
          } else {
             String profile = request.getParameter("profile");
             
-            if(profile == "administrador"){
+            if(profile.equals("administrador")){
                 oPessoa.setIsAdmin(true);
             } else {
                 oPessoa.setIsPaciente(true);
@@ -73,14 +73,26 @@ public class SalvarPessoa extends HttpServlet {
             if (!pessoaDAO.isValidCPF(oPessoa.getCpf())) {
                 request.setAttribute("tipomensagem", "Erro");
                 request.setAttribute("mensagem", "CPF Invalido");
-                request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                
+                 if(request.getParameter("profile") == null){
+                     request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                 }else{
+                     request.getRequestDispatcher("/ListarPessoa").forward(request, response);
+                 }
+                
                 return;
             }
             
             if (pessoaDAO.isValidEmailAddress(oPessoa.getEmail())) {
                 request.setAttribute("tipomensagem", "Erro");
                 request.setAttribute("mensagem", "Email já existente na base de dados");
-                request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                
+                 if(request.getParameter("profile") == null){
+                      request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                 }else{
+                    request.getRequestDispatcher("/ListarPessoa").forward(request, response);
+                 }
+               
                 return;
             }
 
@@ -89,14 +101,26 @@ public class SalvarPessoa extends HttpServlet {
             } else {
                 request.setAttribute("tipomensagem", "Erro");
                 request.setAttribute("mensagem", "Falha ao cadastrar endereco da Pessoa!");
-                request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                
+                 if(request.getParameter("profile") == null){
+                      request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+                 }else{
+                    request.getRequestDispatcher("/ListarPessoa").forward(request, response);
+                 }
+                
                 return;
             }
 
             if (pessoaDAO.cadastrar(oPessoa) != null) {
                 request.setAttribute("tipomensagem", "Sucesso");
                 request.setAttribute("mensagem", "Pessoa cadastrada com Sucesso!");
-                request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+                
+                 if(request.getParameter("profile") == null){
+                     request.getRequestDispatcher("public/views/login.jsp").forward(request, response);
+                 }else{
+                    request.getRequestDispatcher("/ListarPessoa").forward(request, response);
+                 }
+                
                 return;
             } else {
                 mensagem = "Falha ao Cadastrar Pessoa!";
@@ -109,7 +133,14 @@ public class SalvarPessoa extends HttpServlet {
         
         request.setAttribute("tipomensagem", "Erro");
         request.setAttribute("mensagem", mensagem);
-        request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+        
+        if(request.getParameter("profile") == null){
+           request.getRequestDispatcher("public/views/paciente/cadastropaciente.jsp").forward(request, response);
+        }else{
+           request.getRequestDispatcher("/ListarPessoa").forward(request, response);
+        }
+        
+        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
