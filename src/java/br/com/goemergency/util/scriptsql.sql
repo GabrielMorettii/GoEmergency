@@ -1,3 +1,5 @@
+SET TIMEZONE TO 'America/Sao_Paulo';
+
 CREATE TABLE pessoa(
 idpessoa int GENERATED ALWAYS AS IDENTITY not null primary key,
 cpf varchar(11) not null,
@@ -540,3 +542,16 @@ create table mensagens (
 	CONSTRAINT fk_idchat FOREIGN KEY (idchat)
         REFERENCES public.chat (idchat)
 )
+
+
+ALTER TABLE medico DROP COLUMN inactivatedat
+ALTER TABLE medico DROP COLUMN createdat
+ALTER TABLE medico DROP COLUMN updatedat
+
+ALTER TABLE pessoa DROP COLUMN idendereco  
+ALTER TABLE pessoa ADD COLUMN idendereco integer
+
+ALTER TABLE pessoa ADD CONSTRAINT fk_id_endereco FOREIGN KEY (idendereco) REFERENCES endereco (idendereco)
+
+
+INSERT INTO pessoa(cpf, nome, datanascimento, email, senha, telefone, ispaciente, ismedico, isadmin, createdat, updatedat) VALUES ('08645211033', 'Gabriel Moretti', '2002-04-02', 'gabrielmorettipb5@gmail.com', '985251f3d13076beec69aca778ea31f', '1736329381', false, false, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
