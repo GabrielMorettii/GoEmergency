@@ -16,6 +16,7 @@ public class Mensagens extends Chat{
     private String conteudo;
     private Boolean isadministrative;
     private Date createdat;
+    private long datetomili;
 
     public Mensagens() {
     }
@@ -76,5 +77,14 @@ public class Mensagens extends Chat{
     public void setCreatedat(Date createdat) {
         this.createdat = createdat;
     }
+
+    public long getDatetomili() {
+        return datetomili;
+    }
+
+    public void setDatetomili(long datetomili) {
+        this.datetomili = datetomili;
+    }
+    
     
 }

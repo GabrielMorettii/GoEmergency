@@ -6,12 +6,15 @@ package br.com.goemergency.controller;
 
 import br.com.goemergency.dao.ChatDAOImpl;
 import br.com.goemergency.model.Chat;
+import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -33,16 +36,23 @@ public class ListarChat extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        HttpSession session = request.getSession(true);
+        
         Chat oChat = new Chat();
 
-        oChat.setIdmedico(Integer.parseInt(request.getParameter("idmedico")));
+        oChat.setIdmedico((Integer) session.getAttribute("idmedico"));
         
         try {
 
             ChatDAOImpl chatDAO = new ChatDAOImpl();
-            request.setAttribute("listadechat", chatDAO.listar(oChat));
+            
+            List<Object> chats = chatDAO.listar(oChat);
+                    
+            String chatsJson = new Gson().toJson(chats);
 
-            request.getRequestDispatcher("")
+            request.setAttribute("listadechats", chatsJson);
+
+            request.getRequestDispatcher("/public/views/principal/medico/chatpacientes.jsp")
                     .forward(request, response);
         } catch (Exception ex) {
             System.out.println("Erro ao ListarChat");

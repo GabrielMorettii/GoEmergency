@@ -44,6 +44,17 @@
     gap: 10px;
 }
 
+.daydate{
+    display: flex;
+    align-self: center;
+    background-color: #FFF;
+    padding: 8px;
+    border-radius: 10px;
+    font-weight: 300;
+    font-size: 13px;
+    color: gray;
+}
+
 .mensagempaciente, .mensagemmedico{
     display: flex;
     gap: 8px;
@@ -52,6 +63,11 @@
     padding: 7px 9px;
     border-radius: 10px;
 
+}
+
+.mensagempaciente span:first-child,
+.mensagemmedico span:first-child{
+    font-weight: 300;
 }
 
 .mensagempaciente span + span, .mensagemmedico span + span{

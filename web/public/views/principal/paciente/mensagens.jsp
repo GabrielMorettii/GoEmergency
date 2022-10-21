@@ -41,96 +41,26 @@
                 <div id="conversas">
                      <div id="headerconversa">
                          <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=Gabriel%20Moretti" alt="avatar"/>
-                         <span>Gabriel Teste</span>
+                         <span><%= session.getAttribute("username") %></span>
                     </div>
                     <div id="chatmedicosespecialistas">
-                        <div class="cardmedico">
-                            <img src='https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=Gabriel Teste 2' alt="avatar"/>
-                            <div class="profilemedico">
-                                <p>Gabriel Teste 2</p>
-                                <p>Cardiologista</p>
-                            </div>
-                        </div>
-                        <div class="cardmedico">
-                            <img src='https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=Gabriel Teste 3' alt="avatar"/>
-                            <div class="profilemedico">
-                                <p>Gabriel Teste 3</p>
-                                <p>Cardiologista</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div id="mensagens">
                    <div id="headermensagens">
                          <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=Gabriel%20Moretti" alt="avatar"/>
-                         <span>Gabriel Teste</span>
+                         <span><%= session.getAttribute("nomemedico") %></span>
                     </div>
                     <div id="historico">
-                        <div class="mensagempaciente">
-                            <span>Tenta estudar o trabalho do Jeferson pelo vídeo lá</span>
-                            <span>11:40</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Sim</span>
-                            <span>11:41</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Fechou</span>
-                            <span>11:41</span>
-                        </div>
-                         <div class="mensagempaciente">
-                            <span>Tenta estudar o trabalho do Jeferson pelo vídeo lá</span>
-                            <span>11:40</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Sim</span>
-                            <span>11:41</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Fechou</span>
-                            <span>11:41</span>
-                        </div>
-                         <div class="mensagempaciente">
-                            <span>Tenta estudar o trabalho do Jeferson pelo vídeo lá</span>
-                            <span>11:40</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Sim</span>
-                            <span>11:41</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Fechou</span>
-                            <span>11:41</span>
-                        </div>
-                         <div class="mensagempaciente">
-                            <span>Tenta estudar o trabalho do Jeferson pelo vídeo lá</span>
-                            <span>11:40</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Sim</span>
-                            <span>11:41</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Fechou</span>
-                            <span>11:41</span>
-                        </div>
-                         <div class="mensagempaciente">
-                            <span>Tenta estudar o trabalho do Jeferson pelo vídeo lá</span>
-                            <span>11:40</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Sim</span>
-                            <span>11:41</span>
-                        </div>
-                        <div class="mensagemmedico">
-                             <span>Fechou</span>
-                            <span>11:41</span>
-                        </div>
+                       
                     </div>
-                     <div id="enviararea">
-                        <input type="text" placeholder="Digite a sua mensagem" id="conteudomensagem" name="mensagem" required>
-                        <img src="${pageContext.request.contextPath}/public/assets/paper-plane.png" alt="Enviar">
-                    </div>
+                     <form id="enviararea" action="${pageContext.request.contextPath}/CriarMensagens" method="POST">
+                        <input type="hidden" value="${idchat}" name="idchat">
+                        <input type="hidden" value="<%= session.getAttribute("especialidade") %>" name="especialidade">
+                        
+                        <input type="text" placeholder="Digite a sua mensagem" id="conteudomensagem" name="conteudo" required>
+                        <img id="enviarmensagembotao" src="${pageContext.request.contextPath}/public/assets/paper-plane.png" alt="Enviar">
+                    </form>
                 </div>
             </div>
         </main>
@@ -160,10 +90,22 @@
         </div>
         <script type="text/javascript">
             var listademedicos = <%=request.getAttribute("listademedicos")%>;
+           
+            var listademensagens = <%=request.getAttribute("listademensagens")%>;
+            
+            var idpessoa = <%= session.getAttribute("idpessoa") %>
             
             function googleTranslateElementInit() {
               new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
             }
+            
+            setInterval(()=>{
+                const inputmensagemvalue = document.querySelector("#conteudomensagem").value;
+                
+                if(inputmensagemvalue == ""){
+                    window.location = `http://localhost:8080/GoEmergency/ListarMensagens?idchat=${idchat}`;
+                }
+            }, 20000);
         </script>
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <script src="${pageContext.request.contextPath}/src/chat.js"></script>

@@ -74,3 +74,4 @@ inputconteudomensagem.addEventListener('keypress', (event)=>{
 enviarmensagembotao.addEventListener('click', (event) =>{
     forms.submit();
 })
+

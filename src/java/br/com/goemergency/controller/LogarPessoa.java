@@ -4,8 +4,10 @@
  */
 package br.com.goemergency.controller;
 
+import br.com.goemergency.dao.MedicoDAOImpl;
 import br.com.goemergency.dao.PessoaDAOImpl;
 import br.com.goemergency.filter.FilterAutenticacaoLogin;
+import br.com.goemergency.model.Medico;
 import br.com.goemergency.util.Criptografar;
 import br.com.goemergency.model.Pessoa;
 import jakarta.servlet.ServletException;
@@ -47,7 +49,16 @@ public class LogarPessoa extends HttpServlet {
                 if(oPessoa != null){
                     HttpSession session = request.getSession(true);
                     session.setAttribute("oPessoa", oPessoa);
+                    session.setAttribute("idpessoa", oPessoa.getIdPessoa());
                     session.setAttribute("username", oPessoa.getNome());
+                    
+                    if(oPessoa.isIsMedico()){
+                         MedicoDAOImpl medicoDao = new MedicoDAOImpl();
+                         
+                          Medico oMedico = (Medico) medicoDao.carregar(oPessoa.getIdPessoa());
+                          
+                          session.setAttribute("idmedico", oMedico.getIdMedico());
+                    }
                     
                     response.sendRedirect(request.getContextPath() + "/public/views/login.jsp");
                     return;

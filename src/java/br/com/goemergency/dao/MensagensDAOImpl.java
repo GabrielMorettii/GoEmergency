@@ -11,6 +11,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -83,11 +85,13 @@ public class MensagensDAOImpl {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                oMensagens.setConteudo(rs.getString("conteudo"));
-                oMensagens.setIsadministrative(rs.getBoolean("isadministrative"));
-                oMensagens.setCreatedat(rs.getDate("createdat"));
+                Mensagens oMensagem = new Mensagens();
+                
+                oMensagem.setConteudo(rs.getString("conteudo"));
+                oMensagem.setIsadministrative(rs.getBoolean("isadministrative"));
+                oMensagem.setDatetomili(rs.getTimestamp("createdat").getTime());
 
-                resultado.add(oMensagens);
+                resultado.add(oMensagem);
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao Listar MensagensDAOImpl \n Erro: " + ex.getMessage());

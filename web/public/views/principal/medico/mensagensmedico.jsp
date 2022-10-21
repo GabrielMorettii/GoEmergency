@@ -1,6 +1,6 @@
 <%-- 
-    Document   : chat
-    Created on : Oct 17, 2022, 8:38:34 AM
+    Document   : mensagensmedico
+    Created on : Oct 19, 2022, 8:03:39 PM
     Author     : moretti
 --%>
 
@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comumsintomas.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comumlogado.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/chat.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/chatpacientes.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/mensagem.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/mensagensmedico.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/public/styles/comum-2.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
         <script src="https://unpkg.com/darkreader@4.9.44/darkreader.js" async></script>
@@ -38,19 +41,28 @@
         <main>
             <div id="content">
                 <div id="conversas">
-                    <div id="headerconversa">
+                     <div id="headerconversa">
                          <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=Gabriel%20Moretti" alt="avatar"/>
                          <span><%= session.getAttribute("username") %></span>
                     </div>
-                    <div id="chatmedicosespecialistas">
+                    <div id="chatpacientes">
                     </div>
                 </div>
-                <div id="bemvindochat">
-                    <img src="${pageContext.request.contextPath}/public/assets/chatbck.svg" alt="chatbackground"/>
-                    <h3>GoEmergency</h3>
-                    <p>Aqui está uma lista de doutores com a especialidade requerida. <br>
-                       Escolha um e após ao clicar você poderá conversar com ele(a). Quando o doutor estiver disponível ele responderá você.
-                    </p>
+                <div id="mensagens">
+                   <div id="headermensagens">
+                         <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=Gabriel%20Moretti" alt="avatar"/>
+                         <span><%= session.getAttribute("nomepaciente") %></span>
+                    </div>
+                    <div id="historico">
+                       
+                    </div>
+                     <form id="enviararea" action="${pageContext.request.contextPath}/CriarMensagens" method="POST">
+                        <input type="hidden" value="${idchat}" name="idchat">
+                        <input type="hidden" value="<%= session.getAttribute("nomepaciente") %>" name="nomepaciente">
+                        
+                        <input type="text" placeholder="Digite a sua mensagem" id="conteudomensagem" name="conteudo" required>
+                        <img id="enviarmensagembotao" src="${pageContext.request.contextPath}/public/assets/paper-plane.png" alt="Enviar">
+                    </form>
                 </div>
             </div>
         </main>
@@ -79,16 +91,28 @@
             </label>
         </div>
         <script type="text/javascript">
-            var listademedicos = <%=request.getAttribute("listademedicos")%>;
+            var listadechats = <%=request.getAttribute("listadechats")%>;
+           
+            var listademensagens = <%=request.getAttribute("listademensagens")%>;
             
             var idpessoa = <%= session.getAttribute("idpessoa") %>
             
             function googleTranslateElementInit() {
               new google.translate.TranslateElement({pageLanguage: 'pt',  autoDisplay: true, includedLanguages:'en,pt,fr'}, 'google_translate_element');
             }
+            
+            setInterval(()=>{
+                const inputmensagemvalue = document.querySelector("#conteudomensagem").value;
+                
+                if(inputmensagemvalue == ""){
+                    window.location = `http://localhost:8080/GoEmergency/ListarMensagens?idchat=${idchat}&nomepaciente=<%= session.getAttribute("nomepaciente") %>`;
+                }
+            }, 20000);
         </script>
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        <script src="${pageContext.request.contextPath}/src/chat.js"></script>
+        <script src="${pageContext.request.contextPath}/src/chatpacientes.js"></script>
+        <script src="${pageContext.request.contextPath}/src/mensagempacientes.js"></script>
         <script src="${pageContext.request.contextPath}/src/script.js"></script>
     </body>
 </html>
+

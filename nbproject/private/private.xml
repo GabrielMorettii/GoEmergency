@@ -3,20 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/moretti/Documents/GoEmergency/src/java/br/com/goemergency/controller/SalvarMedico.java</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/src/chat.js</file>
-            <file>file:/home/moretti/Documents/GoEmergency/src/java/br/com/goemergency/dao/MedicoDAOImpl.java</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/public/styles/comum.css</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/public/views/principal/paciente/chat.jsp</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/public/styles/chat.css</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/public/views/principal/mensagens.jsp</file>
-            <file>file:/home/moretti/Documents/GoEmergency/src/java/br/com/goemergency/controller/ListarMedico.java</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/public/styles/cadastro.css</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/src/crudpessoas.js</file>
-            <file>file:/home/moretti/Documents/GoEmergency/src/java/br/com/goemergency/dao/PessoaDAOImpl.java</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/public/styles/mensagem.css</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/public/views/principal/paciente/categories.jsp</file>
-            <file>file:/home/moretti/Documents/GoEmergency/web/public/views/administrador/crudpessoas.jsp</file>
+            <file>file:/home/moretti/Documents/GoEmergency/src/java/br/com/goemergency/controller/ListarMensagens.java</file>
+            <file>file:/home/moretti/Documents/GoEmergency/web/src/mensagempacientes.js</file>
+            <file>file:/home/moretti/Documents/GoEmergency/web/src/chatpacientes.js</file>
+            <file>file:/home/moretti/Documents/GoEmergency/web/public/views/principal/medico/mensagensmedico.jsp</file>
+            <file>file:/home/moretti/Documents/GoEmergency/web/public/views/principal/paciente/mensagens.jsp</file>
+            <file>file:/home/moretti/Documents/GoEmergency/src/java/br/com/goemergency/controller/CriarMensagens.java</file>
+            <file>file:/home/moretti/Documents/GoEmergency/web/src/mensagem.js</file>
+            <file>file:/home/moretti/Documents/GoEmergency/src/java/br/com/goemergency/controller/ListarChat.java</file>
+            <file>file:/home/moretti/Documents/GoEmergency/web/public/views/principal/medico/chatpacientes.jsp</file>
         </group>
     </open-files>
 </project-private>

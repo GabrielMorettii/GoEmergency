@@ -24,7 +24,6 @@
               <a href="${pageContext.request.contextPath}/public/views/home.jsp"><img id="logo" src="${pageContext.request.contextPath}/public/assets/logo.png" alt="Logo"></a>
               <div id="positionright">
                 <li><div id="google_translate_element"></div></li>
-                <li><a href="#">Contato</a></li>
                 <li><a href="${pageContext.request.contextPath}/public/views/login.jsp"><img src="https://medico24hs.com.br/wp-content/uploads/2022/05/Icone_Usuario_Menu_22.svg">Entrar</a></li>
                 <li id="cadastrohome"><a href="${pageContext.request.contextPath}/public/views/paciente/cadastropaciente.jsp" id="linkcadastro" class="whitecolor">Cadastro</a></li>
               </div>
@@ -33,8 +32,8 @@
         <main>
           <div id="telaprincipal">
             <div id="maincontent" class="whitecolor">
-              <h1>O que preocupa você hoje em dia com sua saúde?</h1>
-              <p>Verifique seus sintomas e descubra o que pode estar causando-os. É rápido, gratuito e anônimo.</p>
+              <h1>Está se sentindo incomodado com a sua saúde?</h1>
+              <p>Verifique seus sintomas e descubra as possíveis causas. É rápido, gratuito e anônimo.</p>
               <a href="${pageContext.request.contextPath}/public/views/termodeadesao.jsp">
                 <button class="whitecolor" id="verificarsintomas" >
                   <img src="${pageContext.request.contextPath}/public/assets/lupa.png" alt="Lupa">
@@ -44,33 +43,52 @@
             </div>
           </div>
           <div id="especialistas">
-            <h2>Agende com médicos especialistas</h2>
-            <p>Selecione a especialidade, o profissional e a data/horário mais conveniente
-              para realizar sua teleconsulta</p>
+            <h2>Converse com médicos especialistas</h2>
+            <p>Selecione a especialidade e o profissional mais conveniente para saber mais sobre seus sintomas.</p>
             <div id="especialistascards">
               <div class="especialistacard">
-                <img src="${pageContext.request.contextPath}/public/assets/heart.png" alt="cardiologistaicon">
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/cardiologia-2.png" alt="cardiologistaicon">
                 <p>Cardiologista</p>
               </div>
               <div class="especialistacard">
-                <img src="${pageContext.request.contextPath}/public/assets/dermatology.png" alt="demartologistaicon">
-                <p>Dermatologista</p>
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/endocrionologia.png" alt="endocrionologia">
+                <p>Endocrinologista</p>
               </div>
               <div class="especialistacard">
-                <img src="${pageContext.request.contextPath}/public/assets/saude-mental.png" alt="psiquiatriaicon">
-                <p>Psiquiatra</p>
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/clinica-geral-2.png" alt="clinica-geral-2">
+                <p>Clínico Geral</p>
               </div>
               <div class="especialistacard">
-                <img src="${pageContext.request.contextPath}/public/assets/urology.png" alt="urologistaicon">
-                <p>Urologista</p>
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/esdoscopia.png" alt="esdoscopia">
+                <p>Esdoscopista</p>
               </div>
               <div class="especialistacard">
-                <img src="${pageContext.request.contextPath}/public/assets/cradle.png" alt="pediatriaicon">
-                <p>Pediatra</p>
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/Gastro.png" alt="Gastro">
+                <p>Gastroenterologista</p>
               </div>
               <div class="especialistacard">
-                <img src="${pageContext.request.contextPath}/public/assets/gender.png" alt="ginecologistaicon">
-                <p>Ginecologista</p>
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/Nutricionista.png" alt="Nutricionista">
+                <p>Nutricionista</p>
+              </div>
+               <div class="especialistacard">
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/neuro.png" alt="neuro">
+                <p>Neurologista</p>
+              </div>
+              <div class="especialistacard">
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/orto.png" alt="orto">
+                <p>Ortopedista</p>
+              </div>
+              <div class="especialistacard">
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/otorrino.png" alt="otorrino">
+                <p>Otorrinolaringologista</p>
+              </div>
+              <div class="especialistacard">
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/pneumo.png" alt="pneumo">
+                <p>Pneumologista</p>
+              </div>
+              <div class="especialistacard">
+                <img src="${pageContext.request.contextPath}/public/assets/especialidades/Proctologia.png" alt="Proctologia">
+                <p>Proctologia</p>
               </div>
             </div>
           </div>

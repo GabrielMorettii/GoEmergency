@@ -43,10 +43,14 @@ public class CriarMensagens extends HttpServlet {
         
         Pessoa oPessoa = (Pessoa) session.getAttribute("oPessoa");
         
-        oMensagens.setIdChat(Integer.parseInt(request.getParameter("idchat")));
+        Integer idchat = Integer.parseInt(request.getParameter("idchat"));
+        
+        oMensagens.setIdChat(idchat);
         oMensagens.setConteudo(request.getParameter("conteudo"));
         
         if(oPessoa != null && oPessoa.isIsMedico() == true){
+             request.setAttribute("nomepaciente", request.getParameter("nomepaciente"));
+             
              oMensagens.setIsadministrative(true);
         } else {
             oMensagens.setIsadministrative(false);
@@ -58,7 +62,10 @@ public class CriarMensagens extends HttpServlet {
             MensagensDAOImpl mensagensDAO = new MensagensDAOImpl();
             
             if(mensagensDAO.cadastrar(oMensagens) != null){
-                request.setAttribute("idmensagens", oMensagens.getIdmensagem());
+                request.setAttribute("idchat", idchat);
+                
+                request.getRequestDispatcher("/ListarMensagens").forward(request, response);
+                return;
             }
         }catch(Exception ex) {
             System.out.println("Erro no Servlet CriarMensagens Erro:" + ex.getMessage());

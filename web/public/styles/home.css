@@ -158,6 +158,8 @@ main{
 #especialistascards{
   display: flex;
   column-gap: 20px;
+  
+  flex-wrap: wrap;
 }
 
 .especialistacard{
@@ -167,6 +169,11 @@ main{
   width: 200px;
 
   box-shadow: 1px 1px 3px rgb(215, 214, 214);
+}
+
+.especialistacard img{
+    width: 32px;
+    height: 32px;
 }
 
 .linhadivisoria{

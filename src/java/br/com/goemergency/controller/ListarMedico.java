@@ -44,9 +44,7 @@ public class ListarMedico extends HttpServlet {
             
              List<Object> medicos = null;
              
-             Boolean buscaporespecialidade = !especialidade.equals("") && !especialidade.equals(null);
-             
-             if(buscaporespecialidade){
+             if(especialidade != null){
                medicos = daoMedico.listar(especialidade);
             } else {
                medicos = daoMedico.listar();
@@ -56,7 +54,7 @@ public class ListarMedico extends HttpServlet {
             
             request.setAttribute("listademedicos", medicosJson);
             
-            if(buscaporespecialidade){
+            if(especialidade != null){
                 request.getRequestDispatcher("/public/views/principal/paciente/chat.jsp")
                     .forward(request, response);
                 return;

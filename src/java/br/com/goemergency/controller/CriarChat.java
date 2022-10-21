@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -36,6 +37,10 @@ public class CriarChat extends HttpServlet {
 
         oChat.setIdmedico(Integer.parseInt(request.getParameter("idmedico")));
         oChat.setIdpaciente(Integer.parseInt(request.getParameter("idpaciente")));
+        
+        HttpSession session = request.getSession(true);
+        session.setAttribute("nomemedico", request.getParameter("nomemedico"));
+        session.setAttribute("especialidade", request.getParameter("especialidade"));
 
         String mensagem = "";
         try {
@@ -43,22 +48,18 @@ public class CriarChat extends HttpServlet {
             
             Integer idchat = chatDAO.isValidChat(oChat);
 
-            if (idchat != null) {
-                request.setAttribute("idchat", idchat);
-            } else {
+            if (idchat == null) {
                 idchat = chatDAO.cadastrar(oChat);
                 
-                if (idchat != null) {
-                    request.setAttribute("idchat", idchat);
-                } else {
-                    mensagem = "Erro ao Cadastrar Chat";
+                if (idchat == null) {
                     request.setAttribute("tipomensagem", "Erro");
-                    request.setAttribute("mensagem", mensagem);
+                    request.setAttribute("mensagem", "Erro ao Cadastrar Chat");
+                    request.getRequestDispatcher("/public/views/principal/paciente/categories.jsp").forward(request, response);
                     return;
                 }
             }
             
-            request.getRequestDispatcher("ListarMensagens").forward(request, response);
+            request.getRequestDispatcher("ListarMensagens?idchat=" + idchat).forward(request, response);
             return;
 
         } catch (Exception ex) {
@@ -68,7 +69,7 @@ public class CriarChat extends HttpServlet {
 
         request.setAttribute("tipomensagem", "Erro");
         request.setAttribute("mensagem", mensagem);
-        request.getRequestDispatcher("").forward(request, response);
+        request.getRequestDispatcher("/public/views/principal/paciente/categories.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -14,10 +14,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author windows
- */
+ 
+
 public class ChatDAOImpl {
 
     Connection conn;
@@ -29,6 +27,48 @@ public class ChatDAOImpl {
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
+    }
+    
+    public class CustomObject{
+        private Integer idchat;
+        private Integer idpessoa;
+        private String nome;
+
+        public CustomObject() {
+        }
+
+        public CustomObject(Integer idchat, Integer idpessoa, String nome) {
+            this.idchat = idchat;
+            this.idpessoa = idpessoa;
+            this.nome = nome;
+        }
+
+        public Integer getIdchat() {
+            return idchat;
+        }
+
+        public void setIdchat(Integer idchat) {
+            this.idchat = idchat;
+        }
+
+        public Integer getIdpessoa() {
+            return idpessoa;
+        }
+
+        public void setIdpessoa(Integer idpessoa) {
+            this.idpessoa = idpessoa;
+        }
+
+       
+
+        public String getNome() {
+            return nome;
+        }
+
+        public void setNome(String nome) {
+            this.nome = nome;
+        }
+     
     }
 
     public Integer isValidChat(Object object) throws SQLException {
@@ -90,7 +130,7 @@ public class ChatDAOImpl {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Chat oChat = (Chat) object;
-        String sql = "SELECT c.idpaciente, p.nome from Chat c "
+        String sql = "SELECT c.idpaciente, c.idchat , p.nome from Chat c "
                 + "INNER JOIN pessoa p on p.idpessoa = c.idpaciente "
                 + "WHERE idmedico = ?;";
         try { 
@@ -99,11 +139,13 @@ public class ChatDAOImpl {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Pessoa oPessoa = new Pessoa();
-                oChat.setIdpaciente(rs.getInt("idpaciente"));
-                oPessoa.setNome(rs.getString("nome"));
+                CustomObject oObject = new CustomObject();
+             
+                oObject.setIdchat(rs.getInt("idchat"));
+                oObject.setIdpessoa(rs.getInt("idpaciente"));
+                oObject.setNome(rs.getString("nome"));
 
-                resultado.add(oPessoa);
+                resultado.add(oObject);
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao Listar ChatDAOImpl \n Erro: " + ex.getMessage());

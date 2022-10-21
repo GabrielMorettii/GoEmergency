@@ -23,8 +23,8 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author moretti
  */
-@WebFilter(filterName = "FilterAutenticacaoLogin", urlPatterns = {"/public/views/login.jsp"})
-public class FilterAutenticacaoLogin implements Filter {
+@WebFilter(filterName = "FilterAutenticacaoPrincipal", urlPatterns = {"/public/views/principal/*"})
+public class FilterAutenticacaoPrincipal implements Filter {
     
     private static final boolean debug = true;
 
@@ -33,13 +33,13 @@ public class FilterAutenticacaoLogin implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     
-    public FilterAutenticacaoLogin() {
+    public FilterAutenticacaoPrincipal() {
     }    
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("FilterAutenticacaoLogin:DoBeforeProcessing");
+            log("FilterAutenticacaoPrincipal:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -67,7 +67,7 @@ public class FilterAutenticacaoLogin implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("FilterAutenticacaoLogin:DoAfterProcessing");
+            log("FilterAutenticacaoPrincipal:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -105,21 +105,16 @@ public class FilterAutenticacaoLogin implements Filter {
        HttpServletRequest req = (HttpServletRequest)request;
         
         HttpSession session = req.getSession();
-        
+
         Pessoa oPessoa = (Pessoa) session.getAttribute("oPessoa");
         
-        if(oPessoa == null){
-           chain.doFilter(request, response); 
-           return;
-        } else if (oPessoa.isIsAdmin()) {
-            request.getRequestDispatcher("/ListarPessoa").forward(request, response);
-            return;
-        } else if (oPessoa.isIsPaciente()) {
-            request.getRequestDispatcher("/public/views/principal/paciente/categories.jsp").forward(request, response);
-             return;
-        }  else if (oPessoa.isIsMedico()) {            
-            request.getRequestDispatcher("/ListarChat").forward(request, response);
-            return;
+         if(oPessoa == null){
+            request.setAttribute("tipomensagem", "Erro");
+            request.setAttribute("mensagem", "Por favor, efetue login!");
+            
+            request.getRequestDispatcher("/public/views/login.jsp").forward(request, response);
+        } else {
+            chain.doFilter(request, response);
         }
     }
 
@@ -152,7 +147,7 @@ public class FilterAutenticacaoLogin implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {                
-                log("FilterAutenticacaoLogin:Initializing filter");
+                log("FilterAutenticacaoPrincipal:Initializing filter");
             }
         }
     }
@@ -163,9 +158,9 @@ public class FilterAutenticacaoLogin implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("FilterAutenticacaoLogin()");
+            return ("FilterAutenticacaoPrincipal()");
         }
-        StringBuffer sb = new StringBuffer("FilterAutenticacaoLogin(");
+        StringBuffer sb = new StringBuffer("FilterAutenticacaoPrincipal(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
