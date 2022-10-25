@@ -124,3 +124,20 @@ main{
 footer{
     position: unset;
 }
+
+
+@media only screen and (max-width: 1076px) {
+  #conversas{
+   width: 60%;
+  }
+  
+  #bemvindochat{
+     display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #conversas{
+   width: 90%;
+  }
+}
