@@ -25,7 +25,7 @@ public class ConnectionFactory {
         //Caminho do BD
         String url = "jdbc:postgresql://localhost:5432/goemergency";
         String user = "postgres";
-        String password = "123123";
+        String password = "postdba";
 
         //Conectar
         try { //Tentativa de conectar
