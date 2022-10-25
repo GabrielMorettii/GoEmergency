@@ -42,7 +42,7 @@
             <div id="content">
                 <div id="conversas">
                      <div id="headerconversa">
-                         <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=Gabriel%20Moretti" alt="avatar"/>
+                         <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=<%= session.getAttribute("username") %>" alt="avatar"/>
                          <span><%= session.getAttribute("username") %></span>
                     </div>
                     <div id="chatpacientes">
@@ -50,7 +50,7 @@
                 </div>
                 <div id="mensagens">
                    <div id="headermensagens">
-                         <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=Gabriel%20Moretti" alt="avatar"/>
+                         <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&bold=true&size=128&name=<%= session.getAttribute("nomepaciente") %>" alt="avatar"/>
                          <span><%= session.getAttribute("nomepaciente") %></span>
                     </div>
                     <div id="historico">
