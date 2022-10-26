@@ -11,7 +11,7 @@ what to do when they have certain symptoms, but it in no way replaces the help o
 It was initially created in 2020 as a course conclusion work on how telemedicine can help 
 in a chaotic environment as it was at the beginning of the coronavirus pandemic.
 
-## Overview 
+## 👀 Overview 
 
 ![Preview-Screens](https://github.com/GabrielMorettii/GoEmergency/blob/master/github/assets/preview.jpg)
 
@@ -46,49 +46,53 @@ All application business rules for the Admin actor can be found in this diagram.
 ## 💻 Enviroment Setup <a name="enviroment-setup" />:
 
 ```
-# Clone this repository
+# Application
+
+## Clone this repository
+
 $ git clone https://github.com/GabrielMorettii/GoEmergency.git
-# Open the IDE (Netbeans or Eclipse)
-# Go to your project through the system directory system:
-# Click on the hammer & broom icon (Clean & Build)
-# Run the application
-# The server is running at port 8080 (http://localhost:8080/)
+
+## Open the IDE (Netbeans or Eclipse)
+## Go to open project and select the cloned project through the system directory:
+## Click on the hammer & broom icon (Clean & Build)
+## Run the application
+## The server is running at port 8080 (http://localhost:8080/)
+
+# Databasse
+
+## Clone this repository
+
+$ git clone https://github.com/GabrielMorettii/GoEmergency.git
+
+## Create a database named "goemergency"
+## Put on the password 123123
+## Restore the backup "backup.bak" file found in this project folder
+
 ```
 
-## 🔧 Built With <a name="tools" />:
+## 🔧 Built With
 
-- [BCrypt](https://www.npmjs.com/package/bcrypt 'BCrypt') - For password-hashing
-- [Cors](https://www.npmjs.com/package/cors 'Cors') - Enable the cross-origin acess
-- [Docker](https://www.docker.com/ 'Docker') - Enables the containerization
-- [ExpressJS Async Errors](https://www.npmjs.com/package/express-async-errors 'ExpressJS Async Errors') - Error handling support for express
-- [JSONWebToken](https://www.npmjs.com/package/jsonwebtoken 'JSONWebToken') - For authentication
-- [Swagger](https://swagger.io/ 'Swagger') - Helps on the RESTful API Design and documentation
-- [TSConfig-Paths](https://www.npmjs.com/package/tsconfig-paths, 'TSConfig-Paths') -
-Modules Mapping
-- [TSyringe](https://github.com/microsoft/tsyringe 'TSyringe') - Dependency Injection
-- [TypeORM](https://typeorm.io/#/ 'TypeORM') - ORM
-- [TypeScript](https://www.typescriptlang.org/ 'TypeScript') - Javascript's superset
-- [eslint](https://eslint.org/) - JS Linter and code style
-- [JEST](https://jestjs.io/) - Tests
-- [prettier](https://github.com/prettier/prettier) - Code formatter
-- [super-test](https://github.com/visionmedia/supertest) - Test HTTP requests
-- [NodeJS](https://nodejs.org/en/) - Build the server
-- [AWS](https://aws.amazon.com/pt/) - IaaS used in the production
-- [GitHub](https://github.com/GabrielMorettii/Amatronic/actions) - CI + CD
-- [express](https://expressjs.com/) - Router of the Application
+- [Java Web](https://docs.oracle.com/javase/8/docs/technotes/guides/javaws) - For dynamic web pages 
+- [CSS](https://www.w3schools.com/css/) - For styling sheets
+- [Javascript](https://www.javascript.com/) - DOM Manipulation
 - [postgreSQL](https://www.postgresql.org/) - Relational Database
-- [pm2](https://pm2.keymetrics.io/) - Process Manager used in the production
-- [dotenv](https://github.com/motdotla/dotenv) - Environment loader
-- [multer](https://github.com/expressjs/multer) - File Upload
+- [MD5](https://www.md5hashgenerator.com/) - For password-hashing
+- [Mailtrap](https://mailtrap.io/) - Email Sandbox Service
+- [Google Translate](https://translate.google.com/) - Translation service 
+- [Via Cep](https://viacep.com.br/) - CEP Query service 
+- [Dark Reader](https://darkreader.org/) - Theme switch service 
+- [SQL Server](https://www.microsoft.com/pt-br/sql-server/) - Relational Database
 
----
 
-## 🧰 Support tools <a name="ferramentas-suporte" />:
+## 🧰 Support tools
 
-- [Amazon SES](https://aws.amazon.com/pt/ses/) - Email Provider
-- [Amazon S3](https://aws.amazon.com/pt/s3/) - Storage Service
+- [Discord](https://discord.com/) - Communication Service
+- [Microsoft Teams](https://mailtrap.io/) - Communication & Planning Service
+- [GitHub](https://github.com/GabrielMorettii/GoEmergency) - Public Repository Service
+- [Git](https://git-scm.com/) - Version Control Service
+- [Astah](https://astah.net/) - UML Modeling Tool
 
-## 🧐 Contributing <a name="contributing" />:
+## 🧐 Contributing
 
 You can send how many PR's do you want, I'll be glad to analyse and accept them! And if you have any question about the project...
 
@@ -98,6 +102,6 @@ Connect with me at [LinkedIn](https://www.linkedin.com/in/gabriel-morettii/)
 
 Thank you!
 
-## 🔑 License <a name="license" />:
+## 🔑 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/GabrielMorettii/Amatronic/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/GabrielMorettii/GoEmergency/blob/master/LICENSE) file for details.
