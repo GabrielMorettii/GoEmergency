@@ -1,44 +1,45 @@
-<h1 align="center">GoEmergency</h1>
 
 <div align="center" style="display: inline_block"><br>
-    <img align="center" alt="Gabriel-Node" height="40" width="40" src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original.svg">
+ <img align="center" src="https://github.com/GabrielMorettii/GoEmergency/blob/master/github/assets/logo.png" alt="logo">
 </div>
 
-## Summary
+## ⁉ What's GoEmergency ?
 
-1. [About the project](#general-information)
+GoEmergency is a project that aims to help people make better decisions about
+what to do when they have certain symptoms, but it in no way replaces the help of a qualified healthcare professional.
 
-2. [Class Diagram](#class-diagram)
+It was initially created in 2020 as a course conclusion work on how telemedicine can help 
+in a chaotic environment as it was at the beginning of the coronavirus pandemic.
 
-3. [Application Requirements](#requirements)
+## Overview 
 
-4. [Enviroment Setup](#enviroment-setup)
+![Preview-Screens](https://github.com/GabrielMorettii/GoEmergency/blob/master/github/assets/preview.jpg)
 
-5. [Tests](#tests)
+## 🏗 Class Diagram
 
-6. [Docs](#docs)
+The system targets clinics in general. Each patient will have personal information registered such as CPF, e-mail, password, etc; being that each one will carry out consultations of diseases of the symptoms that he is feeling, being able to carry out several consultations. Each doctor will be registered as a person and also with their specialty and CRM. Each patient can open one or more chats with specialist doctors and each doctor can chat with one or more patients.
 
-7. [Tools](#tools)
+<div align="center" style="display: inline_block"><br>
+ <img  align="center" width="80%" height="500" src="https://github.com/GabrielMorettii/GoEmergency/blob/master/github/assets/diagram.png">
+</div>
 
-8. [Providers](#providers)
+## 🕴️ Actors
 
-9. [Contribution](#contributing)
+The "GoEmergency" system has as main actors: Patient, Doctor and Administrator, who inherit from Actor Pessoa, who is responsible for carrying the attributes in common among the other actors.
 
-10. [License](#license)
+<div align="center" style="display: inline_block"><br>
+ <img  align="center" src="https://github.com/GabrielMorettii/GoEmergency/blob/master/github/assets/actors.png">
+</div>
 
-## ⁉ What's Amatronic? <a name="general-information" />
 
-Amatronic is an RESTful API made for educational's purposes, it's a
-personal project to contribute with my Career portfolio
-and was built to serve as an Back-end of an E-commerce application,
-whatever is the theme, it's functional 🔥🚀.
 
-## 🏗 Class Diagram <a name="class-diagram" />
-<img src="./public/diagram.png">
+## 📌 Project requeriments
 
-## 📌 Project requeriments <a name="requirements" />:
+All application business rules for the Admin actor can be found in this diagram. I just put this one up to exemplify what it's like for other actors.
 
-All business rules for this API can be found on this [link](./docs/business_rules.md).
+<div align="center" style="display: inline_block"><br>
+ <img  align="center" src="https://github.com/GabrielMorettii/GoEmergency/blob/master/github/assets/adm-usecases.png">
+</div>
 
 ## 💻 Enviroment Setup <a name="enviroment-setup" />:
 
