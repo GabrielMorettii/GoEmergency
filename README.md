@@ -15,6 +15,8 @@ in a chaotic environment as it was at the beginning of the coronavirus pandemic.
 
 ![Preview-Screens](https://github.com/GabrielMorettii/GoEmergency/blob/master/github/assets/preview.jpg)
 
+If you want to take a look on all application's screens or the project demonstration, they are here [here](https://drive.google.com/drive/folders/)
+
 ## 🏗 Class Diagram
 
 The system targets clinics in general. Each patient will have personal information registered such as CPF, e-mail, password, etc; being that each one will carry out consultations of diseases of the symptoms that he is feeling, being able to carry out several consultations. Each doctor will be registered as a person and also with their specialty and CRM. Each patient can open one or more chats with specialist doctors and each doctor can chat with one or more patients.
@@ -45,34 +47,13 @@ All application business rules for the Admin actor can be found in this diagram.
 
 ```
 # Clone this repository
-$ git clone https://github.com/GabrielMorettii/Amatronic.git
-# Enter the repository:
-$ cd Amatronic
-# Install the dependencies:
-$ yarn
-# Create the app containers:
-$ docker-compose up -d
-# Run the migrations
-$ yarn typeorm migration:run
+$ git clone https://github.com/GabrielMorettii/GoEmergency.git
+# Open the IDE (Netbeans or Eclipse)
+# Go to your project through the system directory system:
+# Click on the hammer & broom icon (Clean & Build)
 # Run the application
-$ yarn dev
-# The server is running at port 3333 (http://localhost:3333/)
+# The server is running at port 8080 (http://localhost:8080/)
 ```
-
-## 🧪 Run the tests <a name="tests" />:
-```bash
-# To run all tests and generate coverage reports:
-$ yarn test
-# The coverage reports can be seen by going to /coverage/lcov-report/index.html and opening this html file in your browser.
-```
-
-## 📚 Docs <a name="docs" />:
-
-All API endpoints have been documented using Swagger. To view just access the URL below
-
-Remember to start the server first
-
-<a href="http//localhost:3333/docs">http//localhost:3333/docs</a>
 
 ## 🔧 Built With <a name="tools" />:
 
